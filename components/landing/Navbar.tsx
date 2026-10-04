@@ -46,11 +46,11 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
 
         {/* Brand */}
-        <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-[#093A3E] flex items-center justify-center shadow-xs">
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <div className="w-8 h-8 rounded-xl bg-[#093A3E] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
             <BarChart2 className="w-4 h-4 text-[#3AAFB9]" />
           </div>
-          <span className="text-[17px] font-extrabold tracking-tight text-[#001011]">
+          <span className="text-[18px] font-black font-display tracking-[0.08em] text-[#001011] uppercase">
             Pantera<span className="text-[#3AAFB9]">.</span>
           </span>
         </Link>

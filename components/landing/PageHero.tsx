@@ -83,11 +83,11 @@ export default function PageHero({
               <span>{badge}</span>
             </div>
 
-            {/* Main Architectural H1 Title */}
-            <h1 className="text-3xl sm:text-5xl font-bold text-zinc-950 tracking-tight leading-[1.12]">
+            {/* Main Architectural H1 Title in Space Grotesk / Display typography */}
+            <h1 className="text-3xl sm:text-5xl font-black font-display uppercase text-zinc-950 tracking-tight leading-[1.08]">
               {title}{" "}
               {titleHighlight && (
-                <span className="hm-gradient-text">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#001011] via-[#093A3E] to-[#3AAFB9]">
                   {titleHighlight}
                 </span>
               )}

@@ -101,21 +101,21 @@ export default function PlanCards() {
   }, []);
 
   return (
-    <section id="plans" className="py-24 border-b border-[#d4e7e9] relative bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="funds" className="py-24 border-b border-[#d4e7e9] relative bg-white scroll-mt-12">
+      <div id="plans" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        {/* Section Header (Pantera Capital Institutional Style) */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-6 border-b border-zinc-200">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-[#c8e2e5] bg-[#f0f8f9] text-[#093A3E] mb-3 shadow-2xs">
-              <Zap className="w-3.5 h-3.5 text-[#3AAFB9]" />
-              <span>Investment Opportunities</span>
+            <div className="flex items-center gap-2.5 font-mono text-[11px] font-semibold tracking-[0.2em] text-[#093A3E] uppercase mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3AAFB9] animate-pulse" />
+              <span>[ 02 // ACTIVE FUNDS & STRATEGIES ]</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#001011] tracking-tight">
-              Choose Your <span className="text-[#093A3E]">Investment Plan</span>
+            <h2 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-zinc-950 uppercase">
+              Investment Vehicles
             </h2>
-            <p className="text-[#2f494c] text-sm mt-2 font-normal max-w-xl">
-              Select a tailored investment strategy that fits your budget and earning goals.
+            <p className="text-zinc-600 text-sm mt-2 font-sans max-w-xl">
+              Diversified, high-performance compounding packages backed by audited liquidity pools, automated weekly payouts, and guaranteed principal return.
             </p>
           </div>
 

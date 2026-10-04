@@ -10,6 +10,8 @@ import RoiCalculator from "@/components/landing/RoiCalculator";
 import HowItWorks from "@/components/landing/HowItWorks";
 import ReferralSection from "@/components/landing/ReferralSection";
 import TestimonialsSection from "@/components/landing/TestimonialsSection";
+import PanteraAtAGlance from "@/components/landing/PanteraAtAGlance";
+import PanteraHistory from "@/components/landing/PanteraHistory";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, TrendingUp, Zap, Lock, Sparkles, MessageSquare, Check, Star } from "lucide-react";
 import Image from "next/image";
@@ -17,11 +19,11 @@ import { createClient } from "@/lib/supabase/client";
 
 export default function Home() {
   const [cms, setCms] = useState({
-    hero_badge: "Automated AI Compounding Protocol",
-    hero_title: "Automated AI Investment Growth Engine",
-    hero_subtitle: "Deploy capital into algorithmic AI compounding strategies. Earn guaranteed weekly interest payouts with double-entry database ledger security and instant liquidity.",
-    hero_cta: "Get Started Now",
-    about_metric1: "$256M+",
+    hero_badge: "Institutional Digital Asset Management",
+    hero_title: "First Institutional Asset Manager Focused On Automated Blockchain Yield",
+    hero_subtitle: "Since 2013, Pantera has invested in digital assets and quantitative yield architectures, providing investors with structured exposure to high-yield compounding packages, instant liquidity, and cryptographic settlement integrity.",
+    hero_cta: "Deploy Capital Now",
+    about_metric1: "$3.5B+",
     about_metric2: "$734M+",
   });
 
@@ -52,14 +54,14 @@ export default function Home() {
         <div className="w-6 h-6 rounded-full bg-zinc-900 text-white flex items-center justify-center">
           <MessageSquare className="w-3.5 h-3.5" />
         </div>
-        <span className="hidden sm:inline text-zinc-900 font-semibold">24/7 Support Desk</span>
+        <span className="hidden sm:inline text-zinc-900 font-semibold font-mono text-[11px]">24/7 SUPPORT DESK</span>
       </Link>
 
       <Navbar />
 
       <main className="flex-1 relative z-10">
 
-        {/* ── Split Asymmetric Hero Section (Institutional Dark Canvas) ── */}
+        {/* ── Split Asymmetric Hero Section (Institutional Pantera Canvas) ── */}
         <section className="pt-16 pb-20 sm:pt-20 sm:pb-28 border-b border-[#093A3E] bg-[#001011] relative overflow-hidden text-white">
 
           {/* Hero Background Image with Seamless Contrast Overlays */}
@@ -69,36 +71,52 @@ export default function Home() {
               alt="Institutional Wealth & AI Telemetry Architecture"
               fill
               priority
-              className="object-cover object-right lg:object-center opacity-85 filter contrast-110"
+              className="object-cover object-right lg:object-center opacity-80 filter contrast-110"
             />
             {/* Left-side smooth gradient ensures 100% crystal-clear readability for typography */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#001011] via-[#001011]/85 sm:via-[#001011]/70 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#001011] via-[#001011]/90 sm:via-[#001011]/75 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-b from-[#001011]/60 via-transparent to-[#001011]" />
           </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
 
-              {/* LEFT COLUMN: Narrative, Checklist & Conversion Actions (7 Cols) */}
+              {/* LEFT COLUMN: Narrative, Quick Anchors & Conversion Actions (7 Cols) */}
               <div className="lg:col-span-7 space-y-6 text-left">
                 
-                {/* Protocol Badge */}
+                {/* Protocol Badge in IBM Plex Mono */}
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#093A3E]/80 border border-[#3AAFB9]/40 text-white text-xs font-semibold tracking-wide shadow-md backdrop-blur-md">
                   <span className="w-2 h-2 rounded-full bg-[#3AAFB9] animate-pulse" />
-                  <span className="font-semibold text-[#b5dfe3]">{cms.hero_badge}</span>
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-[#b5dfe3]">EST. 2013 // BLOCKCHAIN ASSET PROTOCOL</span>
                   <span className="text-[#3AAFB9]/40">|</span>
-                  <span className="text-[#3AAFB9] text-[11px] font-mono">V2.4 Live Engine</span>
+                  <span className="text-[#3AAFB9] text-[11px] font-mono">V2.6 LIVE ENGINE</span>
                 </div>
 
-                {/* Primary Hero Title */}
-                <h1 className="text-4xl sm:text-5xl lg:text-[3.35rem] font-black text-white tracking-tight leading-[1.08] max-w-2xl">
-                  Automated AI <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#d9eef0] to-[#3AAFB9]">Investment Growth</span> Engine
+                {/* Monumental Hero Title in Space Grotesk / Display Typography */}
+                <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-black font-display text-white tracking-tight leading-[1.06] max-w-2xl uppercase">
+                  First Institutional Asset Manager Focused On <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#d9eef0] to-[#3AAFB9]">Automated Blockchain Yield</span>.
                 </h1>
 
                 {/* Subtitle */}
-                <p className="text-base sm:text-lg text-[#d2d7df] font-normal leading-relaxed max-w-xl">
+                <p className="text-base sm:text-lg text-[#d2d7df] font-sans font-normal leading-relaxed max-w-xl">
                   {cms.hero_subtitle}
                 </p>
+
+                {/* Pantera Quick Anchors Strip */}
+                <div className="flex flex-wrap items-center gap-2 pt-1 font-mono text-[11px]">
+                  <a href="#at-a-glance" className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-[#3AAFB9] hover:text-white text-zinc-300 transition-colors">
+                    01 // AT A GLANCE
+                  </a>
+                  <a href="#funds" className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-[#3AAFB9] hover:text-white text-zinc-300 transition-colors">
+                    02 // ACTIVE FUNDS
+                  </a>
+                  <a href="#history" className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-[#3AAFB9] hover:text-white text-zinc-300 transition-colors">
+                    03 // TRACK RECORD
+                  </a>
+                  <a href="#calculator" className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-[#3AAFB9] hover:text-white text-zinc-300 transition-colors">
+                    04 // YIELD CALCULATOR
+                  </a>
+                </div>
 
                 {/* Key Institutional Proof Pillars */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 max-w-xl">
@@ -121,17 +139,17 @@ export default function Home() {
                 <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <Link
                     href="/register"
-                    className="px-8 py-3.5 rounded-xl text-sm font-extrabold flex items-center justify-center gap-2 bg-[#3AAFB9] hover:bg-[#5cb4be] text-[#001011] transition-all shadow-lg shadow-[#3AAFB9]/25 cursor-pointer"
+                    className="px-8 py-3.5 rounded-xl text-sm font-extrabold flex items-center justify-center gap-2 bg-[#3AAFB9] hover:bg-[#5cb4be] text-[#001011] transition-all shadow-lg shadow-[#3AAFB9]/25 cursor-pointer font-display uppercase tracking-wider"
                   >
                     <span>{cms.hero_cta}</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
-                  <Link
-                    href="/plans"
-                    className="px-7 py-3.5 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 text-white border border-white/20 transition-all backdrop-blur-md cursor-pointer"
+                  <a
+                    href="#funds"
+                    className="px-7 py-3.5 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 text-white border border-white/20 transition-all backdrop-blur-md cursor-pointer font-display uppercase tracking-wider"
                   >
-                    <span>Explore Yield Plans</span>
-                  </Link>
+                    <span>Explore Yield Funds</span>
+                  </a>
                 </div>
 
                 {/* Social Proof & Investor Community Stack */}
@@ -174,7 +192,7 @@ export default function Home() {
                         <span className="w-2.5 h-2.5 rounded-full bg-[#093A3E] border border-[#3AAFB9]/40" />
                         <span className="w-2.5 h-2.5 rounded-full bg-[#093A3E] border border-[#3AAFB9]/40" />
                         <span className="w-2.5 h-2.5 rounded-full bg-[#093A3E] border border-[#3AAFB9]/40" />
-                        <span className="ml-2 font-mono text-[11px] text-[#b5dfe3]">alpha-terminal.v2.4</span>
+                        <span className="ml-2 font-mono text-[11px] text-[#b5dfe3]">pantera-terminal.v2.6</span>
                       </div>
                       <div className="flex items-center gap-1.5 text-[11px] text-[#3AAFB9] font-mono">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#3AAFB9] animate-pulse" />
@@ -227,7 +245,10 @@ export default function Home() {
         {/* Realtime Market Ticker Tape */}
         <TradingViewTicker />
 
-        {/* ── Unified Institutional Performance & Security Console ────── */}
+        {/* ── [01 // OVERVIEW] Pantera at a Glance 6-Metric Institutional Grid ── */}
+        <PanteraAtAGlance />
+
+        {/* ── Unified Institutional Performance & Settlement Ledger Console ────── */}
         <section className="py-12 bg-white border-b border-[#d4e7e9]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
@@ -304,9 +325,17 @@ export default function Home() {
           </div>
         </section>
 
-        <TopInvestors />
+        {/* ── [02 // ACTIVE FUNDS] Plan Cards ── */}
         <PlanCards />
+
+        {/* ── [03 // TRACK RECORD] A History of Firsts Timeline ── */}
+        <PanteraHistory />
+
+        {/* ── [04 // SIMULATOR] Yield Calculator ── */}
         <RoiCalculator />
+
+        {/* ── Ecosystem, Community & Proof Sections ── */}
+        <TopInvestors />
         <HowItWorks />
         <ReferralSection />
         <TestimonialsSection />

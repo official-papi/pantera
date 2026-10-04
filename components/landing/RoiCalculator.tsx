@@ -134,27 +134,27 @@ export default function RoiCalculator() {
   ];
 
   return (
-    <section id="calculator" className="py-14 border-b border-[#d4e7e9] relative bg-white">
+    <section id="calculator" className="py-20 sm:py-24 border-b border-zinc-200/80 relative bg-[#fafafa] scroll-mt-12">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Streamlined Compact Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+        {/* Pantera Capital Institutional Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-6 border-b border-zinc-200">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border border-[#c8e2e5] bg-[#f0f8f9] text-[#093A3E] mb-2 shadow-2xs">
-              <Calculator className="w-3.5 h-3.5 text-[#3AAFB9]" />
-              <span>Yield Simulator</span>
+            <div className="flex items-center gap-2.5 font-mono text-[11px] font-semibold tracking-[0.2em] text-[#093A3E] uppercase mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3AAFB9] animate-pulse" />
+              <span>[ 04 // YIELD SIMULATOR ]</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#001011] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-black font-display tracking-tight text-zinc-950 uppercase">
               Simulate Your Returns
             </h2>
-            <p className="text-[#2f494c] text-xs sm:text-sm mt-1 font-normal">
+            <p className="text-zinc-600 text-xs sm:text-sm mt-1.5 font-sans">
               Select a tier and adjust your capital to preview real-time automated weekly returns.
             </p>
           </div>
           
-          <div className="flex items-center gap-2 text-xs font-medium text-[#093A3E] bg-[#f0f8f9] border border-[#c8e2e5] px-3 py-1.5 rounded-xl self-start sm:self-auto">
+          <div className="flex items-center gap-2 text-xs font-mono font-medium text-[#093A3E] bg-white border border-zinc-200 shadow-xs px-3.5 py-2 rounded-xl self-start sm:self-auto">
             <CheckCircle2 className="w-3.5 h-3.5 text-[#3AAFB9]" />
-            <span>100% Principal Returned at End</span>
+            <span>100% PRINCIPAL RETURNED</span>
           </div>
         </div>
 

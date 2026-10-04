@@ -10,10 +10,10 @@ import LanguageSelector from "@/components/common/LanguageSelector";
 export default function Footer() {
   const { t } = useLanguage();
   const [cms, setCms] = useState({
-    support_email: "support@alphaassets.io",
+    support_email: "support@panteracapital.io",
     support_phone: "+1 (800) 555-0100",
     support_address: "75 Wall Street, Financial District, New York, NY 10005",
-    telegram_handle: "@alphaassets_official",
+    telegram_handle: "@pantera_official",
   });
 
   useEffect(() => {

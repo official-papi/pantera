@@ -61,241 +61,141 @@ export default function Home() {
 
       <main className="flex-1 relative z-10">
 
-        {/* ── Pantera Executive Research Banner ── */}
-        <section className="bg-[#0E101D] border-b border-[#232742] py-2.5 px-4 text-center">
-          <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs font-mono">
-            <span className="text-[#E9B737] font-bold">[ EXECUTIVE RESEARCH ]</span>
-            <span className="text-slate-200 uppercase tracking-wider">The State of Tokenization & Blockchain Yield :: Q4 2026</span>
-            <a href="#funds" className="text-[#E9B737] hover:underline font-bold inline-flex items-center gap-1 transition-colors">
-              EXPLORE ACTIVE FUNDS →
-            </a>
-          </div>
-        </section>
+        {/* ── Pantera Institutional Editorial Hero ── */}
+        <section className="relative pt-24 pb-20 sm:pt-32 sm:pb-28 lg:pt-36 lg:pb-32 bg-[#0A0C16] text-white border-b border-[#232742] overflow-hidden">
+          
+          {/* Layer 1: Rich Multi-stop Radial & Conic Ambient Gradient */}
+          <div className="absolute inset-0 pointer-events-none select-none bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(233,183,55,0.18),rgba(21,24,43,0.95)_45%,#0A0C16_100%)]" />
 
-        {/* ── Monumental Hero Section (Pantera Capital Institutional Architecture) ── */}
-        <section className="pt-16 pb-20 sm:pt-20 sm:pb-24 border-b border-[#232742] bg-[#15182B] relative overflow-hidden text-white">
+          {/* Layer 2: Deep Sapphire Ambient Depth Bloom */}
+          <div className="absolute top-1/4 -right-20 w-[650px] h-[650px] bg-gradient-to-bl from-[#1E2342]/60 via-[#15182B]/20 to-transparent rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-32 -left-20 w-[600px] h-[600px] bg-gradient-to-tr from-[#E9B737]/10 via-[#15182B]/40 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-          {/* Pantera Generative Coordinate Grid & Ambient Topological Texture (No Legacy Stock Images) */}
-          <div className="absolute inset-0 pointer-events-none select-none opacity-20">
-            <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="pantera-hero-grid" width="48" height="48" patternUnits="userSpaceOnUse">
-                  <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#E2E4EC" strokeWidth="0.5" strokeOpacity="0.3" />
-                  <circle cx="48" cy="0" r="1" fill="#E9B737" fillOpacity="0.6" />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#pantera-hero-grid)" />
+          {/* Layer 3: Topographic Contour Waves & Quantitative Elevation Texture */}
+          <div className="absolute inset-0 pointer-events-none select-none opacity-30 overflow-hidden">
+            <svg className="w-full h-full min-w-[1200px]" viewBox="0 0 1440 800" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+              <path d="M-100,200 C300,120 600,280 1000,160 C1300,80 1500,220 1600,180" stroke="#E2E4EC" strokeWidth="0.8" strokeOpacity="0.3" strokeDasharray="3 3" />
+              <path d="M-100,280 C320,180 580,360 980,240 C1280,140 1480,300 1600,260" stroke="#E9B737" strokeWidth="1" strokeOpacity="0.4" />
+              <path d="M-100,360 C340,240 560,440 960,320 C1260,200 1460,380 1600,340" stroke="#E2E4EC" strokeWidth="0.8" strokeOpacity="0.25" />
+              <path d="M-100,440 C360,300 540,520 940,400 C1240,260 1440,460 1600,420" stroke="#E9B737" strokeWidth="1.2" strokeOpacity="0.3" />
+              <path d="M-100,520 C380,360 520,600 920,480 C1220,320 1420,540 1600,500" stroke="#E2E4EC" strokeWidth="0.8" strokeOpacity="0.2" strokeDasharray="4 4" />
+              <path d="M-100,600 C400,420 500,680 900,560 C1200,380 1400,620 1600,580" stroke="#E9B737" strokeWidth="0.8" strokeOpacity="0.25" />
             </svg>
           </div>
 
-          {/* Subtle Ambient Light Gradients */}
-          <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-gradient-to-b from-[#E9B737]/10 via-[#15182B]/0 to-transparent blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-[500px] h-40 bg-gradient-to-t from-[#0E101D] to-transparent pointer-events-none" />
+          {/* Layer 4: Architectural Matrix with Crosshair Grid */}
+          <div className="absolute inset-0 pointer-events-none select-none opacity-20">
+            <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="pantera-geo-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                  <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#E2E4EC" strokeWidth="0.5" strokeOpacity="0.3" />
+                  {/* Subtle crosshairs at grid intersections */}
+                  <path d="M 0 5 L 0 -5 M -5 0 L 5 0" stroke="#E9B737" strokeWidth="0.8" strokeOpacity="0.5" />
+                  <circle cx="60" cy="60" r="1" fill="#E9B737" fillOpacity="0.7" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#pantera-geo-grid)" />
+            </svg>
+          </div>
+
+          {/* Layer 5: Fine Atmospheric Grain Texture Filter */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.035] mix-blend-overlay">
+            <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <filter id="hero-grain">
+                <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch" />
+                <feColorMatrix type="saturate" values="0" />
+              </filter>
+              <rect width="100%" height="100%" filter="url(#hero-grain)" />
+            </svg>
+          </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-
-              {/* LEFT COLUMN: Narrative & Institutional Action (7 Cols) */}
-              <div className="lg:col-span-7 space-y-6 text-left">
-                
-                {/* Protocol Badge in IBM Plex Mono */}
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0E101D] border border-[#E9B737]/40 text-white text-xs font-semibold tracking-wide shadow-md">
-                  <span className="w-2 h-2 rounded-full bg-[#E9B737] animate-pulse" />
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-[#E9B737]">EST. 2013 // BLOCKCHAIN ASSET PROTOCOL</span>
-                  <span className="text-white/20">|</span>
-                  <span className="text-slate-300 text-[11px] font-mono">V2.6 LIVE ENGINE</span>
-                </div>
-
-                {/* Monumental Hero Title in Space Grotesk / Display Typography */}
-                <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-black font-display text-white tracking-tight leading-[1.06] max-w-2xl uppercase">
-                  First Institutional Asset Manager Focused On <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#FFF0B3] to-[#E9B737]">Automated Blockchain Yield</span>.
-                </h1>
-
-                {/* Subtitle */}
-                <p className="text-base sm:text-lg text-slate-300 font-sans font-normal leading-relaxed max-w-xl">
-                  {cms.hero_subtitle}
-                </p>
-
-                {/* Pantera Quick Anchors Strip */}
-                <div className="flex flex-wrap items-center gap-2 pt-1 font-mono text-[11px]">
-                  <a href="#at-a-glance" className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-[#E9B737] hover:text-[#E9B737] text-slate-300 transition-colors">
-                    01 // AT A GLANCE
-                  </a>
-                  <a href="#funds" className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-[#E9B737] hover:text-[#E9B737] text-slate-300 transition-colors">
-                    02 // ACTIVE FUNDS
-                  </a>
-                  <a href="#history" className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-[#E9B737] hover:text-[#E9B737] text-slate-300 transition-colors">
-                    03 // TRACK RECORD
-                  </a>
-                  <a href="#calculator" className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-[#E9B737] hover:text-[#E9B737] text-slate-300 transition-colors">
-                    04 // YIELD CALCULATOR
-                  </a>
-                </div>
-
-                {/* Key Institutional Proof Pillars */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 max-w-xl">
-                  {[
-                    "Daily automated compounding payouts",
-                    "Double-entry cryptographic ledger audit",
-                    "Instant withdrawals to USDT, BTC & ETH",
-                    "Zero lockup capital redemption tier",
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-2 text-xs text-slate-300 font-medium">
-                      <div className="w-4 h-4 rounded-full bg-[#0E101D] border border-[#E9B737]/60 text-[#E9B737] flex items-center justify-center flex-shrink-0">
-                        <Check className="w-2.5 h-2.5" />
-                      </div>
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Action CTA Buttons */}
-                <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                  <Link
-                    href="/register"
-                    className="px-8 py-3.5 rounded-md text-sm font-bold flex items-center justify-center gap-2 bg-[#E9B737] hover:bg-[#D4A42C] text-[#15182B] transition-all shadow-lg shadow-[#E9B737]/20 cursor-pointer font-mono uppercase tracking-wider"
-                  >
-                    <span>{cms.hero_cta}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <a
-                    href="#funds"
-                    className="px-7 py-3.5 rounded-md text-sm font-semibold flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 text-white border border-white/20 hover:border-[#E9B737] transition-all backdrop-blur-md cursor-pointer font-mono uppercase tracking-wider"
-                  >
-                    <span>Explore Yield Funds</span>
-                  </a>
-                </div>
-
-                {/* Social Proof & Investor Community Stack */}
-                <div className="pt-4 border-t border-[#232742] flex flex-wrap items-center gap-4">
-                  <div className="flex -space-x-2.5 overflow-hidden">
-                    {[
-                      "/images/avatars/david.jpg",
-                      "/images/avatars/sarah.jpg",
-                      "/images/avatars/viktor.jpg",
-                    ].map((src, idx) => (
-                      <div key={idx} className="relative inline-block w-8 h-8 rounded-full ring-2 ring-[#15182B] overflow-hidden bg-zinc-800">
-                        <Image src={src} alt="Verified Investor" fill className="object-cover" />
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="text-xs">
-                    <div className="flex items-center gap-1 text-[#E9B737]">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                      ))}
-                      <span className="font-bold text-white ml-1 font-mono">4.9/5</span>
-                    </div>
-                    <div className="text-[11px] text-slate-400 font-normal mt-0.5">
-                      Trusted by <span className="font-semibold text-white">124,500+ active investors</span> worldwide
-                    </div>
-                  </div>
-                </div>
-
+            <div className="max-w-4xl">
+              
+              {/* Subtle Monospace Pre-heading Tag */}
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-2 h-2 rounded-full bg-[#E9B737]" />
+                <span className="font-mono text-xs text-slate-300 uppercase tracking-[0.25em]">
+                  EST. 2013 · INSTITUTIONAL DIGITAL ASSET MANAGEMENT
+                </span>
               </div>
 
-              {/* RIGHT COLUMN: Interactive Pantera Institutional Terminal & Multi-Asset Monitor */}
-              <div className="lg:col-span-5 relative mt-8 lg:mt-0">
-                <div className="relative rounded-2xl p-1 bg-gradient-to-b from-[#E9B737]/40 via-[#232742] to-[#0E101D] shadow-2xl">
-                  <div className="relative rounded-[14px] overflow-hidden bg-[#0E101D] border border-[#232742]">
-                    
-                    {/* Terminal Title Bar */}
-                    <div className="px-4 py-3 bg-[#15182B] border-b border-[#232742] flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#E9B737]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
-                        <span className="ml-2 font-mono text-[11px] text-slate-300">pantera-yield-engine.v2.6</span>
-                      </div>
-                      <div className="flex items-center gap-1.5 text-[11px] text-[#E9B737] font-mono">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#E9B737] animate-pulse" />
-                        <span>BLOCK #21,894,102</span>
-                      </div>
-                    </div>
+              {/* Monumental Headline */}
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.05] font-display mb-8">
+                First institutional asset manager focused on automated blockchain yield<span className="text-[#E9B737]">.</span>
+              </h1>
 
-                    {/* Interactive Multi-Asset Yield Canvas */}
-                    <div className="p-5 space-y-4">
-                      
-                      {/* Fund Selector Tabs */}
-                      <div className="grid grid-cols-3 gap-1 bg-[#15182B] p-1 rounded-xl border border-[#232742] text-[10px] font-mono font-bold uppercase text-center">
-                        <span className="py-1.5 rounded-lg bg-[#E9B737] text-[#15182B]">Liquid Tokens</span>
-                        <span className="py-1.5 rounded-lg text-slate-400 hover:text-white">Early Stage</span>
-                        <span className="py-1.5 rounded-lg text-slate-400 hover:text-white">Venture Yield</span>
-                      </div>
+              {/* Authoritative Thesis Description */}
+              <p className="text-lg sm:text-xl text-slate-300 font-sans font-light leading-relaxed max-w-2xl mb-10">
+                Since 2013, Pantera has invested in digital assets and decentralized protocols, providing investors with structured exposure, audited compounding yield, and automated weekly liquidity.
+              </p>
 
-                      {/* Yield Metrics Box */}
-                      <div className="bg-[#15182B] border border-[#232742] rounded-xl p-4 space-y-3">
-                        <div className="flex items-baseline justify-between">
-                          <span className="text-xs font-mono uppercase text-slate-400">Target Annualized APY</span>
-                          <span className="text-2xl font-black font-mono text-[#E9B737]">+18.4%</span>
-                        </div>
-                        <div className="w-full bg-[#0E101D] h-2 rounded-full overflow-hidden border border-[#232742]">
-                          <div className="bg-gradient-to-r from-[#E9B737] to-amber-200 h-full w-[84%] rounded-full" />
-                        </div>
-                        <div className="flex justify-between text-[10px] font-mono text-slate-400">
-                          <span>Payout: Weekly Automated</span>
-                          <span>Solvency: 100% On-Chain</span>
-                        </div>
-                      </div>
-
-                      {/* Live Cryptographic Hash Ledger Feed */}
-                      <div className="bg-[#15182B] border border-[#232742] rounded-xl p-3 space-y-2 text-xs font-mono">
-                        <div className="text-[10px] uppercase text-slate-400 font-bold flex items-center justify-between">
-                          <span>Latest Settlement Blocks</span>
-                          <span className="text-[#E9B737]">Audit Verified</span>
-                        </div>
-                        <div className="space-y-1.5">
-                          <div className="flex justify-between items-center text-[11px] bg-[#0E101D] p-2 rounded-lg border border-[#232742]">
-                            <span className="text-slate-300">0x7f4e...89a2</span>
-                            <span className="text-emerald-400 font-bold">+$4,250.00 USDT</span>
-                          </div>
-                          <div className="flex justify-between items-center text-[11px] bg-[#0E101D] p-2 rounded-lg border border-[#232742]">
-                            <span className="text-slate-300">0x3b1c...914d</span>
-                            <span className="text-emerald-400 font-bold">+0.145 BTC</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Terminal Action Pill */}
-                      <Link
-                        href="/register"
-                        className="w-full py-2.5 rounded-xl bg-[#E9B737] hover:bg-[#D4A42C] text-[#15182B] font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all"
-                      >
-                        <span>Open Institutional Console</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
-
-                    </div>
-
-                    {/* Anchored Telemetry Bar */}
-                    <div className="p-3 bg-[#15182B] border-t border-[#232742] grid grid-cols-2 gap-2 text-xs">
-                      <div className="flex items-center gap-2.5 bg-[#0E101D] p-2.5 rounded-lg border border-[#232742]">
-                        <div className="w-7 h-7 rounded-md bg-[#15182B] text-[#E9B737] border border-[#E9B737]/30 flex items-center justify-center shrink-0">
-                          <TrendingUp className="w-3.5 h-3.5" />
-                        </div>
-                        <div className="min-w-0">
-                          <div className="text-[10px] text-slate-400 uppercase font-bold truncate">24H Inflow</div>
-                          <div className="text-xs font-mono font-bold text-white truncate">+$184,200.00</div>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-2.5 bg-[#0E101D] p-2.5 rounded-lg border border-[#232742]">
-                        <div className="w-7 h-7 rounded-md bg-[#15182B] text-[#E9B737] border border-[#E9B737]/30 flex items-center justify-center shrink-0">
-                          <ShieldCheck className="w-3.5 h-3.5" />
-                        </div>
-                        <div className="min-w-0">
-                          <div className="text-[10px] text-slate-400 uppercase font-bold truncate">Double-Entry</div>
-                          <div className="text-xs font-mono font-bold text-white truncate">100% Solvency</div>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
+              {/* Clean, Refined Action CTAs */}
+              <div className="flex flex-wrap items-center gap-4 mb-16">
+                <a
+                  href="#funds"
+                  className="px-8 py-4 rounded-md text-xs font-bold bg-[#E9B737] hover:bg-[#d8a427] text-[#15182B] font-mono uppercase tracking-wider transition-all shadow-md cursor-pointer inline-flex items-center gap-2"
+                >
+                  <span>View The Funds</span>
+                  <ArrowRight className="w-4 h-4 text-[#15182B]" />
+                </a>
+                <Link
+                  href="/register"
+                  className="px-8 py-4 rounded-md text-xs font-semibold bg-transparent hover:bg-white/5 text-white border border-[#E2E4EC]/30 hover:border-[#E9B737] transition-all font-mono uppercase tracking-wider cursor-pointer"
+                >
+                  Institutional Console
+                </Link>
+                <a
+                  href="#ledger"
+                  className="px-6 py-4 text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-white transition-colors cursor-pointer inline-flex items-center gap-1.5"
+                >
+                  <span>Real-Time Audit</span>
+                  <span className="text-[#E9B737]">→</span>
+                </a>
               </div>
 
             </div>
+
+            {/* Institutional 4-Metric Data Horizon at base of hero */}
+            <div className="pt-10 border-t border-[#232742] grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div>
+                <div className="text-3xl sm:text-4xl font-mono font-bold text-white tracking-tight tabular-nums">
+                  $5.2B<span className="text-[#E9B737]">+</span>
+                </div>
+                <div className="text-xs font-mono uppercase tracking-wider text-slate-400 mt-1">
+                  Assets Under Management
+                </div>
+              </div>
+
+              <div>
+                <div className="text-3xl sm:text-4xl font-mono font-bold text-white tracking-tight tabular-nums">
+                  100<span className="text-[#E9B737]">+</span>
+                </div>
+                <div className="text-xs font-mono uppercase tracking-wider text-slate-400 mt-1">
+                  Portfolio Investments
+                </div>
+              </div>
+
+              <div>
+                <div className="text-3xl sm:text-4xl font-mono font-bold text-white tracking-tight tabular-nums">
+                  12<span className="text-[#E9B737]">+ YRS</span>
+                </div>
+                <div className="text-xs font-mono uppercase tracking-wider text-slate-400 mt-1">
+                  Operating Track Record
+                </div>
+              </div>
+
+              <div>
+                <div className="text-3xl sm:text-4xl font-mono font-bold text-white tracking-tight tabular-nums flex items-center gap-1.5">
+                  100%
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse ml-1" />
+                </div>
+                <div className="text-xs font-mono uppercase tracking-wider text-slate-400 mt-1">
+                  On-Chain Reserve Solvency
+                </div>
+              </div>
+            </div>
+
           </div>
         </section>
 

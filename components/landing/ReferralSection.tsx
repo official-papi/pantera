@@ -128,15 +128,27 @@ export default function ReferralSection() {
           {/* Right Column — Network Graphic & Elevated Tier Cards (7 Cols) */}
           <div className="lg:col-span-7 space-y-4">
             
-            {/* Visual Network Header Banner */}
-            <div className="relative rounded-xl overflow-hidden border border-[#232742] shadow-sm bg-[#15182B] aspect-[21/9] sm:aspect-[24/9] group">
-              <Image
-                src="/images/network-art.jpg"
-                alt="Global Referral Liquidity Mesh"
-                fill
-                className="object-cover object-center opacity-75 group-hover:scale-105 transition-transform duration-700 ease-out"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#15182B]/95 via-[#15182B]/40 to-transparent pointer-events-none" />
+            {/* Visual Network Header Banner (SVG Interactive Mesh) */}
+            <div className="relative rounded-xl overflow-hidden border border-[#232742] shadow-sm bg-[#15182B] aspect-[21/9] sm:aspect-[24/9] p-5 flex flex-col justify-between">
+              {/* Dynamic SVG Mesh Background */}
+              <div className="absolute inset-0 pointer-events-none opacity-40">
+                <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="mesh-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#E9B737" stopOpacity="0.8" />
+                      <stop offset="50%" stopColor="#15182B" stopOpacity="0.2" />
+                      <stop offset="100%" stopColor="#E9B737" stopOpacity="0.8" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M 0,40 Q 150,10 300,50 T 600,30 T 900,60" fill="none" stroke="url(#mesh-grad)" strokeWidth="1.5" />
+                  <path d="M 0,70 Q 180,90 350,40 T 700,70 T 1000,40" fill="none" stroke="#E9B737" strokeWidth="0.8" strokeDasharray="4 4" strokeOpacity="0.6" />
+                  <circle cx="150" cy="20" r="4" fill="#E9B737" />
+                  <circle cx="350" cy="40" r="5" fill="#E9B737" />
+                  <circle cx="550" cy="35" r="3.5" fill="#E9B737" />
+                  <circle cx="750" cy="65" r="4.5" fill="#E9B737" />
+                </svg>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0E101D] via-[#15182B]/60 to-transparent pointer-events-none" />
               <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-xs text-white">
                 <div>
                   <div className="font-semibold text-white flex items-center gap-1.5 font-mono uppercase">

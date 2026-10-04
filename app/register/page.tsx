@@ -147,17 +147,19 @@ export default function RegisterPage() {
       {/* ── Left Brand Panel ── */}
       <div className="hidden lg:flex w-[42%] bg-[#0E101D] flex-col justify-between p-12 relative overflow-hidden border-r border-[#232742]">
         
-        {/* Ambient fintech geometric artwork */}
-        <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
-          <Image
-            src="/images/auth-bg.jpg"
-            alt="Fintech telemetry background"
-            fill
-            priority
-            className="object-cover object-center opacity-30 filter contrast-125 mix-blend-screen"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0E101D] via-[#0E101D]/80 to-[#15182B]/60" />
+        {/* Pantera Generative Coordinate Grid & Ambient Topological Texture */}
+        <div className="absolute inset-0 pointer-events-none select-none opacity-25">
+          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="auth-grid-register" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E2E4EC" strokeWidth="0.5" strokeOpacity="0.25" />
+                <circle cx="40" cy="0" r="1" fill="#E9B737" fillOpacity="0.6" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#auth-grid-register)" />
+          </svg>
         </div>
+        <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-b from-[#E9B737]/15 to-transparent blur-3xl pointer-events-none" />
 
         <div className="absolute inset-0 bg-[radial-gradient(#232742_1px,transparent_1px)] [background-size:24px_24px] opacity-60 pointer-events-none" />
 

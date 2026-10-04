@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { ChevronRight, Sparkles, LucideIcon, ArrowRight, ShieldCheck, Zap } from "lucide-react";
+import { ChevronRight, Sparkles, LucideIcon, ArrowRight, ShieldCheck, TrendingUp, CheckCircle2, Lock } from "lucide-react";
 
 interface StatItem {
   label: string;
@@ -23,78 +22,89 @@ interface PageHeroProps {
 }
 
 export default function PageHero({
-  badge = "Institutional Protocol",
+  badge = "Institutional Vehicle",
   title,
   titleHighlight,
   subtitle,
   icon: Icon = Sparkles,
   breadcrumb,
   stats = [
-    { label: "Assets Deposited", value: "$28.4M+" },
-    { label: "Daily Payouts", value: "100% On-Time" },
-    { label: "Security Level", value: "256-Bit SSL" },
+    { label: "Capital Deployed", value: "$5.2B+" },
+    { label: "Payout Cadence", value: "Daily 100%" },
+    { label: "Audit Standard", value: "On-Chain Solvency" },
   ],
-  ctaText = "Get Started",
+  ctaText = "Deploy Capital Now",
   ctaHref = "/register",
   hudContent,
 }: PageHeroProps) {
   return (
-    <section className="relative py-16 sm:py-24 overflow-hidden border-b border-zinc-200/70 bg-[#fafafa]">
+    <section className="relative py-16 sm:py-20 bg-[#15182B] text-white border-b border-[#232742] overflow-hidden">
       
-      {/* Background Architectural Texture Image */}
-      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
-        <Image
-          src="/images/subpage-hero-bg.jpg"
-          alt="Architectural Backdrop"
-          fill
-          priority
-          className="object-cover object-center opacity-75 filter contrast-115 brightness-95"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#fafafa]/95 via-[#fafafa]/80 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#fafafa]/30 via-transparent to-[#fafafa]" />
+      {/* Pantera Generative Coordinate Grid & Ambient Topological Texture */}
+      <div className="absolute inset-0 pointer-events-none select-none opacity-20">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="pantera-grid" width="48" height="48" patternUnits="userSpaceOnUse">
+              <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#E2E4EC" strokeWidth="0.5" strokeOpacity="0.3" />
+              <circle cx="48" cy="0" r="1" fill="#E9B737" fillOpacity="0.5" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#pantera-grid)" />
+        </svg>
       </div>
 
-      {/* Geometric Grid Canvas Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(#e4e4e7_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
+      {/* Ambient Gradient Radiance */}
+      <div className="absolute -top-32 right-0 w-[500px] h-[500px] bg-gradient-to-b from-[#E9B737]/10 via-[#15182B]/0 to-transparent blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-[600px] h-32 bg-gradient-to-t from-[#0E101D] to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        {/* Top Institutional Metadata Bar */}
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b border-[#232742]">
+          <div className="flex items-center gap-2 font-mono text-[11px] text-slate-400 uppercase tracking-widest">
+            <Link href="/" className="hover:text-white transition-colors">Pantera</Link>
+            <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
+            <span className="text-slate-400">Protocol</span>
+            <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
+            <span className="text-[#E9B737] font-bold">{breadcrumb}</span>
+          </div>
 
-          {/* LEFT COMMAND COLUMN (7 Columns) */}
+          <div className="flex items-center gap-3 font-mono text-[11px]">
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-slate-400">
+              <span className="text-slate-500">COORD:</span>
+              <span className="text-slate-300">37°46&apos;N // 122°25&apos;W</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#0E101D] border border-[#232742] text-slate-300 font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E9B737] animate-pulse" />
+              <span>LIVE SYSTEM V2.6</span>
+            </span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+
+          {/* LEFT COLUMN: Narrative & Institutional Action (7 Cols) */}
           <div className="lg:col-span-7 space-y-6 text-left">
             
-            {/* Breadcrumb & Live Status Bar */}
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white border border-zinc-200 text-xs text-zinc-500 font-medium shadow-xs">
-                <Link href="/" className="hover:text-zinc-950 transition-colors">Home</Link>
-                <ChevronRight className="w-3.5 h-3.5 text-zinc-400" />
-                <span className="text-zinc-950 font-semibold">{breadcrumb}</span>
-              </div>
-
-              <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-[10px] font-semibold text-emerald-700 uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Live System V2.4</span>
-              </div>
-            </div>
-
             {/* Category Identity Badge */}
-            <div className="hm-section-label">
-              <Icon className="w-3.5 h-3.5 text-zinc-900" />
-              <span>{badge}</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#0E101D] border border-[#E9B737]/30 text-[#E9B737] font-mono text-xs font-semibold uppercase tracking-wider shadow-xs">
+              <Icon className="w-3.5 h-3.5 text-[#E9B737]" />
+              <span>[ 01 // {badge} ]</span>
             </div>
 
-            {/* Main Architectural H1 Title in Space Grotesk / Display typography */}
-            <h1 className="text-3xl sm:text-5xl font-black font-display uppercase text-[#15182B] tracking-tight leading-[1.08]">
+            {/* Monumental Headline */}
+            <h1 className="text-3xl sm:text-5xl lg:text-[3.25rem] font-black font-display uppercase tracking-tight text-white leading-[1.08]">
               {title}{" "}
               {titleHighlight && (
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#15182B] via-[#2A3052] to-[#E9B737]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#FFF0B3] to-[#E9B737]">
                   {titleHighlight}
                 </span>
               )}
+              <span className="text-[#E9B737]">.</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-sm sm:text-base text-zinc-600 font-normal leading-relaxed max-w-xl">
+            <p className="text-base sm:text-lg text-slate-300 font-sans font-normal leading-relaxed max-w-xl">
               {subtitle}
             </p>
 
@@ -102,86 +112,69 @@ export default function PageHero({
             <div className="pt-2 flex flex-wrap items-center gap-3">
               <Link
                 href={ctaHref}
-                className="px-7 py-3 rounded-md text-xs font-bold flex items-center space-x-2 bg-[#E9B737] hover:bg-[#D4A42C] text-[#15182B] font-mono uppercase tracking-wider shadow-sm cursor-pointer"
+                className="px-7 py-3.5 rounded-md text-xs font-bold flex items-center space-x-2 bg-[#E9B737] hover:bg-[#D4A42C] text-[#15182B] font-mono uppercase tracking-wider shadow-md shadow-[#E9B737]/20 transition-all cursor-pointer"
               >
                 <span>{ctaText}</span>
                 <ArrowRight className="w-4 h-4 text-[#15182B]" />
               </Link>
               <Link
                 href="/plans"
-                className="px-6 py-3 rounded-md text-xs font-semibold bg-white border border-[#E2E4EC] text-[#15182B] hover:border-[#15182B] transition-all shadow-xs font-mono uppercase tracking-wider"
+                className="px-6 py-3.5 rounded-md text-xs font-semibold bg-white/5 hover:bg-white/10 text-white border border-white/20 hover:border-[#E9B737] transition-all font-mono uppercase tracking-wider"
               >
-                View Investment Tiers
+                Explore Active Funds
               </Link>
             </div>
 
-            {/* Institutional Stats Counter Bar */}
-            {stats && stats.length > 0 && (
-              <div className="pt-6 border-t border-zinc-200/80 grid grid-cols-3 gap-4 max-w-lg">
-                {stats.map((s, i) => (
-                  <div key={i} className="bg-white border border-zinc-200/80 rounded-xl p-3 shadow-xs">
-                    <div className="text-base font-bold font-mono text-zinc-950">{s.value}</div>
-                    <div className="text-[10px] font-medium text-zinc-400 uppercase tracking-wider mt-0.5">{s.label}</div>
-                  </div>
-                ))}
-              </div>
-            )}
-
           </div>
 
-          {/* RIGHT ARCHITECTURAL HUD COLUMN (5 Columns) */}
+          {/* RIGHT COLUMN: Institutional Telemetry Console (5 Cols) */}
           <div className="lg:col-span-5 relative">
-
-            {/* Frosted HUD Container */}
-            <div className="relative bg-white border border-zinc-200 rounded-2xl p-6 shadow-xs space-y-4">
-              
-              {/* HUD Header */}
-              <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 rounded-full bg-zinc-300 inline-block" />
-                  <div className="w-2 h-2 rounded-full bg-zinc-300 inline-block" />
-                  <div className="w-2 h-2 rounded-full bg-zinc-300 inline-block" />
-                  <span className="text-[10px] font-mono font-medium text-zinc-400 uppercase ml-2">SYSTEM HUD</span>
+            {hudContent ? (
+              hudContent
+            ) : (
+              <div className="relative rounded-2xl bg-[#0E101D] border border-[#232742] p-6 shadow-2xl space-y-5">
+                
+                {/* Console Top Header */}
+                <div className="flex items-center justify-between pb-3 border-b border-[#232742]">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#E9B737]" />
+                    <span className="font-mono text-xs text-white font-bold uppercase tracking-wider">
+                      PANTERA AUDIT CONSOLE
+                    </span>
+                  </div>
+                  <span className="font-mono text-[10px] text-[#E9B737] bg-[#15182B] px-2 py-0.5 rounded border border-[#E9B737]/30 uppercase font-semibold">
+                    REALTIME
+                  </span>
                 </div>
-                <span className="text-[10px] font-medium text-zinc-700 bg-zinc-100 px-2 py-0.5 rounded-full border border-zinc-200">
-                  REALTIME SECURE
-                </span>
+
+                {/* Key Stat Blocks */}
+                <div className="space-y-2.5">
+                  {stats.map((s, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3.5 rounded-xl bg-[#15182B] border border-[#232742] flex items-center justify-between transition-colors hover:border-[#E9B737]/40"
+                    >
+                      <span className="text-xs text-slate-400 font-sans">{s.label}</span>
+                      <span className="font-mono font-bold text-white text-sm tracking-tight">{s.value}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Verification Stamp */}
+                <div className="pt-2 border-t border-[#232742] flex items-center justify-between text-[11px] text-slate-400 font-mono">
+                  <div className="flex items-center gap-1.5 text-emerald-400">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>Cryptographic Ledger Verified</span>
+                  </div>
+                  <span className="text-slate-500">EST. 2013</span>
+                </div>
+
               </div>
-
-              {/* Dynamic Page Specific HUD Content */}
-              {hudContent ? (
-                hudContent
-              ) : (
-                <div className="space-y-2 py-2 text-xs">
-                  <div className="p-3 bg-zinc-50 border border-zinc-100 rounded-xl flex items-center justify-between">
-                    <span className="text-zinc-500 font-normal">Protocol Encryption</span>
-                    <span className="font-mono font-semibold text-emerald-600">256-Bit SSL</span>
-                  </div>
-                  <div className="p-3 bg-zinc-50 border border-zinc-100 rounded-xl flex items-center justify-between">
-                    <span className="text-zinc-500 font-normal">Execution Engine</span>
-                    <span className="font-mono font-semibold text-zinc-950">Automated Edge</span>
-                  </div>
-                  <div className="p-3 bg-zinc-50 border border-zinc-100 rounded-xl flex items-center justify-between">
-                    <span className="text-zinc-500 font-normal">Payout Guarantee</span>
-                    <span className="font-mono font-semibold text-zinc-950">Double-Entry Ledger</span>
-                  </div>
-                </div>
-              )}
-
-              {/* HUD Footer Seal */}
-              <div className="pt-3 border-t border-zinc-100 flex items-center justify-between text-[10px] font-medium text-zinc-500">
-                <div className="flex items-center space-x-1.5 text-emerald-600">
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>Audited Smart Protocol</span>
-                </div>
-                <span className="font-mono text-zinc-400">PANTERA</span>
-              </div>
-
-            </div>
-
+            )}
           </div>
 
         </div>
+
       </div>
     </section>
   );

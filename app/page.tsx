@@ -61,31 +61,45 @@ export default function Home() {
 
       <main className="flex-1 relative z-10">
 
-        {/* ── Split Asymmetric Hero Section (Institutional Pantera Canvas) ── */}
-        <section className="pt-16 pb-20 sm:pt-20 sm:pb-28 border-b border-[#232742] bg-[#15182B] relative overflow-hidden text-white">
-
-          {/* Hero Background Image with Seamless Contrast Overlays */}
-          <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
-            <Image
-              src="/images/hero-bg.jpg"
-              alt="Institutional Wealth & AI Telemetry Architecture"
-              fill
-              priority
-              className="object-cover object-right lg:object-center opacity-40 filter contrast-125"
-            />
-            {/* Smooth gradient ensures 100% crystal-clear readability for typography */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#15182B] via-[#15182B]/95 sm:via-[#15182B]/85 to-[#15182B]/40" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#15182B]/80 via-transparent to-[#15182B]" />
+        {/* ── Pantera Executive Research Banner ── */}
+        <section className="bg-[#0E101D] border-b border-[#232742] py-2.5 px-4 text-center">
+          <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs font-mono">
+            <span className="text-[#E9B737] font-bold">[ EXECUTIVE RESEARCH ]</span>
+            <span className="text-slate-200 uppercase tracking-wider">The State of Tokenization & Blockchain Yield :: Q4 2026</span>
+            <a href="#funds" className="text-[#E9B737] hover:underline font-bold inline-flex items-center gap-1 transition-colors">
+              EXPLORE ACTIVE FUNDS →
+            </a>
           </div>
+        </section>
+
+        {/* ── Monumental Hero Section (Pantera Capital Institutional Architecture) ── */}
+        <section className="pt-16 pb-20 sm:pt-20 sm:pb-24 border-b border-[#232742] bg-[#15182B] relative overflow-hidden text-white">
+
+          {/* Pantera Generative Coordinate Grid & Ambient Topological Texture (No Legacy Stock Images) */}
+          <div className="absolute inset-0 pointer-events-none select-none opacity-20">
+            <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="pantera-hero-grid" width="48" height="48" patternUnits="userSpaceOnUse">
+                  <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#E2E4EC" strokeWidth="0.5" strokeOpacity="0.3" />
+                  <circle cx="48" cy="0" r="1" fill="#E9B737" fillOpacity="0.6" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#pantera-hero-grid)" />
+            </svg>
+          </div>
+
+          {/* Subtle Ambient Light Gradients */}
+          <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-gradient-to-b from-[#E9B737]/10 via-[#15182B]/0 to-transparent blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[500px] h-40 bg-gradient-to-t from-[#0E101D] to-transparent pointer-events-none" />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
 
-              {/* LEFT COLUMN: Narrative, Quick Anchors & Conversion Actions (7 Cols) */}
+              {/* LEFT COLUMN: Narrative & Institutional Action (7 Cols) */}
               <div className="lg:col-span-7 space-y-6 text-left">
                 
                 {/* Protocol Badge in IBM Plex Mono */}
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0E101D]/80 border border-[#E9B737]/40 text-white text-xs font-semibold tracking-wide shadow-md backdrop-blur-md">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0E101D] border border-[#E9B737]/40 text-white text-xs font-semibold tracking-wide shadow-md">
                   <span className="w-2 h-2 rounded-full bg-[#E9B737] animate-pulse" />
                   <span className="font-mono text-[11px] uppercase tracking-wider text-[#E9B737]">EST. 2013 // BLOCKCHAIN ASSET PROTOCOL</span>
                   <span className="text-white/20">|</span>
@@ -181,55 +195,98 @@ export default function Home() {
 
               </div>
 
-              {/* RIGHT COLUMN: Interactive Terminal Window & Anchored Telemetry (5 Cols) */}
+              {/* RIGHT COLUMN: Interactive Pantera Institutional Terminal & Multi-Asset Monitor */}
               <div className="lg:col-span-5 relative mt-8 lg:mt-0">
-                <div className="relative rounded-xl p-1 bg-gradient-to-b from-[#E9B737]/40 via-[#232742] to-[#0E101D] shadow-2xl">
-                  <div className="relative rounded-[10px] overflow-hidden bg-[#0E101D] border border-[#232742]">
+                <div className="relative rounded-2xl p-1 bg-gradient-to-b from-[#E9B737]/40 via-[#232742] to-[#0E101D] shadow-2xl">
+                  <div className="relative rounded-[14px] overflow-hidden bg-[#0E101D] border border-[#232742]">
                     
                     {/* Terminal Title Bar */}
-                    <div className="px-4 py-2.5 bg-[#15182B] border-b border-[#232742] flex items-center justify-between text-xs">
+                    <div className="px-4 py-3 bg-[#15182B] border-b border-[#232742] flex items-center justify-between text-xs">
                       <div className="flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#E9B737]/70" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#E9B737]" />
                         <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
                         <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
-                        <span className="ml-2 font-mono text-[11px] text-slate-300">pantera-terminal.v2.6</span>
+                        <span className="ml-2 font-mono text-[11px] text-slate-300">pantera-yield-engine.v2.6</span>
                       </div>
                       <div className="flex items-center gap-1.5 text-[11px] text-[#E9B737] font-mono">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#E9B737] animate-pulse" />
-                        <span>LIVE EDGE</span>
+                        <span>BLOCK #21,894,102</span>
                       </div>
                     </div>
 
-                    {/* Terminal Canvas */}
-                    <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full">
-                      <Image
-                        src="/images/hero-preview.jpg"
-                        alt="Pantera Platform Terminal Interface"
-                        fill
-                        priority
-                        className="object-cover object-center"
-                      />
+                    {/* Interactive Multi-Asset Yield Canvas */}
+                    <div className="p-5 space-y-4">
+                      
+                      {/* Fund Selector Tabs */}
+                      <div className="grid grid-cols-3 gap-1 bg-[#15182B] p-1 rounded-xl border border-[#232742] text-[10px] font-mono font-bold uppercase text-center">
+                        <span className="py-1.5 rounded-lg bg-[#E9B737] text-[#15182B]">Liquid Tokens</span>
+                        <span className="py-1.5 rounded-lg text-slate-400 hover:text-white">Early Stage</span>
+                        <span className="py-1.5 rounded-lg text-slate-400 hover:text-white">Venture Yield</span>
+                      </div>
+
+                      {/* Yield Metrics Box */}
+                      <div className="bg-[#15182B] border border-[#232742] rounded-xl p-4 space-y-3">
+                        <div className="flex items-baseline justify-between">
+                          <span className="text-xs font-mono uppercase text-slate-400">Target Annualized APY</span>
+                          <span className="text-2xl font-black font-mono text-[#E9B737]">+18.4%</span>
+                        </div>
+                        <div className="w-full bg-[#0E101D] h-2 rounded-full overflow-hidden border border-[#232742]">
+                          <div className="bg-gradient-to-r from-[#E9B737] to-amber-200 h-full w-[84%] rounded-full" />
+                        </div>
+                        <div className="flex justify-between text-[10px] font-mono text-slate-400">
+                          <span>Payout: Weekly Automated</span>
+                          <span>Solvency: 100% On-Chain</span>
+                        </div>
+                      </div>
+
+                      {/* Live Cryptographic Hash Ledger Feed */}
+                      <div className="bg-[#15182B] border border-[#232742] rounded-xl p-3 space-y-2 text-xs font-mono">
+                        <div className="text-[10px] uppercase text-slate-400 font-bold flex items-center justify-between">
+                          <span>Latest Settlement Blocks</span>
+                          <span className="text-[#E9B737]">Audit Verified</span>
+                        </div>
+                        <div className="space-y-1.5">
+                          <div className="flex justify-between items-center text-[11px] bg-[#0E101D] p-2 rounded-lg border border-[#232742]">
+                            <span className="text-slate-300">0x7f4e...89a2</span>
+                            <span className="text-emerald-400 font-bold">+$4,250.00 USDT</span>
+                          </div>
+                          <div className="flex justify-between items-center text-[11px] bg-[#0E101D] p-2 rounded-lg border border-[#232742]">
+                            <span className="text-slate-300">0x3b1c...914d</span>
+                            <span className="text-emerald-400 font-bold">+0.145 BTC</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Terminal Action Pill */}
+                      <Link
+                        href="/register"
+                        className="w-full py-2.5 rounded-xl bg-[#E9B737] hover:bg-[#D4A42C] text-[#15182B] font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all"
+                      >
+                        <span>Open Institutional Console</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+
                     </div>
 
                     {/* Anchored Telemetry Bar */}
-                    <div className="p-3 bg-[#0E101D]/95 border-t border-[#232742] grid grid-cols-2 gap-2 text-xs">
-                      <div className="flex items-center gap-2.5 bg-[#15182B] p-2.5 rounded-lg border border-[#232742]">
-                        <div className="w-7 h-7 rounded-md bg-[#0E101D] text-[#E9B737] border border-[#E9B737]/30 flex items-center justify-center shrink-0">
+                    <div className="p-3 bg-[#15182B] border-t border-[#232742] grid grid-cols-2 gap-2 text-xs">
+                      <div className="flex items-center gap-2.5 bg-[#0E101D] p-2.5 rounded-lg border border-[#232742]">
+                        <div className="w-7 h-7 rounded-md bg-[#15182B] text-[#E9B737] border border-[#E9B737]/30 flex items-center justify-center shrink-0">
                           <TrendingUp className="w-3.5 h-3.5" />
                         </div>
                         <div className="min-w-0">
-                          <div className="text-[10px] text-slate-400 uppercase font-bold truncate">Today's Payouts</div>
-                          <div className="text-xs font-mono font-bold text-white truncate">+$12,450.00 <span className="text-[#E9B737] text-[10px]">(+4.85%)</span></div>
+                          <div className="text-[10px] text-slate-400 uppercase font-bold truncate">24H Inflow</div>
+                          <div className="text-xs font-mono font-bold text-white truncate">+$184,200.00</div>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2.5 bg-[#15182B] p-2.5 rounded-lg border border-[#232742]">
-                        <div className="w-7 h-7 rounded-md bg-[#0E101D] text-[#E9B737] border border-[#E9B737]/30 flex items-center justify-center shrink-0">
+                      <div className="flex items-center gap-2.5 bg-[#0E101D] p-2.5 rounded-lg border border-[#232742]">
+                        <div className="w-7 h-7 rounded-md bg-[#15182B] text-[#E9B737] border border-[#E9B737]/30 flex items-center justify-center shrink-0">
                           <ShieldCheck className="w-3.5 h-3.5" />
                         </div>
                         <div className="min-w-0">
-                          <div className="text-[10px] text-slate-400 uppercase font-bold truncate">Ledger Audit</div>
-                          <div className="text-xs font-mono font-bold text-white truncate">100% On-Chain</div>
+                          <div className="text-[10px] text-slate-400 uppercase font-bold truncate">Double-Entry</div>
+                          <div className="text-xs font-mono font-bold text-white truncate">100% Solvency</div>
                         </div>
                       </div>
                     </div>

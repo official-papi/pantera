@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Alpha@ssets — Premium Automated Investment Platform",
+  title: "Pantera — Premium Automated Investment Platform",
   description: "High-performance automated yield generation and investor portal. Earn daily returns with full transparency.",
 };
 

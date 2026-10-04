@@ -186,7 +186,7 @@ export default function Home() {
                     <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full">
                       <Image
                         src="/images/hero-preview.jpg"
-                        alt="Alpha@ssets Platform Terminal Interface"
+                        alt="Pantera Platform Terminal Interface"
                         fill
                         priority
                         className="object-cover object-center"

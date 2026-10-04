@@ -17,7 +17,7 @@ export default function AdminCmsPage() {
     hero_cta: "Explore Yield Plans",
     
     about_title: "Engineered for Institutional Growth",
-    about_text: "Alpha Assets leverages AI multi-exchange arbitrage, automated liquidity farming, and high-frequency quantitative models to generate weekly risk-managed returns.",
+    about_text: "Pantera leverages AI multi-exchange arbitrage, automated liquidity farming, and high-frequency quantitative models to generate weekly risk-managed returns.",
     about_metric1: "$256M+ Assets Managed",
     about_metric2: "99.98% Payout Accuracy",
 
@@ -34,7 +34,7 @@ export default function AdminCmsPage() {
     ],
 
     testimonials: [
-      { id: 1, name: "Marcus Vance", role: "Crypto Asset Manager", review: "Alpha Assets has consistently delivered reliable weekly yields. The automated payout execution is flawless.", rating: 5 },
+      { id: 1, name: "Marcus Vance", role: "Crypto Asset Manager", review: "Pantera has consistently delivered reliable weekly yields. The automated payout execution is flawless.", rating: 5 },
       { id: 2, name: "Elena Rostova", role: "Private Investor", review: "The platform transparency and instant withdrawal processing give me complete confidence.", rating: 5 },
     ],
 
@@ -44,15 +44,15 @@ export default function AdminCmsPage() {
       { id: 3, question: "Are withdrawals processed instantly?", answer: "Yes, approved withdrawal requests are dispatched instantly via automated payment gateways." },
     ],
 
-    support_email: "support@alpha-assets.com",
-    support_phone: "+1 (800) 555-ALPHA",
+    support_email: "support@pantera.com",
+    support_phone: "+1 (800) 555-PANTERA",
     support_address: "75 Wall Street, Financial District, New York, NY 10005",
-    telegram_handle: "@alphaassets_official",
-    twitter_handle: "@alphaassets_io",
-    discord_link: "https://discord.gg/alphaassets",
+    telegram_handle: "@pantera_official",
+    twitter_handle: "@pantera_io",
+    discord_link: "https://discord.gg/pantera",
 
-    privacy_policy: "Alpha Assets is committed to preserving strict data confidentiality and multi-layer encryption for all investor information...",
-    terms_of_service: "By accessing and registering an investor account on Alpha Assets, you agree to comply with all platform terms...",
+    privacy_policy: "Pantera is committed to preserving strict data confidentiality and multi-layer encryption for all investor information...",
+    terms_of_service: "By accessing and registering an investor account on Pantera, you agree to comply with all platform terms...",
   });
 
   const [submitting, setSubmitting] = useState(false);

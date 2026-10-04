@@ -174,7 +174,7 @@ export default function PageHero({
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>Audited Smart Protocol</span>
                 </div>
-                <span className="font-mono text-zinc-400">ALPHA-ASSETS</span>
+                <span className="font-mono text-zinc-400">PANTERA</span>
               </div>
 
             </div>

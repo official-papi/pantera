@@ -41,7 +41,7 @@ export default function HowItWorks() {
             </div>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            How Alpha Assets Works
+            How Pantera Works
           </h2>
           <p className="text-[#86cbd1] text-sm mt-3 font-normal max-w-xl mx-auto">
             Start building your passive income portfolio in 3 straightforward, automated milestones.

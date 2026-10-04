@@ -9,8 +9,8 @@ import { useState } from "react";
 const FAQ_ITEMS = [
   {
     category: "General Platform",
-    q: "What is Alpha Assets?",
-    a: "Alpha Assets is an automated AI compounding yield and wealth management platform that executes algorithmic quantitative strategies and automated wallet disbursements.",
+    q: "What is Pantera?",
+    a: "Pantera is an automated AI compounding yield and wealth management platform that executes algorithmic quantitative strategies and automated wallet disbursements.",
   },
   {
     category: "Deposits & Payouts",

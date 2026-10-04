@@ -50,8 +50,8 @@ export default function Navbar() {
           <div className="w-8 h-8 rounded-xl bg-[#093A3E] flex items-center justify-center shadow-xs">
             <BarChart2 className="w-4 h-4 text-[#3AAFB9]" />
           </div>
-          <span className="text-[16px] font-extrabold tracking-tight text-[#001011]">
-            Alpha<span className="text-[#3AAFB9]">@</span>ssets
+          <span className="text-[17px] font-extrabold tracking-tight text-[#001011]">
+            Pantera<span className="text-[#3AAFB9]">.</span>
           </span>
         </Link>
 

@@ -59,7 +59,7 @@ export default function LoginPage() {
             <BarChart2 className="w-4.5 h-4.5" />
           </div>
           <span className="text-[18px] font-bold text-white tracking-tight">
-            Alpha<span className="text-[#3AAFB9]">@</span>ssets
+            Pantera<span className="text-[#3AAFB9]">.</span>
           </span>
         </div>
 
@@ -109,7 +109,7 @@ export default function LoginPage() {
               <BarChart2 className="w-4 h-4" />
             </div>
             <span className="text-[16px] font-bold tracking-tight text-zinc-950">
-              Alpha<span className="text-[#3AAFB9]">@</span>ssets
+              Pantera<span className="text-[#3AAFB9]">.</span>
             </span>
           </Link>
 

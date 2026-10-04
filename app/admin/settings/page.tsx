@@ -7,8 +7,8 @@ import { Settings, Save, CheckCircle2, AlertCircle, ToggleLeft, ToggleRight } fr
 import { createClient } from "@/lib/supabase/client";
 
 export default function AdminSettingsPage() {
-  const [siteName, setSiteName] = useState("Alpha Assets Platform");
-  const [siteEmail, setSiteEmail] = useState("admin@alpha-assets.com");
+  const [siteName, setSiteName] = useState("Pantera Platform");
+  const [siteEmail, setSiteEmail] = useState("admin@pantera.com");
   const [currencySymbol, setCurrencySymbol] = useState("$");
   const [currencyCode, setCurrencyCode] = useState("USD");
   const [logoUrl, setLogoUrl] = useState("");
@@ -32,8 +32,8 @@ export default function AdminSettingsPage() {
       .single();
 
     if (settings) {
-      setSiteName(settings.site_name || "Alpha Assets Platform");
-      setSiteEmail(settings.site_email || "admin@alpha-assets.com");
+      setSiteName(settings.site_name || "Pantera Platform");
+      setSiteEmail(settings.site_email || "admin@pantera.com");
       setCurrencySymbol(settings.currency_symbol || "$");
       setCurrencyCode(settings.currency_code || "USD");
       setLogoUrl(settings.logo_url || "");

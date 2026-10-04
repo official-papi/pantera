@@ -66,7 +66,7 @@ export default function ReferralSection() {
             </h2>
             
             <p className="text-[#2f494c] text-sm leading-relaxed font-normal">
-              Invite friends, institutional partners, and network members to Alpha Assets using your private referral URL. Earn recursive instant cash commissions whenever your downline deploys capital into investment packages.
+              Invite friends, institutional partners, and network members to Pantera using your private referral URL. Earn recursive instant cash commissions whenever your downline deploys capital into investment packages.
             </p>
 
             {/* Value Propositions */}

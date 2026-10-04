@@ -42,7 +42,7 @@ export default function Footer() {
                 <BarChart2 className="w-4 h-4 text-[#3AAFB9]" />
               </div>
               <span className="text-[17px] font-extrabold tracking-tight text-white">
-                Alpha<span className="text-[#3AAFB9]">@</span>ssets
+                Pantera<span className="text-[#3AAFB9]">.</span>
               </span>
             </Link>
             
@@ -119,7 +119,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-[#093A3E]/70 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-[#5cb4be]/80">
-          <span>© {new Date().getFullYear()} Alpha@ssets Inc. {t.footer.allRightsReserved}</span>
+          <span>© {new Date().getFullYear()} Pantera Inc. {t.footer.allRightsReserved}</span>
           <div className="flex gap-6 font-medium">
             <Link href="/faq" className="hover:text-[#3AAFB9] transition-colors">{t.footer.privacyPolicy}</Link>
             <Link href="/faq" className="hover:text-[#3AAFB9] transition-colors">{t.footer.termsOfService}</Link>

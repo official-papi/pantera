@@ -87,7 +87,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-sm font-extrabold text-slate-900">Email Direct Support</h4>
-                    <p className="text-xs text-slate-500 font-mono">support@alpha-assets.com</p>
+                    <p className="text-xs text-slate-500 font-mono">support@pantera.com</p>
                   </div>
                 </div>
               </div>

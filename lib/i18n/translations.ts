@@ -65,7 +65,7 @@ export const translations = {
 
     // Footer
     footer: {
-      description: "Alpha@ssets is a premier automated yield generation and high-frequency trading platform built on institutional-grade financial infrastructure.",
+      description: "Pantera is a premier automated yield generation and high-frequency trading platform built on institutional-grade financial infrastructure.",
       quickLinks: "Quick Links",
       legal: "Legal & Compliance",
       privacyPolicy: "Privacy Policy",
@@ -206,7 +206,7 @@ export const translations = {
 
     // Footer
     footer: {
-      description: "Alpha@ssets es una plataforma de inversión y comercio algorítmico de alta frecuencia construida con infraestructura financiera institucional.",
+      description: "Pantera es una plataforma de inversión y comercio algorítmico de alta frecuencia construida con infraestructura financiera institucional.",
       quickLinks: "Enlaces Rápidos",
       legal: "Legal y Cumplimiento",
       privacyPolicy: "Política de Privacidad",
@@ -341,7 +341,7 @@ export const translations = {
       no: "Non",
     },
     footer: {
-      description: "Alpha@ssets est une plateforme d'investissement automatisée de premier ordre.",
+      description: "Pantera est une plateforme d'investissement automatisée de premier ordre.",
       quickLinks: "Liens rapides",
       legal: "Mentions légales",
       privacyPolicy: "Politique de confidentialité",
@@ -468,7 +468,7 @@ export const translations = {
       no: "Nein",
     },
     footer: {
-      description: "Alpha@ssets ist eine führende Plattform für automatisierte Renditegenerierung.",
+      description: "Pantera ist eine führende Plattform für automatisierte Renditegenerierung.",
       quickLinks: "Quicklinks",
       legal: "Rechtliches",
       privacyPolicy: "Datenschutz",
@@ -595,7 +595,7 @@ export const translations = {
       no: "Não",
     },
     footer: {
-      description: "Alpha@ssets é uma plataforma de investimentos automatizados de alta performance.",
+      description: "Pantera é uma plataforma de investimentos automatizados de alta performance.",
       quickLinks: "Links Rápidos",
       legal: "Legal e Conformidade",
       privacyPolicy: "Política de Privacidade",
@@ -722,7 +722,7 @@ export const translations = {
       no: "لا",
     },
     footer: {
-      description: "Alpha@ssets هي منصة استثمارية رائدة في التداول الآلي وتوليد العوائد.",
+      description: "Pantera هي منصة استثمارية رائدة في التداول الآلي وتوليد العوائد.",
       quickLinks: "روابط سريعة",
       legal: "الشؤون القانونية",
       privacyPolicy: "سياسة الخصوصية",

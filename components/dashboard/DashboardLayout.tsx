@@ -121,7 +121,7 @@ export default function DashboardLayout({ children, userEmail: initialEmail }: D
               <Wallet className="w-3.5 h-3.5 text-[#3AAFB9]" />
             </div>
             <span className="text-[15px] font-bold tracking-tight text-white">
-              Alpha<span className="text-[#3AAFB9]">@</span>ssets
+              Pantera<span className="text-[#3AAFB9]">.</span>
             </span>
           </Link>
         </div>
@@ -150,7 +150,7 @@ export default function DashboardLayout({ children, userEmail: initialEmail }: D
             </div>
             <div>
               <div className="text-[15px] font-extrabold tracking-tight text-[#001011] leading-none">
-                Alpha<span className="text-[#3AAFB9]">@</span>ssets
+                Pantera<span className="text-[#3AAFB9]">.</span>
               </div>
               <div className="text-[10px] text-[#093A3E] font-medium tracking-wide mt-1 flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#3AAFB9] inline-block animate-pulse" />

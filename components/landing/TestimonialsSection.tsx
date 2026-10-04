@@ -8,7 +8,7 @@ const REVIEWS = [
     name: "David K. Sterling",
     role: "Private Equity Trader",
     rating: 5,
-    quote: "Alpha Assets provides consistent automated yield credits without delay. The platform stability and double-entry transaction ledgers offer complete peace of mind.",
+    quote: "Pantera provides consistent automated yield credits without delay. The platform stability and double-entry transaction ledgers offer complete peace of mind.",
     avatar: "/images/avatars/david.jpg",
   },
   {

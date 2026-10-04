@@ -25,26 +25,26 @@ export default function HowItWorks() {
   }, []);
 
   return (
-    <section id="how-it-works" className="py-24 bg-[#001011] border-b border-[#093A3E] relative overflow-hidden text-white">
+    <section id="how-it-works" className="py-24 bg-[#15182B] border-b border-[#232742] relative overflow-hidden text-white">
       
-      {/* Ambient background glow in Dark Teal */}
-      <div className="absolute top-0 right-1/3 w-96 h-96 bg-[#093A3E]/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-[#3AAFB9]/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Ambient background glow in Warm Gold & Navy */}
+      <div className="absolute top-0 right-1/3 w-96 h-96 bg-[#E9B737]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-[#E9B737]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="flex justify-center mb-3.5">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-[#3AAFB9]/40 bg-[#093A3E]/80 text-[#3AAFB9] shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#3AAFB9]" />
-              <span>Simple 3-Step Process</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-[#E9B737]/40 bg-[#0E101D] text-[#E9B737] shadow-sm font-mono uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5 text-[#E9B737]" />
+              <span>[ METHODOLOGY // 3-STEP EXECUTION ]</span>
             </div>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-display uppercase">
             How Pantera Works
           </h2>
-          <p className="text-[#86cbd1] text-sm mt-3 font-normal max-w-xl mx-auto">
-            Start building your passive income portfolio in 3 straightforward, automated milestones.
+          <p className="text-slate-300 text-sm mt-3 font-normal max-w-xl mx-auto">
+            Institutional-grade capital allocation and algorithmic yield compounding executed in three deterministic steps.
           </p>
         </div>
 
@@ -54,21 +54,21 @@ export default function HowItWorks() {
             return (
               <div
                 key={idx}
-                className="bg-[#041819] border border-[#093A3E] hover:border-[#3AAFB9] rounded-2xl p-8 flex flex-col gap-6 relative shadow-lg hover:shadow-xl hover:shadow-[#3AAFB9]/10 transition-all duration-300 group"
+                className="bg-[#0E101D] border border-[#232742] hover:border-[#E9B737] rounded-xl p-8 flex flex-col gap-6 relative shadow-lg hover:shadow-xl hover:shadow-[#E9B737]/5 transition-all duration-300 group"
               >
                 <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-xl bg-[#093A3E] border border-[#3AAFB9]/40 text-[#3AAFB9] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform duration-300">
+                  <div className="w-12 h-12 rounded-lg bg-[#15182B] border border-[#232742] text-[#E9B737] flex items-center justify-center group-hover:border-[#E9B737]/50 transition-colors">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className="text-3xl font-black text-[#093A3E] group-hover:text-[#3AAFB9]/40 font-mono select-none transition-colors duration-300">
+                  <span className="text-3xl font-black text-white/20 group-hover:text-[#E9B737] font-mono select-none transition-colors duration-300">
                     0{stepItem.step || idx + 1}
                   </span>
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white mb-2 group-hover:text-[#3AAFB9] transition-colors">
+                  <h3 className="text-base font-bold text-white mb-2 group-hover:text-[#E9B737] transition-colors font-mono uppercase">
                     {stepItem.title}
                   </h3>
-                  <p className="text-xs text-[#b5dfe3] leading-relaxed font-normal">
+                  <p className="text-xs text-slate-300 leading-relaxed font-normal">
                     {stepItem.desc}
                   </p>
                 </div>
@@ -80,10 +80,10 @@ export default function HowItWorks() {
         <div className="mt-14 text-center">
           <Link
             href="/register"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#3AAFB9] to-[#278e98] hover:from-[#5cb4be] hover:to-[#3AAFB9] text-[#001011] font-bold px-8 py-3.5 rounded-xl text-xs shadow-lg shadow-[#3AAFB9]/25 hover:shadow-xl transition-all cursor-pointer active:scale-95"
+            className="inline-flex items-center gap-2 bg-[#E9B737] hover:bg-[#D4A42C] text-[#15182B] font-bold px-8 py-3.5 rounded-md text-xs shadow-lg shadow-[#E9B737]/20 hover:shadow-xl transition-all cursor-pointer font-mono uppercase tracking-wider"
           >
             <span>Start Investing Now</span>
-            <ArrowRight className="w-4 h-4 text-[#001011]" />
+            <ArrowRight className="w-4 h-4 text-[#15182B]" />
           </Link>
         </div>
 

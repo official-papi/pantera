@@ -33,24 +33,24 @@ export default function InvestmentsTable({
   onSelectInvestment,
 }: InvestmentsTableProps) {
   return (
-    <div id="investments" className="bg-white border border-[#d4e7e9] rounded-2xl shadow-xs overflow-hidden">
+    <div id="investments" className="bg-white border border-[#E2E4EC] rounded-xl shadow-xs overflow-hidden">
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-6 py-5 border-b border-slate-100">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#093A3E]/10 border border-[#093A3E]/20 flex items-center justify-center text-[#093A3E]">
-            <TrendingUp className="w-5 h-5 text-[#093A3E]" />
+          <div className="w-10 h-10 rounded-md bg-[#15182B] border border-[#232742] flex items-center justify-center text-[#E9B737]">
+            <TrendingUp className="w-5 h-5 text-[#E9B737]" />
           </div>
           <div>
-            <h2 className="text-[16px] font-extrabold text-[#001011]">Active Investment Portfolio</h2>
-            <p className="text-[12px] text-slate-400">Algorithmic yield generation, live countdowns, and progress tracking.</p>
+            <h2 className="text-[16px] font-extrabold text-[#15182B] font-mono uppercase">Active Investment Portfolio</h2>
+            <p className="text-[12px] text-slate-500">Algorithmic yield generation, live countdowns, and progress tracking.</p>
           </div>
         </div>
         <button
           onClick={onOpenInvest}
-          className="py-2.5 px-4 rounded-xl bg-[#093A3E] hover:bg-[#001011] text-white text-[12px] font-bold shadow-xs flex items-center gap-1.5 transition-all cursor-pointer"
+          className="py-2.5 px-4 rounded-md bg-[#15182B] hover:bg-[#0E101D] text-white text-[12px] font-bold shadow-xs flex items-center gap-1.5 transition-all cursor-pointer font-mono uppercase tracking-wider"
         >
-          <Plus className="w-4 h-4 text-[#3AAFB9]" />
+          <Plus className="w-4 h-4 text-[#E9B737]" />
           <span>New Investment</span>
         </button>
       </div>
@@ -74,10 +74,10 @@ export default function InvestmentsTable({
               <tr>
                 <td colSpan={7} className="py-12 text-center">
                   <div className="flex flex-col items-center gap-2">
-                    <div className="w-10 h-10 rounded-full bg-[#093A3E]/8 flex items-center justify-center">
-                      <TrendingUp className="w-5 h-5 text-[#093A3E]" />
+                    <div className="w-10 h-10 rounded-md bg-[#15182B]/5 flex items-center justify-center">
+                      <TrendingUp className="w-5 h-5 text-[#15182B]" />
                     </div>
-                    <p className="text-[13px] text-slate-500 font-semibold">No active investments</p>
+                    <p className="text-[13px] text-slate-700 font-semibold font-mono">No active investments</p>
                     <p className="text-[12px] text-slate-400">Click &ldquo;New Investment&rdquo; to subscribe to a compounding package</p>
                   </div>
                 </td>
@@ -98,12 +98,12 @@ export default function InvestmentsTable({
                   <tr key={invId} className="hover:bg-slate-50/70 transition-colors">
 
                     <td>
-                      <div className="font-bold text-[#001011] text-[13px]">{planName}</div>
+                      <div className="font-bold text-[#15182B] text-[13px] font-mono">{planName}</div>
                       <div className="text-[11px] text-slate-400 font-mono mt-0.5 truncate max-w-[140px]">{invId.slice(0, 8)}…</div>
                     </td>
 
                     <td>
-                      <span className="font-extrabold text-[#001011] font-mono text-[13px]">
+                      <span className="font-extrabold text-[#15182B] font-mono text-[13px]">
                         ${amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                       </span>
                     </td>
@@ -118,7 +118,7 @@ export default function InvestmentsTable({
                     <td className="w-44">
                       <div className="flex justify-between text-[11px] text-slate-500 mb-1.5 font-medium">
                         <span>{completedPayouts}/{totalPayouts} payouts</span>
-                        <span className="text-[#093A3E] font-bold font-mono">{progressPct}%</span>
+                        <span className="text-[#15182B] font-bold font-mono">{progressPct}%</span>
                       </div>
                       <div className="hm-progress-track">
                         <div
@@ -141,16 +141,16 @@ export default function InvestmentsTable({
 
                     <td>
                       {isActive ? (
-                        <span className="hm-badge hm-badge-success">
+                        <span className="hm-badge hm-badge-success font-mono">
                           <CheckCircle2 className="w-3 h-3" />
                           Active
                         </span>
                       ) : inv.status === "completed" ? (
-                        <span className="hm-badge hm-badge-neutral">
+                        <span className="hm-badge hm-badge-neutral font-mono">
                           Completed
                         </span>
                       ) : (
-                        <span className="hm-badge hm-badge-danger">
+                        <span className="hm-badge hm-badge-danger font-mono">
                           <XCircle className="w-3 h-3" />
                           {inv.status || "Inactive"}
                         </span>
@@ -161,7 +161,7 @@ export default function InvestmentsTable({
                       <button
                         type="button"
                         onClick={() => onSelectInvestment?.(inv)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#093A3E]/8 hover:bg-[#093A3E] hover:text-white text-[#093A3E] font-bold text-[11px] border border-[#093A3E]/20 transition-all cursor-pointer shadow-2xs"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#15182B]/5 hover:bg-[#15182B] hover:text-white text-[#15182B] font-bold text-[11px] border border-[#E2E4EC] transition-all cursor-pointer shadow-xs font-mono uppercase"
                       >
                         <Eye className="w-3.5 h-3.5" />
                         <span>Overview</span>

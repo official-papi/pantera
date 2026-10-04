@@ -202,17 +202,17 @@ export default function DashboardPage() {
     <DashboardLayout userEmail={profile?.email}>
       <div className="space-y-8">
         {/* Institutional Command Terminal Banner */}
-        <div className="relative group overflow-hidden rounded-2xl border border-[#093A3E] bg-[#001011] p-6 sm:p-8 shadow-xl text-white">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(58,175,185,0.12),transparent_70%)] pointer-events-none" />
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#093A3E]/30 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+        <div className="relative group overflow-hidden rounded-xl border border-[#232742] bg-[#15182B] p-6 sm:p-8 shadow-xl text-white">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(233,183,55,0.12),transparent_70%)] pointer-events-none" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#E9B737]/5 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
           
           <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div className="space-y-2.5 max-w-xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#093A3E]/60 border border-[#3AAFB9]/40 text-[#3AAFB9] text-[11px] font-bold uppercase tracking-wider backdrop-blur-xs">
-                <Sparkles className="w-3.5 h-3.5 text-[#3AAFB9]" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0E101D] border border-[#E9B737]/40 text-[#E9B737] text-[11px] font-bold uppercase tracking-wider backdrop-blur-xs font-mono">
+                <Sparkles className="w-3.5 h-3.5 text-[#E9B737]" />
                 <span>Executive Terminal · Welcome Back, {profile?.full_name || "Investor"}</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight font-display uppercase">
                 Institutional Wealth Console
               </h1>
               <p className="text-slate-300 text-xs sm:text-sm font-normal leading-relaxed">
@@ -223,23 +223,23 @@ export default function DashboardPage() {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
               <button
                 onClick={() => setIsReinvestOpen(true)}
-                className="px-4 py-2.5 rounded-xl bg-[#093A3E] hover:bg-[#001011] text-white border border-[#3AAFB9]/40 text-xs font-bold flex items-center justify-center space-x-2 cursor-pointer shadow-xs transition-all hover:border-[#3AAFB9]"
+                className="px-4 py-2.5 rounded-md bg-[#E9B737] hover:bg-[#D4A42C] text-[#15182B] text-xs font-bold flex items-center justify-center space-x-2 cursor-pointer shadow-xs transition-all font-mono uppercase tracking-wider"
               >
-                <RefreshCw className="w-4 h-4 text-[#3AAFB9]" />
+                <RefreshCw className="w-4 h-4 text-[#15182B]" />
                 <span>Reinvest Earnings</span>
               </button>
 
-              <div className="bg-[#093A3E]/40 border border-[#3AAFB9]/30 p-2.5 px-4 rounded-xl flex items-center justify-between gap-3 backdrop-blur-sm">
+              <div className="bg-[#0E101D] border border-[#232742] p-2.5 px-4 rounded-md flex items-center justify-between gap-3">
                 <div>
-                  <div className="text-[10px] uppercase font-bold text-slate-400">Referral ID</div>
-                  <div className="text-xs font-mono font-extrabold text-[#3AAFB9]">{profile?.referral_code || "ALPHA789"}</div>
+                  <div className="text-[10px] uppercase font-bold text-slate-400 font-mono">Referral ID</div>
+                  <div className="text-xs font-mono font-extrabold text-[#E9B737]">{profile?.referral_code || "ALPHA789"}</div>
                 </div>
                 <button
                   onClick={copyReferral}
-                  className="bg-[#001011] hover:bg-[#093A3E] text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-[#3AAFB9]/40 cursor-pointer transition-colors shadow-2xs"
+                  className="bg-[#15182B] hover:bg-[#232742] text-white text-xs font-bold px-3 py-1.5 rounded border border-[#232742] cursor-pointer transition-colors shadow-xs"
                   title="Copy Referral Link"
                 >
-                  {copiedRef ? <Check className="w-3.5 h-3.5 text-[#3AAFB9]" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedRef ? <Check className="w-3.5 h-3.5 text-[#E9B737]" /> : <Copy className="w-3.5 h-3.5" />}
                 </button>
               </div>
             </div>
@@ -271,11 +271,11 @@ export default function DashboardPage() {
               
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#093A3E]/10 border border-[#093A3E]/20 flex items-center justify-center text-[#093A3E]">
-                    <RefreshCw className="w-4 h-4 text-[#093A3E]" />
+                  <div className="w-8 h-8 rounded-md bg-[#15182B] border border-[#232742] flex items-center justify-center text-[#E9B737]">
+                    <RefreshCw className="w-4 h-4 text-[#E9B737]" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-extrabold text-slate-900">Reinvest Interest Earnings</h3>
+                    <h3 className="text-sm font-extrabold text-slate-900 font-mono uppercase">Reinvest Interest Earnings</h3>
                     <p className="text-[11px] text-slate-400">Zero-fee internal wallet transfer</p>
                   </div>
                 </div>
@@ -284,12 +284,12 @@ export default function DashboardPage() {
                 </button>
               </div>
 
-              <div className="bg-[#f0f8f9] border border-[#3AAFB9]/30 rounded-xl p-3.5 text-xs text-[#093A3E] font-medium leading-relaxed">
-                Transfer earnings from your <strong className="font-mono text-[#001011]">${profile.interest_wallet.toFixed(2)}</strong> Interest Wallet to your Deposit Wallet to immediately compound into higher-tier investment plans.
+              <div className="bg-[#FAFAFA] border border-[#E2E4EC] rounded-lg p-3.5 text-xs text-slate-600 font-medium leading-relaxed font-sans">
+                Transfer earnings from your <strong className="font-mono text-[#15182B]">${profile.interest_wallet.toFixed(2)}</strong> Interest Wallet to your Deposit Wallet to immediately compound into higher-tier investment plans.
               </div>
 
               {reinvestMsg && (
-                <div className={`p-3 rounded-xl text-xs flex items-center space-x-2 font-semibold ${
+                <div className={`p-3 rounded-md text-xs flex items-center space-x-2 font-semibold ${
                   reinvestMsg.type === "success" ? "bg-emerald-50 border border-emerald-200 text-emerald-700" : "bg-rose-50 border border-rose-200 text-rose-700"
                 }`}>
                   {reinvestMsg.type === "success" ? <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" /> : <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />}
@@ -300,7 +300,7 @@ export default function DashboardPage() {
               <form onSubmit={handleTransferEarnings} className="space-y-4">
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <label className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">Transfer Amount ($)</label>
+                    <label className="text-[11px] font-bold text-slate-600 uppercase tracking-wider font-mono">Transfer Amount ($)</label>
                     <span className="text-[11px] text-slate-400 font-mono">Max: ${profile.interest_wallet.toFixed(2)}</span>
                   </div>
                   <input
@@ -319,9 +319,9 @@ export default function DashboardPage() {
                 <button
                   type="submit"
                   disabled={reinvesting}
-                  className="w-full py-2.5 rounded-xl bg-[#093A3E] hover:bg-[#001011] text-white text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center justify-center space-x-2"
+                  className="w-full py-2.5 rounded-md bg-[#15182B] hover:bg-[#0E101D] text-white text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center justify-center space-x-2 font-mono uppercase tracking-wider"
                 >
-                  <RefreshCw className={`w-3.5 h-3.5 text-[#3AAFB9] ${reinvesting ? "animate-spin" : ""}`} />
+                  <RefreshCw className={`w-3.5 h-3.5 text-[#E9B737] ${reinvesting ? "animate-spin" : ""}`} />
                   <span>{reinvesting ? "Transferring Funds..." : "Transfer to Deposit Wallet"}</span>
                 </button>
               </form>

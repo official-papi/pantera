@@ -36,14 +36,14 @@ export default function PlansPage() {
                 </div>
                 <div className="flex justify-between text-[11px] text-slate-600">
                   <span>$1,000 Investment:</span>
-                  <span className="font-mono font-extrabold text-[#093A3E]">+$25.00 / Week</span>
+                  <span className="font-mono font-extrabold text-[#15182B]">+$25.00 / Week</span>
                 </div>
               </div>
 
-              <div className="p-3 bg-[#093A3E]/5 border border-[#3AAFB9]/30 rounded-xl space-y-1">
+              <div className="p-3 bg-[#15182B]/5 border border-[#E9B737]/30 rounded-xl space-y-1">
                 <div className="flex justify-between items-center text-[11px]">
-                  <span className="font-extrabold text-[#001011]">Gold Package Tier</span>
-                  <span className="font-mono font-bold text-[#093A3E]">6.0% Weekly</span>
+                  <span className="font-extrabold text-[#0E101D]">Gold Package Tier</span>
+                  <span className="font-mono font-bold text-[#E9B737]">6.0% Weekly</span>
                 </div>
                 <div className="flex justify-between text-[11px] text-slate-600">
                   <span>$10,000 Investment:</span>

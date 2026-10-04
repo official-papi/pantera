@@ -70,8 +70,8 @@ export default function PanteraAtAGlance() {
         {/* Section Header (Pantera Capital Style: Section numbering + Big Typography) */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-8 border-b border-zinc-200">
           <div>
-            <div className="flex items-center gap-2.5 font-mono text-[11px] font-semibold tracking-[0.2em] text-[#093A3E] uppercase mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#3AAFB9] animate-pulse" />
+            <div className="flex items-center gap-2.5 font-mono text-[11px] font-semibold tracking-[0.2em] text-[#15182B] uppercase mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E9B737] animate-pulse" />
               <span>[ 01 // OVERVIEW ]</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-zinc-950 uppercase">
@@ -95,19 +95,19 @@ export default function PanteraAtAGlance() {
                 <div>
                   {/* Top Bar: Tag & Icon */}
                   <div className="flex items-center justify-between mb-8">
-                    <span className="font-mono text-[10px] font-bold tracking-[0.15em] text-[#093A3E] uppercase bg-[#093A3E]/5 border border-[#093A3E]/15 px-2.5 py-1 rounded">
+                    <span className="font-mono text-[10px] font-bold tracking-[0.15em] text-[#15182B] uppercase bg-[#15182B]/5 border border-[#15182B]/15 px-2.5 py-1 rounded">
                       {metric.tag}
                     </span>
-                    <div className="w-8 h-8 rounded-lg bg-zinc-100 group-hover:bg-[#093A3E] text-zinc-600 group-hover:text-[#3AAFB9] flex items-center justify-center transition-colors">
+                    <div className="w-8 h-8 rounded-lg bg-zinc-100 group-hover:bg-[#15182B] text-zinc-600 group-hover:text-[#E9B737] flex items-center justify-center transition-colors">
                       <Icon className="w-4 h-4" />
                     </div>
                   </div>
 
                   {/* Monumental Number in IBM Plex Mono / Space Grotesk */}
-                  <div className="flex items-baseline gap-1 font-mono font-bold text-5xl sm:text-6xl text-zinc-950 tracking-tight leading-none group-hover:text-[#093A3E] transition-colors">
+                  <div className="flex items-baseline gap-1 font-mono font-bold text-5xl sm:text-6xl text-zinc-950 tracking-tight leading-none group-hover:text-[#15182B] transition-colors">
                     <span>{metric.value}</span>
                     {metric.suffix && (
-                      <span className="text-3xl sm:text-4xl text-[#3AAFB9] font-sans font-bold">
+                      <span className="text-3xl sm:text-4xl text-[#E9B737] font-sans font-bold">
                         {metric.suffix}
                       </span>
                     )}

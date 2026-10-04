@@ -44,14 +44,20 @@ export default function ReferralPage() {
     <DashboardLayout userEmail={userEmail}>
       <div className="space-y-6">
         
-        <div>
-          <h1 className="text-2xl font-extrabold text-[#001011]">Multi-Tier Referral Network</h1>
-          <p className="text-xs text-slate-500 mt-1">Earn 5% Level 1, 3% Level 2, and 1% Level 3 downline commissions automatically.</p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 font-mono text-[11px] font-semibold text-[#15182B] tracking-[0.2em] uppercase mb-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E9B737]" />
+              <span>[ PARTNER NETWORK CONSOLE ]</span>
+            </div>
+            <h1 className="text-2xl font-bold font-display tracking-tight text-[#0E101D] uppercase">Multi-Tier Referral Network</h1>
+            <p className="text-xs text-slate-500 mt-1">Earn 5% Level 1, 3% Level 2, and 1% Level 3 downline commissions automatically.</p>
+          </div>
         </div>
 
         {/* Copy Referral Link Box */}
-        <div className="bg-white border border-[#d4e7e9] rounded-2xl p-6 max-w-3xl shadow-xs">
-          <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 max-w-3xl shadow-xs">
+          <label className="block text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-2">
             Your Unique Referral Partner Link
           </label>
           <div className="flex items-center space-x-2">
@@ -59,52 +65,52 @@ export default function ReferralPage() {
               type="text"
               readOnly
               value={referralUrl}
-              className="bg-slate-50 border border-slate-200 rounded-xl flex-1 px-4 py-2.5 text-xs font-mono font-extrabold text-[#093A3E] select-all focus:outline-none"
+              className="bg-slate-50 border border-[#E2E4EC] rounded-xl flex-1 px-4 py-2.5 text-xs font-mono font-extrabold text-[#15182B] select-all focus:outline-none"
             />
             <button
               type="button"
               onClick={handleCopy}
-              className="py-2.5 px-5 rounded-xl bg-[#093A3E] hover:bg-[#001011] text-white text-xs font-bold flex items-center space-x-1.5 cursor-pointer shadow-xs transition-all"
+              className="pantera-btn-navy py-2.5 px-5 text-xs font-mono font-bold flex items-center space-x-1.5 cursor-pointer shadow-xs"
             >
-              {copied ? <Check className="w-4 h-4 text-[#3AAFB9]" /> : <Copy className="w-4 h-4" />}
-              <span>{copied ? "Copied!" : "Copy URL"}</span>
+              {copied ? <Check className="w-4 h-4 text-[#E9B737]" /> : <Copy className="w-4 h-4" />}
+              <span>{copied ? "COPIED!" : "COPY URL"}</span>
             </button>
           </div>
         </div>
 
         {/* Commission Tiers Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl">
-          <div className="bg-white border border-[#d4e7e9] rounded-2xl p-5 shadow-xs relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-[#093A3E]" />
-            <div className="text-[11px] font-bold text-[#093A3E] uppercase">Level 1 Commission</div>
-            <div className="text-2xl font-extrabold font-mono text-[#001011] mt-1">5.0%</div>
-            <div className="text-[10px] text-slate-400 mt-1">Direct Introduced Investors</div>
+          <div className="bg-white border border-[#E2E4EC] rounded-2xl p-5 shadow-xs relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-[#15182B]" />
+            <div className="text-[11px] font-mono font-bold text-[#15182B] uppercase">Level 1 Commission</div>
+            <div className="text-2xl font-extrabold font-mono text-[#0E101D] mt-1">5.0%</div>
+            <div className="text-[10px] text-slate-400 font-mono mt-1">Direct Introduced Investors</div>
           </div>
-          <div className="bg-white border border-[#d4e7e9] rounded-2xl p-5 shadow-xs relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-[#3AAFB9]" />
-            <div className="text-[11px] font-bold text-[#093A3E] uppercase">Level 2 Commission</div>
-            <div className="text-2xl font-extrabold font-mono text-[#001011] mt-1">3.0%</div>
-            <div className="text-[10px] text-slate-400 mt-1">Secondary Downline</div>
+          <div className="bg-white border border-[#E2E4EC] rounded-2xl p-5 shadow-xs relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-[#E9B737]" />
+            <div className="text-[11px] font-mono font-bold text-[#15182B] uppercase">Level 2 Commission</div>
+            <div className="text-2xl font-extrabold font-mono text-[#0E101D] mt-1">3.0%</div>
+            <div className="text-[10px] text-slate-400 font-mono mt-1">Secondary Downline</div>
           </div>
-          <div className="bg-white border border-[#d4e7e9] rounded-2xl p-5 shadow-xs relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-[#001011]" />
-            <div className="text-[11px] font-bold text-[#093A3E] uppercase">Level 3 Commission</div>
-            <div className="text-2xl font-extrabold font-mono text-[#001011] mt-1">1.0%</div>
-            <div className="text-[10px] text-slate-400 mt-1">Tertiary Downline</div>
+          <div className="bg-white border border-[#E2E4EC] rounded-2xl p-5 shadow-xs relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-[#0E101D]" />
+            <div className="text-[11px] font-mono font-bold text-[#15182B] uppercase">Level 3 Commission</div>
+            <div className="text-2xl font-extrabold font-mono text-[#0E101D] mt-1">1.0%</div>
+            <div className="text-[10px] text-slate-400 font-mono mt-1">Tertiary Downline</div>
           </div>
         </div>
 
         {/* Downline Tree Table */}
-        <div className="bg-white border border-[#d4e7e9] rounded-2xl p-6 max-w-3xl shadow-xs">
-          <h3 className="text-sm font-extrabold text-[#001011] mb-4 flex items-center space-x-2">
-            <Users className="w-4 h-4 text-[#093A3E]" />
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 max-w-3xl shadow-xs">
+          <h3 className="text-sm font-bold text-[#0E101D] mb-4 flex items-center space-x-2 font-display uppercase tracking-wide">
+            <Users className="w-4 h-4 text-[#15182B]" />
             <span>Direct Downline Partners ({referralTree.length})</span>
           </h3>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-slate-200 text-slate-400 uppercase text-[10px] tracking-wider">
+                <tr className="border-b border-[#E2E4EC] text-slate-400 uppercase text-[10px] tracking-wider font-mono">
                   <th className="pb-3">Investor Name</th>
                   <th className="pb-3">Joined Date</th>
                 </tr>
@@ -119,8 +125,8 @@ export default function ReferralPage() {
                 ) : (
                   referralTree.map((ref) => (
                     <tr key={ref.id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3 font-extrabold text-[#001011]">{ref.full_name || "Investor Partner"}</td>
-                      <td className="py-3 text-slate-500 text-[11px]">{new Date(ref.created_at).toLocaleDateString()}</td>
+                      <td className="py-3 font-bold text-[#0E101D] font-mono">{ref.full_name || "Investor Partner"}</td>
+                      <td className="py-3 text-slate-500 text-[11px] font-mono">{new Date(ref.created_at).toLocaleDateString()}</td>
                     </tr>
                   ))
                 )}

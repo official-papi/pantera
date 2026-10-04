@@ -38,7 +38,11 @@ export default function TransactionsPage() {
         
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-extrabold text-[#001011]">Transaction Ledger Log</h1>
+            <div className="inline-flex items-center gap-2 font-mono text-[11px] font-semibold text-[#15182B] tracking-[0.2em] uppercase mb-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E9B737]" />
+              <span>[ DOUBLE-ENTRY AUDIT LEDGER ]</span>
+            </div>
+            <h1 className="text-2xl font-bold font-display tracking-tight text-[#0E101D] uppercase">Transaction Ledger Log</h1>
             <p className="text-xs text-slate-500 mt-1">Immutable double-entry transaction record for deposits, yields, withdrawals, and referral rewards.</p>
           </div>
 
@@ -49,10 +53,10 @@ export default function TransactionsPage() {
                 key={type}
                 type="button"
                 onClick={() => setFilterType(type)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer ${
                   filterType === type
-                    ? "bg-[#093A3E] text-white shadow-xs"
-                    : "bg-white border border-slate-200 text-slate-600 hover:border-[#3AAFB9]/50 hover:text-[#093A3E]"
+                    ? "bg-[#15182B] text-[#E9B737] shadow-xs"
+                    : "bg-white border border-[#E2E4EC] text-slate-600 hover:border-[#E9B737] hover:text-[#15182B]"
                 }`}
               >
                 {type}
@@ -62,11 +66,11 @@ export default function TransactionsPage() {
         </div>
 
         {/* Transactions Table */}
-        <div className="bg-white border border-[#d4e7e9] rounded-2xl p-6 shadow-xs">
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-slate-200 text-slate-400 uppercase text-[10px] tracking-wider">
+                <tr className="border-b border-[#E2E4EC] text-slate-400 uppercase text-[10px] tracking-wider font-mono">
                   <th className="pb-3">Transaction Type</th>
                   <th className="pb-3">Amount</th>
                   <th className="pb-3">Description</th>
@@ -88,10 +92,10 @@ export default function TransactionsPage() {
                     return (
                       <tr key={tx.id} className="hover:bg-slate-50/80 transition-colors">
                         <td className="py-3">
-                          <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
+                          <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-extrabold uppercase ${
                             tx.type === "deposit" ? "bg-emerald-50 text-emerald-700 border border-emerald-200" :
                             tx.type === "withdraw" ? "bg-rose-50 text-rose-700 border border-rose-200" :
-                            "bg-[#093A3E]/8 text-[#093A3E] border border-[#093A3E]/20"
+                            "bg-[#15182B]/6 text-[#15182B] border border-[#15182B]/15"
                           }`}>
                             {tx.type?.replace("_", " ")}
                           </span>
@@ -99,14 +103,14 @@ export default function TransactionsPage() {
                         <td className={`py-3 font-mono font-extrabold ${isPositive ? "text-emerald-600" : "text-rose-600"}`}>
                           {isPositive ? "+" : ""}${Number(tx.amount).toFixed(2)}
                         </td>
-                        <td className="py-3 text-slate-700 text-xs max-w-xs truncate">{tx.description || "-"}</td>
+                        <td className="py-3 text-slate-700 text-xs max-w-xs truncate font-medium">{tx.description || "-"}</td>
                         <td className="py-3 font-mono font-bold text-slate-500 uppercase text-[11px]">{tx.wallet_type || "deposit"}</td>
-                        <td className="py-3 text-slate-500 text-[11px]">{new Date(tx.created_at).toLocaleString()}</td>
+                        <td className="py-3 text-slate-500 text-[11px] font-mono">{new Date(tx.created_at).toLocaleString()}</td>
                         <td className="py-3 text-right">
                           <button
                             type="button"
                             onClick={() => setReceiptTx(tx)}
-                            className="px-2.5 py-1 rounded-lg bg-[#093A3E]/8 text-[#093A3E] hover:bg-[#093A3E] hover:text-white text-[11px] font-bold transition-all cursor-pointer shadow-2xs"
+                            className="px-2.5 py-1 rounded-lg bg-[#15182B]/6 text-[#15182B] hover:bg-[#15182B] hover:text-[#E9B737] text-[11px] font-mono font-bold transition-all cursor-pointer shadow-2xs"
                           >
                             Receipt
                           </button>
@@ -127,16 +131,16 @@ export default function TransactionsPage() {
               
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#093A3E]/10 border border-[#093A3E]/20 flex items-center justify-center text-[#093A3E]">
-                    <FileText className="w-4 h-4 text-[#093A3E]" />
+                  <div className="w-8 h-8 rounded-lg bg-[#15182B]/10 border border-[#15182B]/20 flex items-center justify-center text-[#15182B]">
+                    <FileText className="w-4 h-4 text-[#15182B]" />
                   </div>
-                  <h3 className="text-sm font-extrabold text-[#001011]">Official Financial Receipt</h3>
+                  <h3 className="text-sm font-bold text-[#0E101D] font-display uppercase">Official Financial Receipt</h3>
                 </div>
                 <div className="flex items-center space-x-2">
                   <button
                     type="button"
                     onClick={() => window.print()}
-                    className="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold flex items-center space-x-1 cursor-pointer"
+                    className="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-mono font-bold flex items-center space-x-1 cursor-pointer"
                   >
                     <Printer className="w-3.5 h-3.5" />
                     <span>Print</span>
@@ -147,20 +151,20 @@ export default function TransactionsPage() {
                 </div>
               </div>
 
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3 text-xs">
-                <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-                  <div className="text-[10px] text-slate-400 uppercase font-bold">Transaction Reference</div>
-                  <div className="font-mono font-extrabold text-[#093A3E] text-xs">TX-{receiptTx.id?.slice(0, 8)}</div>
+              <div className="bg-slate-50 border border-[#E2E4EC] rounded-xl p-5 space-y-3 text-xs">
+                <div className="flex items-center justify-between border-b border-[#E2E4EC] pb-2">
+                  <div className="text-[10px] text-slate-400 uppercase font-mono font-bold">Transaction Reference</div>
+                  <div className="font-mono font-extrabold text-[#15182B] text-xs">TX-{receiptTx.id?.slice(0, 8)}</div>
                 </div>
 
                 <div className="flex justify-between">
                   <span className="text-slate-500">Investor:</span>
-                  <span className="font-extrabold text-slate-900">{userEmail}</span>
+                  <span className="font-bold text-slate-900 font-mono">{userEmail}</span>
                 </div>
 
                 <div className="flex justify-between">
                   <span className="text-slate-500">Transaction Type:</span>
-                  <span className="font-extrabold text-slate-900 uppercase">{receiptTx.type}</span>
+                  <span className="font-bold text-slate-900 uppercase font-mono">{receiptTx.type}</span>
                 </div>
 
                 <div className="flex justify-between">
@@ -185,12 +189,12 @@ export default function TransactionsPage() {
                   <span className="font-mono text-slate-600 text-[10px]">{new Date(receiptTx.created_at).toLocaleString()}</span>
                 </div>
 
-                <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
-                  <div className="flex items-center space-x-1 text-[10px] text-emerald-600 font-bold">
+                <div className="pt-3 border-t border-[#E2E4EC] flex items-center justify-between">
+                  <div className="flex items-center space-x-1 text-[10px] text-emerald-600 font-mono font-bold">
                     <ShieldCheck className="w-3.5 h-3.5" />
                     <span>Cryptographic Ledger Verified</span>
                   </div>
-                  <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-extrabold uppercase border border-emerald-200">
+                  <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-mono font-extrabold uppercase border border-emerald-200">
                     COMPLETED
                   </span>
                 </div>

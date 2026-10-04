@@ -109,8 +109,8 @@ export default function AdminDepositsPage() {
       
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-[#001011]">Deposit Requests Queue</h1>
-          <p className="text-xs text-slate-500 mt-1">Review manual deposit receipts, verify payment proofs, and credit user wallets.</p>
+          <h1 className="text-2xl font-bold tracking-tight text-zinc-950">Deposit Requests Queue</h1>
+          <p className="text-xs text-zinc-500 mt-1 font-mono uppercase tracking-wider">[ 01 // VERIFY INCOMING CAPITAL PROOFS & LEDGER CREDITS ]</p>
         </div>
 
         <div className="flex items-center space-x-2">
@@ -118,10 +118,10 @@ export default function AdminDepositsPage() {
             <button
               key={status}
               onClick={() => setFilterStatus(status)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-extrabold uppercase transition-all cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold uppercase transition-all cursor-pointer ${
                 filterStatus === status
-                  ? "bg-[#093A3E] text-white shadow-xs"
-                  : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"
+                  ? "bg-[#15182B] text-white shadow-xs"
+                  : "bg-white text-slate-600 border border-[#E2E4EC] hover:bg-slate-50"
               }`}
             >
               {status}
@@ -160,11 +160,11 @@ export default function AdminDepositsPage() {
                   return (
                     <tr key={dep.id} className="hover:bg-slate-50/80 transition-colors">
                       <td className="py-3">
-                        <div className="font-extrabold text-[#001011]">{dep.profiles?.full_name || "Investor"}</div>
+                        <div className="font-bold text-zinc-950">{dep.profiles?.full_name || "Investor"}</div>
                         <div className="text-[11px] text-slate-500 font-mono">{dep.profiles?.email}</div>
                       </td>
-                      <td className="py-3 font-extrabold text-slate-800 uppercase">{dep.gateway || dep.gateway_name || "USDT TRC20"}</td>
-                      <td className="py-3 font-mono font-extrabold text-[#093A3E]">${Number(dep.amount || dep.final_amount || 0).toFixed(2)}</td>
+                      <td className="py-3 font-bold text-slate-800 uppercase">{dep.gateway || dep.gateway_name || "USDT TRC20"}</td>
+                      <td className="py-3 font-mono font-bold text-[#15182B]">${Number(dep.amount || dep.final_amount || 0).toFixed(2)}</td>
                       <td className="py-3 font-mono text-slate-500 text-[11px] truncate max-w-[140px]">
                         {dep.transaction_id || dep.trx_id || "-"}
                       </td>
@@ -176,9 +176,9 @@ export default function AdminDepositsPage() {
                               setSelectedDeposit(dep);
                               setIsZoomedProof(true);
                             }}
-                            className="px-2 py-1 rounded-lg bg-[#093A3E]/10 hover:bg-[#093A3E] text-[#093A3E] hover:text-white border border-[#093A3E]/20 text-[11px] font-bold inline-flex items-center gap-1 transition-all cursor-pointer shadow-xs"
+                            className="px-2 py-1 rounded-lg bg-[#15182B]/10 hover:bg-[#15182B] text-[#15182B] hover:text-white border border-[#15182B]/20 text-[11px] font-bold inline-flex items-center gap-1 transition-all cursor-pointer shadow-xs"
                           >
-                            <ImageIcon className="w-3.5 h-3.5 text-[#3AAFB9]" />
+                            <ImageIcon className="w-3.5 h-3.5 text-[#E9B737]" />
                             <span>View Proof</span>
                           </button>
                         ) : (
@@ -204,7 +204,7 @@ export default function AdminDepositsPage() {
                             setMsg(null);
                             setIsZoomedProof(false);
                           }}
-                          className="px-3 py-1.5 rounded-xl bg-[#093A3E]/10 text-[#093A3E] border border-[#093A3E]/20 hover:bg-[#093A3E] hover:text-white text-xs font-bold transition-all cursor-pointer shadow-xs"
+                          className="px-3 py-1.5 rounded-xl bg-[#15182B]/10 text-[#15182B] border border-[#15182B]/20 hover:bg-[#15182B] hover:text-white text-xs font-bold transition-all cursor-pointer shadow-xs"
                         >
                           Review Request
                         </button>
@@ -228,11 +228,11 @@ export default function AdminDepositsPage() {
               
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#093A3E] flex items-center justify-center text-[#3AAFB9]">
+                  <div className="w-8 h-8 rounded-lg bg-[#15182B] flex items-center justify-center text-[#E9B737]">
                     <ArrowDownRight className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-extrabold text-[#001011]">Review Deposit Request</h3>
+                    <h3 className="text-sm font-bold text-zinc-950">Review Deposit Request</h3>
                     <p className="text-[11px] text-slate-400">Verify payment proof and disburse deposit wallet balance</p>
                   </div>
                 </div>
@@ -247,15 +247,15 @@ export default function AdminDepositsPage() {
               <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2 text-xs">
                 <div className="flex justify-between">
                   <span className="text-slate-500">User:</span>
-                  <span className="font-extrabold text-[#001011]">{selectedDeposit.profiles?.email}</span>
+                  <span className="font-bold text-zinc-950">{selectedDeposit.profiles?.email}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-500">Gateway:</span>
-                  <span className="font-extrabold text-[#001011] uppercase">{selectedDeposit.gateway || selectedDeposit.gateway_name || "USDT TRC20"}</span>
+                  <span className="font-bold text-zinc-950 uppercase">{selectedDeposit.gateway || selectedDeposit.gateway_name || "USDT TRC20"}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-500">Amount:</span>
-                  <span className="font-mono font-extrabold text-[#093A3E] text-sm">
+                  <span className="font-mono font-bold text-[#15182B] text-sm">
                     ${Number(selectedDeposit.amount || selectedDeposit.final_amount || 0).toFixed(2)} USD
                   </span>
                 </div>
@@ -267,19 +267,19 @@ export default function AdminDepositsPage() {
 
               {/* ── Embedded Proof of Payment Card with Zoom ── */}
               {proof ? (
-                <div className="bg-gradient-to-b from-[#093A3E]/5 to-transparent border border-[#093A3E]/20 rounded-2xl p-4 space-y-3">
+                <div className="bg-[#15182B]/5 border border-[#15182B]/15 rounded-2xl p-4 space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-[#093A3E] uppercase tracking-wider flex items-center gap-1.5">
-                      <ImageIcon className="w-3.5 h-3.5 text-[#3AAFB9]" />
+                    <span className="text-xs font-bold text-[#15182B] uppercase tracking-wider flex items-center gap-1.5 font-mono">
+                      <ImageIcon className="w-3.5 h-3.5 text-[#E9B737]" />
                       <span>Uploaded Payment Proof Receipt</span>
                     </span>
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
                         onClick={() => setIsZoomedProof(true)}
-                        className="px-2.5 py-1 rounded-lg bg-[#093A3E] hover:bg-[#001011] text-white text-[11px] font-bold inline-flex items-center gap-1 cursor-pointer shadow-xs transition-all"
+                        className="px-2.5 py-1 rounded-lg bg-[#15182B] hover:bg-[#0E101D] text-white text-[11px] font-bold inline-flex items-center gap-1 cursor-pointer shadow-xs transition-all"
                       >
-                        <Eye className="w-3.5 h-3.5 text-[#3AAFB9]" />
+                        <Eye className="w-3.5 h-3.5 text-[#E9B737]" />
                         <span>Enlarge Receipt</span>
                       </button>
                       <button
@@ -295,7 +295,7 @@ export default function AdminDepositsPage() {
 
                   <div
                     onClick={() => setIsZoomedProof(true)}
-                    className="relative group bg-white p-3 rounded-xl border border-slate-200 hover:border-[#093A3E] cursor-pointer transition-all flex flex-col items-center justify-center shadow-xs"
+                    className="relative group bg-white p-3 rounded-xl border border-slate-200 hover:border-[#15182B] cursor-pointer transition-all flex flex-col items-center justify-center shadow-xs"
                     title="Click to Zoom Fullscreen"
                   >
                     <img
@@ -304,8 +304,8 @@ export default function AdminDepositsPage() {
                       className="max-h-56 w-auto object-contain rounded-lg"
                     />
                     <div className="mt-2 text-center">
-                      <span className="text-[10px] font-bold text-[#093A3E] bg-[#093A3E]/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1">
-                        <Eye className="w-3 h-3 text-[#3AAFB9]" />
+                      <span className="text-[10px] font-bold text-[#15182B] bg-[#15182B]/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1 font-mono">
+                        <Eye className="w-3 h-3 text-[#E9B737]" />
                         <span>Click to Enlarge / Inspect Document</span>
                       </span>
                     </div>
@@ -335,7 +335,7 @@ export default function AdminDepositsPage() {
               {selectedDeposit.status === "pending" && (
                 <div className="space-y-4 pt-1">
                   <div>
-                    <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">
+                    <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1 font-mono">
                       Admin Feedback / Note
                     </label>
                     <input
@@ -343,7 +343,7 @@ export default function AdminDepositsPage() {
                       value={feedback}
                       onChange={(e) => setFeedback(e.target.value)}
                       placeholder="Optional feedback for user..."
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#093A3E] focus:ring-1 focus:ring-[#3AAFB9]"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#15182B] focus:ring-1 focus:ring-[#E9B737]"
                     />
                   </div>
 
@@ -361,7 +361,7 @@ export default function AdminDepositsPage() {
                       type="button"
                       disabled={submitting}
                       onClick={() => handleApprove(selectedDeposit.id)}
-                      className="py-2.5 rounded-xl text-xs font-bold bg-[#093A3E] hover:bg-[#001011] text-white cursor-pointer shadow-md shadow-[#093A3E]/15 transition-colors"
+                      className="py-2.5 rounded-xl text-xs font-bold bg-[#15182B] hover:bg-[#0E101D] text-white cursor-pointer shadow-sm transition-colors border border-[#E9B737]/30"
                     >
                       {submitting ? "Processing..." : "Approve & Credit Wallet"}
                     </button>
@@ -385,12 +385,12 @@ export default function AdminDepositsPage() {
           <div className="bg-white rounded-3xl p-6 max-w-2xl w-full space-y-4 shadow-2xl relative text-center border border-slate-200 max-h-[94vh] flex flex-col">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 flex-shrink-0">
               <div className="flex items-center gap-2 text-left">
-                <div className="w-8 h-8 rounded-lg bg-[#093A3E] flex items-center justify-center text-[#3AAFB9]">
+                <div className="w-8 h-8 rounded-lg bg-[#15182B] flex items-center justify-center text-[#E9B737]">
                   <ImageIcon className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-extrabold text-[#001011]">Payment Proof Document</h4>
-                  <p className="text-[11px] text-slate-400">
+                  <h4 className="text-sm font-bold text-zinc-950">Payment Proof Document</h4>
+                  <p className="text-[11px] text-slate-400 font-mono">
                     {selectedDeposit.profiles?.email} • ${Number(selectedDeposit.amount || 0).toFixed(2)} USD
                   </p>
                 </div>
@@ -427,7 +427,7 @@ export default function AdminDepositsPage() {
               <button
                 type="button"
                 onClick={() => setIsZoomedProof(false)}
-                className="flex-1 py-2.5 rounded-xl bg-[#093A3E] hover:bg-[#001011] text-white text-xs font-bold transition-colors cursor-pointer"
+                className="flex-1 py-2.5 rounded-xl bg-[#15182B] hover:bg-[#0E101D] text-white text-xs font-bold transition-colors cursor-pointer"
               >
                 Close View
               </button>

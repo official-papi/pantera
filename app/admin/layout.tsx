@@ -191,11 +191,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Globe className="w-3.5 h-3.5 text-zinc-900" />
             <span>Site</span>
           </Link>
-          <div className="w-7 h-7 rounded-lg bg-[#093A3E] flex items-center justify-center">
-            <ShieldAlert className="w-3.5 h-3.5 text-[#3AAFB9]" />
+          <div className="w-7 h-7 rounded-lg bg-[#15182B] flex items-center justify-center">
+            <ShieldAlert className="w-3.5 h-3.5 text-[#E9B737]" />
           </div>
           <span className="text-[14px] font-bold text-zinc-900 tracking-tight">
-            Pantera<span className="text-[#3AAFB9]">.</span> <span className="text-zinc-400 font-normal">Admin</span>
+            Pantera<span className="text-[#E9B737]">.</span> <span className="text-zinc-400 font-normal">Admin</span>
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -217,14 +217,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Logo Header (Visible on Desktop & Mobile Drawer) */}
         <div className="flex items-center justify-between px-5 h-14 border-b border-zinc-200 flex-shrink-0">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#093A3E] flex items-center justify-center">
-              <ShieldAlert className="w-4 h-4 text-[#3AAFB9]" />
+            <div className="w-8 h-8 rounded-lg bg-[#15182B] flex items-center justify-center">
+              <ShieldAlert className="w-4 h-4 text-[#E9B737]" />
             </div>
             <div>
-              <div className="text-[15px] font-bold text-zinc-950 tracking-tight leading-none">
-                Pantera<span className="text-[#3AAFB9]">.</span>
+              <div className="text-[15px] font-bold text-zinc-950 tracking-tight leading-none font-display">
+                PANTERA<span className="text-[#E9B737]">.</span>
               </div>
-              <div className="text-[10px] text-zinc-500 font-medium mt-0.5">{t.admin.adminControlPanel}</div>
+              <div className="text-[10px] text-zinc-500 font-mono mt-0.5">{t.admin.adminControlPanel}</div>
             </div>
           </div>
           <button onClick={() => setMobileOpen(false)} className="md:hidden p-1 text-zinc-400 hover:text-zinc-700">
@@ -241,10 +241,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Link key={cleanHref} href={cleanHref} onClick={() => setMobileOpen(false)}
                 className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-medium transition-all border-l-2 ${
                   active
-                    ? "bg-[#093A3E]/7 text-[#093A3E] font-semibold border-l-[#3AAFB9]"
+                    ? "bg-[#15182B]/6 text-[#15182B] font-semibold border-l-[#E9B737]"
                     : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900 border-l-transparent"
                 }`}>
-                <Icon className={`w-4 h-4 flex-shrink-0 ${active ? "text-[#093A3E]" : "text-zinc-400"}`} />
+                <Icon className={`w-4 h-4 flex-shrink-0 ${active ? "text-[#15182B]" : "text-zinc-400"}`} />
                 <span>{label}</span>
               </Link>
             );
@@ -266,10 +266,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </Link>
 
           <div className="px-3 py-2">
-            <div className="text-[13px] font-semibold text-zinc-900 truncate">{adminEmail}</div>
+            <div className="text-[13px] font-semibold text-zinc-900 truncate font-mono">{adminEmail}</div>
             <div className="flex items-center gap-1.5 mt-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              <span className="text-[11px] text-zinc-500 font-medium">{t.admin.administrator}</span>
+              <span className="text-[11px] text-zinc-500 font-mono font-medium">{t.admin.administrator}</span>
             </div>
           </div>
 
@@ -290,7 +290,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="hm-btn hm-btn-secondary text-[12px] py-1.5 px-3"
+              className="hm-btn hm-btn-secondary text-[12px] py-1.5 px-3 font-mono"
             >
               <Globe className="w-3.5 h-3.5 text-zinc-700" />
               <span>{t.admin.backToSite}</span>
@@ -310,17 +310,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="flex items-center gap-3">
             <LanguageSelector variant="default" />
 
-            <div className="flex items-center gap-1.5 text-[12px] text-zinc-700 font-medium bg-zinc-100 px-3 py-1.5 rounded-lg border border-zinc-200">
+            <div className="flex items-center gap-1.5 text-[12px] text-zinc-700 font-medium bg-zinc-100 px-3 py-1.5 rounded-lg border border-zinc-200 font-mono">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
               <span>{t.admin.systemLive}</span>
             </div>
             <div className="flex items-center gap-2.5 pl-3 border-l border-zinc-200">
-              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#093A3E] to-[#001011] text-[#3AAFB9] font-bold text-[12px] flex items-center justify-center border border-[#093A3E]/30">
+              <div className="w-7 h-7 rounded-full bg-[#15182B] text-[#E9B737] font-bold text-[12px] flex items-center justify-center border border-[#232742]">
                 {adminInitial}
               </div>
               <div className="hidden lg:block text-left">
-                <div className="text-[13px] font-semibold text-zinc-900 leading-tight">{t.admin.administrator}</div>
-                <div className="text-[11px] text-zinc-400 truncate max-w-[120px]">{adminEmail}</div>
+                <div className="text-[13px] font-semibold text-zinc-900 leading-tight font-display">{t.admin.administrator}</div>
+                <div className="text-[11px] text-zinc-400 truncate max-w-[120px] font-mono">{adminEmail}</div>
               </div>
             </div>
           </div>

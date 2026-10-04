@@ -108,16 +108,16 @@ export default function AdminDashboardPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-zinc-950">System Executive Dashboard</h1>
-          <p className="text-xs text-zinc-500 mt-1 font-medium">Platform financial analytics, pending queue, and operational overview.</p>
+          <p className="text-xs text-zinc-500 mt-1 font-medium font-mono uppercase tracking-wider">[ 01 // PLATFORM FINANCIAL ANALYTICS & OPERATIONAL OVERVIEW ]</p>
         </div>
 
         <button
           type="button"
           disabled={cronRunning}
           onClick={handleRunCron}
-          className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#093A3E] hover:bg-[#001011] border border-[#3AAFB9]/30 shadow-md shadow-[#093A3E]/15 flex items-center space-x-2 self-start sm:self-auto cursor-pointer transition-all"
+          className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#15182B] hover:bg-[#0E101D] border border-[#E9B737]/40 shadow-sm flex items-center space-x-2 self-start sm:self-auto cursor-pointer transition-all"
         >
-          <Play className={`w-3.5 h-3.5 text-[#3AAFB9] ${cronRunning ? "animate-spin" : ""}`} />
+          <Play className={`w-3.5 h-3.5 text-[#E9B737] ${cronRunning ? "animate-spin" : ""}`} />
           <span>{cronRunning ? "Executing Engine..." : "Run Interest Payout Engine"}</span>
         </button>
       </div>
@@ -133,9 +133,9 @@ export default function AdminDashboardPage() {
 
       {/* Pending Deposits Alert Banner */}
       {stats.pendingDeposits > 0 && (
-        <div className="bg-[#001011] text-white border border-[#093A3E] rounded-2xl p-4 flex items-center justify-between shadow-lg shadow-[#001011]/20">
+        <div className="bg-[#0E101D] text-white border border-[#232742] rounded-2xl p-4 flex items-center justify-between shadow-lg">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[#093A3E] text-[#3AAFB9] border border-[#3AAFB9]/30 flex items-center justify-center font-bold text-xs">
+            <div className="w-8 h-8 rounded-lg bg-[#15182B] text-[#E9B737] border border-[#E9B737]/30 flex items-center justify-center font-bold text-xs">
               {stats.pendingDeposits}
             </div>
             <div>
@@ -143,7 +143,7 @@ export default function AdminDashboardPage() {
               <div className="text-xs text-slate-300 font-normal">Investors have submitted funding receipts that require manual verification and wallet crediting.</div>
             </div>
           </div>
-          <Link href="/admin/deposits" className="px-3.5 py-1.5 rounded-lg bg-[#3AAFB9] text-[#001011] text-xs font-bold hover:bg-white transition-colors">
+          <Link href="/admin/deposits" className="px-3.5 py-1.5 rounded-lg bg-[#E9B737] text-[#0E101D] text-xs font-bold hover:bg-white transition-colors">
             Review Deposits →
           </Link>
         </div>
@@ -154,18 +154,18 @@ export default function AdminDashboardPage() {
         {statCards.map((card, idx) => {
           const Icon = card.icon;
           const topColors = [
-            "bg-[#093A3E]",
-            "bg-[#3AAFB9]",
-            "bg-[#001011]",
-            "bg-gradient-to-r from-[#093A3E] to-[#3AAFB9]"
+            "bg-[#15182B]",
+            "bg-[#E9B737]",
+            "bg-[#0E101D]",
+            "bg-gradient-to-r from-[#15182B] to-[#E9B737]"
           ];
           return (
             <Link key={card.label} href={card.href} className="group block">
-              <div className="relative overflow-hidden bg-white border border-slate-200/90 rounded-2xl p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-[#3AAFB9]/50 hover:shadow-md transition-all duration-200">
+              <div className="relative overflow-hidden bg-white border border-[#E2E4EC] rounded-2xl p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-[#E9B737]/50 hover:shadow-md transition-all duration-200">
                 <div className={`absolute top-0 left-0 right-0 h-1 ${topColors[idx % topColors.length]}`} />
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider leading-tight">{card.label}</span>
-                  <div className="p-2 rounded-lg bg-slate-100 border border-slate-200 text-[#093A3E] group-hover:bg-[#093A3E]/10 transition-colors">
+                  <div className="p-2 rounded-lg bg-slate-100 border border-[#E2E4EC] text-[#15182B] group-hover:bg-[#15182B]/10 transition-colors">
                     <Icon className="w-4 h-4" />
                   </div>
                 </div>
@@ -181,21 +181,21 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         {/* Graph 1: Inflow vs Outflow */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-4">
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
-              <BarChart3 className="w-4 h-4 text-[#093A3E]" />
+              <BarChart3 className="w-4 h-4 text-[#15182B]" />
               <span>Cash Inflow vs Outflow</span>
             </h3>
-            <span className="text-[10px] font-medium text-[#093A3E] bg-[#093A3E]/10 px-2 py-0.5 rounded-md border border-[#093A3E]/20">30-Day Trend</span>
+            <span className="text-[10px] font-mono font-bold text-[#15182B] bg-[#15182B]/10 px-2 py-0.5 rounded-md border border-[#15182B]/20">30-Day Trend</span>
           </div>
 
           <div className="h-32 flex items-end justify-between gap-2 pt-4 px-2">
             {[40, 65, 80, 50, 90, 75, 100].map((val, i) => (
               <div key={i} className="flex-1 flex flex-col items-center gap-1">
                 <div className="w-full flex items-end gap-1 h-full">
-                  <div className="bg-[#093A3E] w-1/2 rounded-t-xs transition-all" style={{ height: `${val}%` }} title={`Deposits: ${val}%`} />
-                  <div className="bg-[#3AAFB9] w-1/2 rounded-t-xs transition-all" style={{ height: `${val * 0.4}%` }} title={`Withdrawals: ${val * 0.4}%`} />
+                  <div className="bg-[#15182B] w-1/2 rounded-t-xs transition-all" style={{ height: `${val}%` }} title={`Deposits: ${val}%`} />
+                  <div className="bg-[#E9B737] w-1/2 rounded-t-xs transition-all" style={{ height: `${val * 0.4}%` }} title={`Withdrawals: ${val * 0.4}%`} />
                 </div>
                 <span className="text-[9px] text-slate-400 font-mono">W{i + 1}</span>
               </div>
@@ -204,30 +204,30 @@ export default function AdminDashboardPage() {
 
           <div className="flex items-center justify-center space-x-4 text-[11px] font-medium text-slate-600 pt-2 border-t border-slate-100">
             <div className="flex items-center space-x-1.5">
-              <span className="w-2.5 h-2.5 rounded-xs bg-[#093A3E]" />
+              <span className="w-2.5 h-2.5 rounded-xs bg-[#15182B]" />
               <span>Deposits</span>
             </div>
             <div className="flex items-center space-x-1.5">
-              <span className="w-2.5 h-2.5 rounded-xs bg-[#3AAFB9]" />
+              <span className="w-2.5 h-2.5 rounded-xs bg-[#E9B737]" />
               <span>Withdrawals</span>
             </div>
           </div>
         </div>
 
         {/* Graph 2: Investor Registration Curve */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-4">
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
-              <Users className="w-4 h-4 text-[#093A3E]" />
+              <Users className="w-4 h-4 text-[#15182B]" />
               <span>User Acquisition Growth</span>
             </h3>
-            <span className="text-[10px] font-medium text-[#093A3E] bg-[#3AAFB9]/15 px-2 py-0.5 rounded-md border border-[#3AAFB9]/30">+24% MoM</span>
+            <span className="text-[10px] font-mono font-bold text-[#15182B] bg-[#E9B737]/20 px-2 py-0.5 rounded-md border border-[#E9B737]/40">+24% MoM</span>
           </div>
 
           <div className="h-32 flex items-end justify-between gap-2 pt-4 px-2">
             {[30, 45, 60, 55, 75, 85, 95].map((val, i) => (
               <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                <div className="w-full bg-gradient-to-t from-[#093A3E] to-[#3AAFB9] rounded-t-xs transition-all" style={{ height: `${val}%` }} />
+                <div className="w-full bg-gradient-to-t from-[#15182B] to-[#E9B737] rounded-t-xs transition-all" style={{ height: `${val}%` }} />
                 <span className="text-[9px] text-slate-400 font-mono">M{i + 1}</span>
               </div>
             ))}
@@ -239,17 +239,17 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Graph 3: Active Yield Packages */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-4">
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
-              <TrendingUp className="w-4 h-4 text-[#093A3E]" />
+              <TrendingUp className="w-4 h-4 text-[#15182B]" />
               <span>Active Yield Packages</span>
             </h3>
             <span className="text-[10px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">Healthy</span>
           </div>
 
           <div className="h-32 flex items-center justify-center relative">
-            <div className="w-24 h-24 rounded-full border-8 border-slate-100 border-t-[#093A3E] border-r-[#3AAFB9] flex items-center justify-center">
+            <div className="w-24 h-24 rounded-full border-8 border-slate-100 border-t-[#15182B] border-r-[#E9B737] flex items-center justify-center">
               <span className="font-mono tabular-nums font-bold text-slate-900 text-xs">84% Paid</span>
             </div>
           </div>

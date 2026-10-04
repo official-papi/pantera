@@ -42,16 +42,25 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#d4e7e9]">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#E2E4EC]">
+      {/* Pantera Capital Top Announcement Ribbon */}
+      <div className="bg-[#E9B737] text-[#15182B] px-4 py-1.5 text-center text-[11px] font-mono font-bold tracking-[0.14em] uppercase border-b border-[#15182B]/15 flex items-center justify-center gap-3">
+        <span>THE STATE OF TOKENIZATION & AUTOMATED YIELD :: PANTERA V2.6</span>
+        <span className="hidden sm:inline text-[#15182B]/40">|</span>
+        <Link href="/plans" className="hidden sm:inline-flex items-center gap-1 underline hover:opacity-80 transition-opacity">
+          EXPLORE FUNDS →
+        </Link>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
 
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-xl bg-[#093A3E] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-            <BarChart2 className="w-4 h-4 text-[#3AAFB9]" />
+          <div className="w-8 h-8 rounded-xl bg-[#15182B] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform border border-[#15182B]">
+            <BarChart2 className="w-4 h-4 text-[#E9B737]" />
           </div>
-          <span className="text-[18px] font-black font-display tracking-[0.08em] text-[#001011] uppercase">
-            Pantera<span className="text-[#3AAFB9]">.</span>
+          <span className="text-[19px] font-black font-display tracking-[0.1em] text-[#15182B] uppercase">
+            Pantera<span className="text-[#E9B737]">.</span>
           </span>
         </Link>
 

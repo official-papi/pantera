@@ -42,38 +42,42 @@ export default function DepositPage() {
         
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-extrabold text-[#001011]">Deposit Funds</h1>
+            <div className="inline-flex items-center gap-2 font-mono text-[11px] font-semibold text-[#15182B] tracking-[0.2em] uppercase mb-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E9B737]" />
+              <span>[ CAPITAL INFLOW CONSOLE ]</span>
+            </div>
+            <h1 className="text-2xl font-bold font-display tracking-tight text-[#0E101D] uppercase">Deposit Funds</h1>
             <p className="text-xs text-slate-500 mt-1">Fund your Deposit Wallet via USDT TRC20, Bitcoin, or Bank Wire.</p>
           </div>
 
           <button
             type="button"
             onClick={() => setIsDepositOpen(true)}
-            className="py-2.5 px-4 rounded-xl bg-[#093A3E] hover:bg-[#001011] text-white text-xs font-bold flex items-center space-x-2 cursor-pointer shadow-xs transition-all self-start sm:self-auto"
+            className="pantera-btn-navy py-2.5 px-4 text-xs font-mono font-bold flex items-center space-x-2 cursor-pointer shadow-xs self-start sm:self-auto"
           >
-            <Plus className="w-4 h-4 text-[#3AAFB9]" />
-            <span>Make New Deposit</span>
+            <Plus className="w-4 h-4 text-[#E9B737]" />
+            <span>MAKE NEW DEPOSIT</span>
           </button>
         </div>
 
         {/* Balance Stat Card */}
-        <div className="bg-white border border-[#d4e7e9] rounded-2xl p-6 max-w-sm shadow-xs relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-[#093A3E]" />
-          <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">Available Deposit Balance</div>
-          <div className="text-3xl font-extrabold font-mono text-[#001011] mt-1">${depositWallet.toFixed(2)}</div>
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 max-w-sm shadow-xs relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-[#15182B]" />
+          <div className="text-[11px] text-slate-400 font-mono font-bold uppercase tracking-wider">Available Deposit Balance</div>
+          <div className="text-3xl font-extrabold font-mono text-[#0E101D] mt-1">${depositWallet.toFixed(2)}</div>
         </div>
 
         {/* Deposit Logs Table */}
-        <div className="bg-white border border-[#d4e7e9] rounded-2xl p-6 shadow-xs">
-          <h3 className="text-sm font-extrabold text-[#001011] mb-4 flex items-center space-x-2">
-            <History className="w-4 h-4 text-[#093A3E]" />
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 shadow-xs">
+          <h3 className="text-sm font-bold text-[#0E101D] mb-4 flex items-center space-x-2 font-display uppercase tracking-wide">
+            <History className="w-4 h-4 text-[#15182B]" />
             <span>Deposit History Ledger</span>
           </h3>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-slate-200 text-slate-400 uppercase text-[10px] tracking-wider">
+                <tr className="border-b border-[#E2E4EC] text-slate-400 uppercase text-[10px] tracking-wider font-mono">
                   <th className="pb-3">Gateway</th>
                   <th className="pb-3">Amount</th>
                   <th className="pb-3">TX Hash / Ref</th>
@@ -91,8 +95,8 @@ export default function DepositPage() {
                 ) : (
                   depositLogs.map((log) => (
                     <tr key={log.id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3 font-extrabold text-[#001011] uppercase">{log.gateway}</td>
-                      <td className="py-3 font-mono font-extrabold text-[#093A3E]">${Number(log.amount).toFixed(2)}</td>
+                      <td className="py-3 font-bold text-[#0E101D] uppercase font-mono">{log.gateway}</td>
+                      <td className="py-3 font-mono font-extrabold text-[#15182B]">${Number(log.amount).toFixed(2)}</td>
                       <td className="py-3 font-mono text-slate-500 text-[11px] truncate max-w-[150px]">{log.transaction_id || "-"}</td>
                       <td className="py-3">
                         <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${

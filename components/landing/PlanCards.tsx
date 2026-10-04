@@ -101,14 +101,14 @@ export default function PlanCards() {
   }, []);
 
   return (
-    <section id="funds" className="py-24 border-b border-[#d4e7e9] relative bg-white scroll-mt-12">
+    <section id="funds" className="py-24 border-b border-[#E2E4EC] relative bg-white scroll-mt-12">
       <div id="plans" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header (Pantera Capital Institutional Style) */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-6 border-b border-zinc-200">
           <div>
-            <div className="flex items-center gap-2.5 font-mono text-[11px] font-semibold tracking-[0.2em] text-[#093A3E] uppercase mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#3AAFB9] animate-pulse" />
+            <div className="flex items-center gap-2.5 font-mono text-[11px] font-semibold tracking-[0.2em] text-[#15182B] uppercase mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E9B737] animate-pulse" />
               <span>[ 02 // ACTIVE FUNDS & STRATEGIES ]</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-zinc-950 uppercase">
@@ -121,15 +121,15 @@ export default function PlanCards() {
 
           {/* Carousel Navigation Controls */}
           <div className="flex items-center gap-3 self-start md:self-end">
-            <span className="text-xs text-[#5e7e83] font-medium hidden sm:inline">
+            <span className="text-xs text-slate-400 font-mono hidden sm:inline">
               Swipe or use controls to explore tiers →
             </span>
-            <div className="flex items-center space-x-1.5 bg-[#f0f8f9] p-1 rounded-xl border border-[#c8e2e5]">
+            <div className="flex items-center space-x-1.5 bg-slate-50 p-1 rounded-md border border-[#E2E4EC]">
               <button
                 type="button"
                 onClick={() => handleScroll("left")}
                 aria-label="Scroll left"
-                className="w-8 h-8 rounded-lg bg-white text-[#093A3E] flex items-center justify-center border border-[#d4e7e9] shadow-2xs hover:bg-[#f0f8f9] transition-colors cursor-pointer"
+                className="w-8 h-8 rounded bg-white text-[#15182B] flex items-center justify-center border border-[#E2E4EC] shadow-xs hover:border-[#15182B] transition-colors cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -137,7 +137,7 @@ export default function PlanCards() {
                 type="button"
                 onClick={() => handleScroll("right")}
                 aria-label="Scroll right"
-                className="w-8 h-8 rounded-lg bg-white text-[#093A3E] flex items-center justify-center border border-[#d4e7e9] shadow-2xs hover:bg-[#f0f8f9] transition-colors cursor-pointer"
+                className="w-8 h-8 rounded bg-white text-[#15182B] flex items-center justify-center border border-[#E2E4EC] shadow-xs hover:border-[#15182B] transition-colors cursor-pointer"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -156,51 +156,51 @@ export default function PlanCards() {
               key={i}
               className={`w-[300px] sm:w-[340px] flex-shrink-0 snap-start relative rounded-2xl p-7 flex flex-col justify-between transition-all duration-200 ${
                 plan.featured
-                  ? "bg-[#001011] text-white shadow-xl border border-[#093A3E]"
-                  : "bg-white border border-[#d4e7e9] shadow-xs hover:border-[#3AAFB9]"
+                  ? "bg-[#15182B] text-white shadow-xl border-2 border-[#E9B737]"
+                  : "bg-white border border-[#E2E4EC] shadow-xs hover:border-[#E9B737]"
               }`}
             >
               {/* Badge */}
               {plan.featured && (
-                <div className="absolute -top-3 left-6 bg-[#093A3E] text-[#3AAFB9] font-bold text-[10px] uppercase tracking-wider px-3 py-0.5 rounded-full shadow-xs border border-[#3AAFB9]/40">
-                  ⚡ {plan.badge}
+                <div className="absolute -top-3 left-6 bg-[#E9B737] text-[#15182B] font-mono font-bold text-[10px] uppercase tracking-wider px-3.5 py-1 rounded-full shadow-md border border-[#15182B]">
+                  ★ {plan.badge}
                 </div>
               )}
               {!plan.featured && (
                 <div className="absolute top-5 right-5">
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#f0f8f9] text-[#093A3E] border border-[#c8e2e5]">{plan.badge}</span>
+                  <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-[#FDF9ED] text-[#15182B] border border-[#E9B737]/40">{plan.badge}</span>
                 </div>
               )}
 
               {/* Plan Name & Rate */}
               <div>
-                <h3 className={`text-[17px] font-bold mb-3 ${plan.featured ? "text-white" : "text-[#001011]"}`}>
+                <h3 className={`text-[18px] font-bold font-display mb-3 ${plan.featured ? "text-white" : "text-[#15182B]"}`}>
                   {plan.name}
                 </h3>
 
-                <div className={`rounded-xl p-3.5 mb-5 ${plan.featured ? "bg-[#041819] border border-[#093A3E]" : "bg-[#f8fcfc] border border-[#d4e7e9]"}`}>
+                <div className={`rounded-xl p-3.5 mb-5 ${plan.featured ? "bg-[#0E101D] border border-[#232742]" : "bg-[#F7F8FA] border border-[#E2E4EC]"}`}>
                   <div className="flex items-baseline gap-1">
-                    <span className={`text-3xl sm:text-4xl font-black font-mono tracking-tight ${plan.featured ? "text-[#3AAFB9]" : "text-[#001011]"}`}>
+                    <span className={`text-3xl sm:text-4xl font-black font-mono tracking-tight ${plan.featured ? "text-[#E9B737]" : "text-[#15182B]"}`}>
                       {plan.rate}
                     </span>
-                    <span className={`text-xs font-medium ${plan.featured ? "text-[#b5dfe3]" : "text-[#5e7e83]"}`}>
+                    <span className={`text-xs font-medium ${plan.featured ? "text-slate-300" : "text-slate-500"}`}>
                       / {plan.interval?.toLowerCase() || "week"}
                     </span>
                   </div>
-                  <div className={`text-[11px] mt-1 font-normal ${plan.featured ? "text-[#b5dfe3]" : "text-[#5e7e83]"}`}>
+                  <div className={`text-[11px] mt-1 font-normal ${plan.featured ? "text-slate-300" : "text-slate-500"}`}>
                     {plan.cycle} · Capital Returned ✓
                   </div>
                 </div>
 
                 {/* Min/Max */}
-                <div className={`space-y-1 mb-5 text-xs font-mono tabular-nums ${plan.featured ? "text-[#b5dfe3]" : "text-[#2f494c]"}`}>
-                  <div className={`flex justify-between py-1 border-b ${plan.featured ? "border-[#093A3E]" : "border-[#d4e7e9]/60"}`}>
+                <div className={`space-y-1 mb-5 text-xs font-mono tabular-nums ${plan.featured ? "text-slate-300" : "text-slate-600"}`}>
+                  <div className={`flex justify-between py-1 border-b ${plan.featured ? "border-[#232742]" : "border-[#E2E4EC]"}`}>
                     <span>Min. Deposit</span>
-                    <span className={`font-bold ${plan.featured ? "text-white" : "text-[#001011]"}`}>{plan.min}</span>
+                    <span className={`font-bold ${plan.featured ? "text-white" : "text-[#15182B]"}`}>{plan.min}</span>
                   </div>
-                  <div className={`flex justify-between py-1 border-b ${plan.featured ? "border-[#093A3E]" : "border-[#d4e7e9]/60"}`}>
+                  <div className={`flex justify-between py-1 border-b ${plan.featured ? "border-[#232742]" : "border-[#E2E4EC]"}`}>
                     <span>Max. Deposit</span>
-                    <span className={`font-bold ${plan.featured ? "text-white" : "text-[#001011]"}`}>{plan.max}</span>
+                    <span className={`font-bold ${plan.featured ? "text-white" : "text-[#15182B]"}`}>{plan.max}</span>
                   </div>
                 </div>
 
@@ -209,11 +209,11 @@ export default function PlanCards() {
                   {plan.features.map((feat: string, idx: number) => (
                     <li key={idx} className="flex items-center gap-2">
                       <div className={`w-3.5 h-3.5 rounded-full flex items-center justify-center flex-shrink-0 ${
-                        plan.featured ? "bg-[#093A3E] text-[#3AAFB9]" : "bg-[#f0f8f9] text-[#093A3E] border border-[#c8e2e5]"
+                        plan.featured ? "bg-[#E9B737] text-[#15182B]" : "bg-[#FDF9ED] text-[#15182B] border border-[#E9B737]/40"
                       }`}>
                         <Check className="w-2.5 h-2.5" />
                       </div>
-                      <span className={`text-xs ${plan.featured ? "text-[#d9eef0]" : "text-[#2f494c]"}`}>
+                      <span className={`text-xs ${plan.featured ? "text-slate-200" : "text-slate-700"}`}>
                         {feat}
                       </span>
                     </li>
@@ -224,10 +224,10 @@ export default function PlanCards() {
               {/* CTA */}
               <Link
                 href="/register"
-                className={`w-full py-2.5 px-4 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                className={`w-full py-2.5 px-4 rounded-xl text-xs font-bold font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer ${
                   plan.featured
-                    ? "bg-gradient-to-r from-[#3AAFB9] to-[#278e98] hover:from-[#5cb4be] hover:to-[#3AAFB9] text-[#001011] shadow-md shadow-[#3AAFB9]/20"
-                    : "bg-[#093A3E] text-white hover:bg-[#001011]"
+                    ? "bg-[#E9B737] hover:bg-[#d4a42c] text-[#15182B] shadow-md border border-[#15182B]"
+                    : "bg-[#15182B] text-white hover:bg-[#E9B737] hover:text-[#15182B] border border-[#15182B]"
                 }`}
               >
                 <span>Invest Now</span>

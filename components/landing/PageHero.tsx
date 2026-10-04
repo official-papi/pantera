@@ -84,10 +84,10 @@ export default function PageHero({
             </div>
 
             {/* Main Architectural H1 Title in Space Grotesk / Display typography */}
-            <h1 className="text-3xl sm:text-5xl font-black font-display uppercase text-zinc-950 tracking-tight leading-[1.08]">
+            <h1 className="text-3xl sm:text-5xl font-black font-display uppercase text-[#15182B] tracking-tight leading-[1.08]">
               {title}{" "}
               {titleHighlight && (
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#001011] via-[#093A3E] to-[#3AAFB9]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#15182B] via-[#2A3052] to-[#E9B737]">
                   {titleHighlight}
                 </span>
               )}
@@ -102,14 +102,14 @@ export default function PageHero({
             <div className="pt-2 flex flex-wrap items-center gap-3">
               <Link
                 href={ctaHref}
-                className="minimal-btn-primary px-7 py-3 rounded-xl text-xs font-medium flex items-center space-x-2 shadow-xs cursor-pointer"
+                className="px-7 py-3 rounded-md text-xs font-bold flex items-center space-x-2 bg-[#E9B737] hover:bg-[#D4A42C] text-[#15182B] font-mono uppercase tracking-wider shadow-sm cursor-pointer"
               >
                 <span>{ctaText}</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-[#15182B]" />
               </Link>
               <Link
                 href="/plans"
-                className="px-6 py-3 rounded-xl text-xs font-medium bg-white border border-zinc-200 text-zinc-800 hover:bg-zinc-50 transition-all shadow-xs"
+                className="px-6 py-3 rounded-md text-xs font-semibold bg-white border border-[#E2E4EC] text-[#15182B] hover:border-[#15182B] transition-all shadow-xs font-mono uppercase tracking-wider"
               >
                 View Investment Tiers
               </Link>

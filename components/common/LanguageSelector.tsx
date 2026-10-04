@@ -73,12 +73,12 @@ export default function LanguageSelector({
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
           aria-label="Select Language"
-          className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#093A3E]/70 hover:bg-[#093A3E] border border-[#3AAFB9]/40 text-[#d9eef0] font-medium text-xs transition-all cursor-pointer shadow-xs"
+          className="flex items-center gap-2 px-3 py-2 rounded-md bg-[#15182B] hover:bg-[#1C2038] border border-[#232742] text-slate-300 font-medium text-xs transition-all cursor-pointer shadow-xs font-mono"
         >
-          <Globe className="w-3.5 h-3.5 text-[#3AAFB9]" />
+          <Globe className="w-3.5 h-3.5 text-[#E9B737]" />
           <span className="text-sm leading-none">{currentLang.flag}</span>
           <span>{currentLang.nativeName}</span>
-          <ChevronDown className={`w-3 h-3 text-[#3AAFB9] ml-1 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+          <ChevronDown className={`w-3 h-3 text-[#E9B737] ml-1 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
         </button>
       )}
 
@@ -88,7 +88,7 @@ export default function LanguageSelector({
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
           aria-label="Select Language"
-          className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-xs transition-all shadow-xs cursor-pointer group"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-white hover:bg-slate-50 border border-[#E2E4EC] text-slate-700 font-semibold text-xs transition-all shadow-xs cursor-pointer group font-mono"
         >
           <span className="text-sm leading-none">{currentLang.flag}</span>
           <span className="text-[12px] text-slate-800">{currentLang.nativeName}</span>
@@ -99,11 +99,11 @@ export default function LanguageSelector({
       {/* Dropdown Menu */}
       {isOpen && (
         <div
-          className={`absolute z-50 w-48 rounded-2xl bg-white p-1.5 shadow-xl ring-1 ring-black/5 border border-slate-100 transition-all animate-in fade-in-50 zoom-in-95 ${
+          className={`absolute z-50 w-48 rounded-xl bg-white p-1.5 shadow-xl ring-1 ring-black/5 border border-slate-100 transition-all animate-in fade-in-50 zoom-in-95 ${
             dropDirection === "up" ? "bottom-full mb-2 left-0" : "top-full mt-2 right-0 md:right-0 left-auto"
           }`}
         >
-          <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 mb-1">
+          <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 mb-1 font-mono">
             Languages / Idiomas
           </div>
           <div className="space-y-0.5">
@@ -114,9 +114,9 @@ export default function LanguageSelector({
                   key={lang.code}
                   type="button"
                   onClick={() => handleSelect(lang)}
-                  className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-left text-xs transition-colors cursor-pointer ${
+                  className={`w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-left text-xs transition-colors cursor-pointer ${
                     isSelected
-                      ? "bg-indigo-50 text-indigo-700 font-bold"
+                      ? "bg-[#15182B]/6 text-[#15182B] font-bold font-mono"
                       : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                   }`}
                 >
@@ -129,7 +129,7 @@ export default function LanguageSelector({
                       <span className="block text-[10px] text-slate-400">{lang.name}</span>
                     </div>
                   </div>
-                  {isSelected && <Check className="w-3.5 h-3.5 text-indigo-600 font-bold" />}
+                  {isSelected && <Check className="w-3.5 h-3.5 text-[#E9B737] font-bold" />}
                 </button>
               );
             })}

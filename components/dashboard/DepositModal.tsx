@@ -127,17 +127,17 @@ export default function DepositModal({ isOpen, gateways, onClose, onSuccess }: D
 
         {/* Title */}
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-[#093A3E]/10 border border-[#093A3E]/20 flex items-center justify-center text-[#093A3E]">
-            <ArrowDownRight className="w-5 h-5 text-[#3AAFB9]" />
+          <div className="w-10 h-10 rounded-md bg-[#15182B] border border-[#232742] flex items-center justify-center text-[#E9B737]">
+            <ArrowDownRight className="w-5 h-5 text-[#E9B737]" />
           </div>
           <div>
-            <h3 className="text-[17px] font-extrabold text-[#001011]">Fund Deposit Wallet</h3>
+            <h3 className="text-[17px] font-extrabold text-[#15182B] font-mono uppercase">Fund Deposit Wallet</h3>
             <p className="text-[12px] text-slate-400 mt-0.5">Transfer funds to invest in yield compounding plans</p>
           </div>
         </div>
 
         {error && (
-          <div className="mb-5 bg-rose-50 border border-rose-200 rounded-xl p-3 flex items-center gap-2.5 text-rose-700 text-[13px] font-medium">
+          <div className="mb-5 bg-rose-50 border border-rose-200 rounded-lg p-3 flex items-center gap-2.5 text-rose-700 text-[13px] font-medium">
             <AlertCircle className="w-4 h-4 flex-shrink-0" />
             <span>{error}</span>
           </div>
@@ -146,7 +146,7 @@ export default function DepositModal({ isOpen, gateways, onClose, onSuccess }: D
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Gateway selector */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">
+            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 font-mono">
               Payment Gateway
             </label>
             <select
@@ -167,7 +167,7 @@ export default function DepositModal({ isOpen, gateways, onClose, onSuccess }: D
 
           {/* Amount */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">
+            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 font-mono">
               Deposit Amount (USD)
             </label>
             <input
@@ -185,15 +185,15 @@ export default function DepositModal({ isOpen, gateways, onClose, onSuccess }: D
 
           {/* Gateway payment details */}
           {selectedGateway && (
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-3">
-              <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Gateway Instructions</div>
+            <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 space-y-3">
+              <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider font-mono">Gateway Instructions</div>
 
               {selectedGateway.qr_code && (
                 <div className="flex items-center gap-3">
                   <img
                     src={selectedGateway.qr_code}
                     alt="Gateway QR"
-                    className="w-20 h-20 rounded-lg border border-slate-200 bg-white object-contain p-1"
+                    className="w-20 h-20 rounded-md border border-slate-200 bg-white object-contain p-1"
                   />
                   <div className="text-xs text-slate-500">
                     <p className="font-semibold text-slate-800">Scan QR to pay directly</p>
@@ -202,14 +202,14 @@ export default function DepositModal({ isOpen, gateways, onClose, onSuccess }: D
                 </div>
               )}
 
-              <div className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-white border border-slate-200">
+              <div className="flex items-center justify-between gap-2 p-2.5 rounded-md bg-white border border-slate-200">
                 <span className="font-mono text-[12px] text-slate-700 break-all select-all">
                   {selectedGateway.wallet_address || selectedGateway.account_number || "Payment address will be assigned"}
                 </span>
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="flex items-center gap-1 text-[#093A3E] hover:text-[#3AAFB9] flex-shrink-0 text-[12px] font-bold cursor-pointer"
+                  className="flex items-center gap-1 text-[#15182B] hover:text-[#E9B737] flex-shrink-0 text-[12px] font-bold cursor-pointer font-mono"
                 >
                   {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copied ? "Copied" : "Copy"}</span>
@@ -224,7 +224,7 @@ export default function DepositModal({ isOpen, gateways, onClose, onSuccess }: D
 
           {/* Transaction Hash */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">
+            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 font-mono">
               Transaction Reference / Hash
             </label>
             <input
@@ -238,17 +238,17 @@ export default function DepositModal({ isOpen, gateways, onClose, onSuccess }: D
 
           {/* Proof Upload with Live Preview */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">
+            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 font-mono">
               Upload Payment Proof / Receipt Image
             </label>
             
             {proofPreviewUrl ? (
-              <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between gap-3">
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <img
                     src={proofPreviewUrl}
                     alt="Receipt Preview"
-                    className="w-14 h-14 object-contain rounded-lg border border-slate-200 bg-white"
+                    className="w-14 h-14 object-contain rounded-md border border-slate-200 bg-white"
                   />
                   <div>
                     <div className="text-xs font-bold text-slate-800">{proofFile?.name || "Payment Receipt"}</div>
@@ -260,7 +260,7 @@ export default function DepositModal({ isOpen, gateways, onClose, onSuccess }: D
                 <button
                   type="button"
                   onClick={handleRemoveFile}
-                  className="p-1.5 rounded-lg text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                  className="p-1.5 rounded-md text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                   title="Remove Receipt"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -268,10 +268,10 @@ export default function DepositModal({ isOpen, gateways, onClose, onSuccess }: D
               </div>
             ) : (
               <div className="space-y-2">
-                <label className="border-2 border-dashed border-slate-300 hover:border-[#093A3E] rounded-xl p-4 flex flex-col items-center justify-center cursor-pointer bg-slate-50 hover:bg-white transition-colors">
+                <label className="border-2 border-dashed border-slate-300 hover:border-[#15182B] rounded-lg p-4 flex flex-col items-center justify-center cursor-pointer bg-slate-50 hover:bg-white transition-colors">
                   <UploadCloud className="w-6 h-6 text-slate-400 mb-1" />
                   <span className="text-xs font-bold text-slate-700">Click to upload Receipt Image</span>
-                  <span className="text-[10px] text-slate-400 mt-0.5">PNG, JPG, WEBP, or PDF (Max 5MB)</span>
+                  <span className="text-[10px] text-slate-400 mt-0.5 font-mono">PNG, JPG, WEBP, or PDF (Max 5MB)</span>
                   <input
                     type="file"
                     accept="image/png,image/jpeg,image/webp,application/pdf"
@@ -292,13 +292,13 @@ export default function DepositModal({ isOpen, gateways, onClose, onSuccess }: D
 
           {/* Actions */}
           <div className="flex justify-end gap-3 pt-1">
-            <button type="button" onClick={onClose} className="hm-btn hm-btn-secondary text-[13px] cursor-pointer">
+            <button type="button" onClick={onClose} className="hm-btn hm-btn-secondary text-[13px] cursor-pointer font-mono">
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="py-2.5 px-5 rounded-xl bg-[#093A3E] hover:bg-[#001011] text-white text-[13px] font-bold shadow-xs cursor-pointer flex items-center gap-2 transition-all"
+              className="py-2.5 px-5 rounded-md bg-[#15182B] hover:bg-[#0E101D] text-white text-[13px] font-bold shadow-xs cursor-pointer flex items-center gap-2 transition-all font-mono uppercase tracking-wider"
             >
               {loading ? (
                 <><Loader2 className="w-4 h-4 animate-spin" /><span>Submitting…</span></>

@@ -44,16 +44,16 @@ export default function TradingViewTicker() {
   ];
 
   return (
-    <div className="w-full bg-[#001011] border-b border-[#093A3E] py-2 shadow-inner relative z-30">
+    <div className="w-full bg-[#0E101D] border-b border-[#232742] py-2 shadow-inner relative z-30">
       {useFallback ? (
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between overflow-x-auto text-xs space-x-6">
-          <div className="flex items-center space-x-1.5 text-[10px] font-semibold text-[#3AAFB9] bg-[#093A3E] px-2.5 py-0.5 rounded-full border border-[#3AAFB9]/40 shrink-0">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#3AAFB9] animate-pulse" />
+          <div className="flex items-center space-x-1.5 text-[10px] font-semibold text-[#E9B737] bg-[#15182B] px-2.5 py-0.5 rounded border border-[#E9B737]/40 shrink-0 font-mono">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E9B737] animate-pulse" />
             <span>LIVE MARKETS</span>
           </div>
           {fallbackCoins.map((c) => (
             <div key={c.symbol} className="flex items-center space-x-2 font-mono tabular-nums font-medium shrink-0">
-              <span className="text-[#86cbd1] text-[11px]">{c.symbol}</span>
+              <span className="text-slate-400 text-[11px]">{c.symbol}</span>
               <span className="text-white text-xs font-bold">{c.price}</span>
               <span className={`flex items-center text-[10px] px-1.5 py-0.5 rounded-md font-semibold ${
                 c.up ? "bg-emerald-950/80 text-emerald-400 border border-emerald-800" : "bg-rose-950/80 text-rose-400 border border-rose-800"

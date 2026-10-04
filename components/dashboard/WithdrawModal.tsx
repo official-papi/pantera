@@ -241,17 +241,17 @@ export default function WithdrawModal({
         </button>
 
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-[#093A3E]/10 border border-[#093A3E]/20 flex items-center justify-center text-[#093A3E]">
-            <ArrowUpRight className="w-5 h-5 text-[#3AAFB9]" />
+          <div className="w-10 h-10 rounded-md bg-[#15182B] border border-[#232742] flex items-center justify-center text-[#E9B737]">
+            <ArrowUpRight className="w-5 h-5 text-[#E9B737]" />
           </div>
           <div>
-            <h3 className="text-[17px] font-extrabold text-[#001011]">Withdraw Earnings</h3>
+            <h3 className="text-[17px] font-extrabold text-[#15182B] font-mono uppercase">Withdraw Earnings</h3>
             <p className="text-[12px] text-slate-400 mt-0.5">Transfer settled yield or capital to your external destination</p>
           </div>
         </div>
 
         {error && (
-          <div className="mb-5 bg-rose-50 border border-rose-200 rounded-xl p-3 flex items-center gap-2.5 text-rose-700 text-[13px] font-medium">
+          <div className="mb-5 bg-rose-50 border border-rose-200 rounded-lg p-3 flex items-center gap-2.5 text-rose-700 text-[13px] font-medium">
             <AlertCircle className="w-4 h-4 flex-shrink-0" />
             <span>{error}</span>
           </div>
@@ -261,40 +261,40 @@ export default function WithdrawModal({
 
           {/* Wallet Selector */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2 font-mono">
               Source Wallet
             </label>
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
                 onClick={() => setWalletType("interest_wallet")}
-                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
+                className={`p-3.5 rounded-lg border text-left transition-all cursor-pointer ${
                   walletType === "interest_wallet"
-                    ? "border-[#093A3E] bg-[#093A3E]/6 ring-1 ring-[#3AAFB9]/40 shadow-xs"
+                    ? "border-[#15182B] bg-[#15182B]/5 ring-1 ring-[#E9B737]/60 shadow-xs"
                     : "border-slate-200 bg-white hover:border-slate-300"
                 }`}
               >
-                <p className="text-[11px] font-semibold text-slate-500">Interest Wallet</p>
-                <p className="text-[18px] font-extrabold text-emerald-600 mt-1 font-mono">${interestBalance.toLocaleString()}</p>
+                <p className="text-[11px] font-semibold text-slate-500 font-mono">Interest Wallet</p>
+                <p className="text-[18px] font-extrabold text-[#15182B] mt-1 font-mono">${interestBalance.toLocaleString()}</p>
               </button>
               <button
                 type="button"
                 onClick={() => setWalletType("deposit_wallet")}
-                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
+                className={`p-3.5 rounded-lg border text-left transition-all cursor-pointer ${
                   walletType === "deposit_wallet"
-                    ? "border-[#093A3E] bg-[#093A3E]/6 ring-1 ring-[#3AAFB9]/40 shadow-xs"
+                    ? "border-[#15182B] bg-[#15182B]/5 ring-1 ring-[#E9B737]/60 shadow-xs"
                     : "border-slate-200 bg-white hover:border-slate-300"
                 }`}
               >
-                <p className="text-[11px] font-semibold text-slate-500">Deposit Wallet</p>
-                <p className="text-[18px] font-extrabold text-[#001011] mt-1 font-mono">${depositBalance.toLocaleString()}</p>
+                <p className="text-[11px] font-semibold text-slate-500 font-mono">Deposit Wallet</p>
+                <p className="text-[18px] font-extrabold text-[#15182B] mt-1 font-mono">${depositBalance.toLocaleString()}</p>
               </button>
             </div>
           </div>
 
           {/* Method */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">
+            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 font-mono">
               Payout Method
             </label>
             <select
@@ -315,7 +315,7 @@ export default function WithdrawModal({
 
           {/* Amount */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">
+            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 font-mono">
               Amount (USD)
             </label>
             <input
@@ -333,33 +333,33 @@ export default function WithdrawModal({
 
           {/* ── Payout Destination Type Toggle ── */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">
+            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 font-mono">
               Payout Destination Type
             </label>
-            <div className="grid grid-cols-2 gap-2 p-1 bg-slate-100/80 rounded-xl border border-slate-200">
+            <div className="grid grid-cols-2 gap-2 p-1 bg-slate-100/80 rounded-lg border border-slate-200 font-mono">
               <button
                 type="button"
                 onClick={() => setPayoutMode("qrcode")}
-                className={`py-2 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                className={`py-2 px-3 rounded text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                   payoutMode === "qrcode"
-                    ? "bg-[#093A3E] text-white shadow-xs"
+                    ? "bg-[#15182B] text-white shadow-xs"
                     : "text-slate-600 hover:text-slate-900"
                 }`}
               >
-                <QrCode className="w-3.5 h-3.5" />
+                <QrCode className="w-3.5 h-3.5 text-[#E9B737]" />
                 <span>Pay with QR Code</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setPayoutMode("address")}
-                className={`py-2 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                className={`py-2 px-3 rounded text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                   payoutMode === "address"
-                    ? "bg-[#093A3E] text-white shadow-xs"
+                    ? "bg-[#15182B] text-white shadow-xs"
                     : "text-slate-600 hover:text-slate-900"
                 }`}
               >
-                <Wallet className="w-3.5 h-3.5" />
+                <Wallet className="w-3.5 h-3.5 text-[#E9B737]" />
                 <span>Pay with Address</span>
               </button>
             </div>
@@ -367,13 +367,13 @@ export default function WithdrawModal({
 
           {/* ── Section A: QR Code Payout Mode ── */}
           {payoutMode === "qrcode" && (
-            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3">
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold text-[#093A3E] uppercase tracking-wider flex items-center gap-1.5">
-                  <QrCode className="w-3.5 h-3.5 text-[#3AAFB9]" />
+                <span className="text-[11px] font-bold text-[#15182B] uppercase tracking-wider flex items-center gap-1.5 font-mono">
+                  <QrCode className="w-3.5 h-3.5 text-[#E9B737]" />
                   <span>Scan to Pay (No Address Typing Required)</span>
                 </span>
-                <span className="text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-bold">
+                <span className="text-[10px] text-[#15182B] bg-[#E9B737]/20 border border-[#E9B737]/40 px-2 py-0.5 rounded font-bold font-mono">
                   Instant Scan
                 </span>
               </div>
@@ -387,7 +387,7 @@ export default function WithdrawModal({
                         name="qrOption"
                         checked={useSavedQr}
                         onChange={() => setUseSavedQr(true)}
-                        className="accent-[#093A3E]"
+                        className="accent-[#15182B]"
                       />
                       <span>Use saved Profile QR Code</span>
                     </label>
@@ -398,21 +398,21 @@ export default function WithdrawModal({
                         name="qrOption"
                         checked={!useSavedQr}
                         onChange={() => setUseSavedQr(false)}
-                        className="accent-[#093A3E]"
+                        className="accent-[#15182B]"
                       />
                       <span>Upload different QR code</span>
                     </label>
                   </div>
 
                   {useSavedQr ? (
-                    <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200 shadow-xs">
+                    <div className="flex items-center gap-3 p-3 rounded-lg bg-white border border-slate-200 shadow-xs">
                       <img
                         src={savedQrUrl}
                         alt="Saved Payout QR"
-                        className="w-14 h-14 object-contain rounded-lg border border-slate-100 flex-shrink-0"
+                        className="w-14 h-14 object-contain rounded-md border border-slate-100 flex-shrink-0"
                       />
                       <div className="text-xs">
-                        <div className="font-extrabold text-[#001011] flex items-center gap-1">
+                        <div className="font-extrabold text-[#15182B] flex items-center gap-1 font-mono uppercase">
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                           <span>Saved Payout QR Attached</span>
                         </div>
@@ -424,11 +424,11 @@ export default function WithdrawModal({
                   ) : (
                     <div className="space-y-2">
                       {newQrPreview ? (
-                        <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white border border-slate-200">
+                        <div className="flex items-center gap-3 p-2.5 rounded-lg bg-white border border-slate-200">
                           <img
                             src={newQrPreview}
                             alt="New QR Preview"
-                            className="w-14 h-14 object-contain rounded-lg border border-slate-100 flex-shrink-0"
+                            className="w-14 h-14 object-contain rounded-md border border-slate-100 flex-shrink-0"
                           />
                           <div className="flex-1 text-xs">
                             <div className="font-bold text-slate-800">New QR Selected</div>
@@ -443,7 +443,7 @@ export default function WithdrawModal({
                           </div>
                         </div>
                       ) : (
-                        <label className="border border-dashed border-slate-300 hover:border-[#093A3E] rounded-xl p-4 flex items-center justify-center gap-3 cursor-pointer bg-white transition-colors">
+                        <label className="border border-dashed border-slate-300 hover:border-[#15182B] rounded-lg p-4 flex items-center justify-center gap-3 cursor-pointer bg-white transition-colors">
                           <UploadCloud className="w-5 h-5 text-slate-400" />
                           <span className="text-xs font-semibold text-slate-600">Choose PNG, JPG, or WEBP QR image</span>
                           <input
@@ -460,11 +460,11 @@ export default function WithdrawModal({
               ) : (
                 <div className="space-y-2">
                   {newQrPreview ? (
-                    <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white border border-slate-200">
+                    <div className="flex items-center gap-3 p-2.5 rounded-lg bg-white border border-slate-200">
                       <img
                         src={newQrPreview}
                         alt="New QR Preview"
-                        className="w-14 h-14 object-contain rounded-lg border border-slate-100 flex-shrink-0"
+                        className="w-14 h-14 object-contain rounded-md border border-slate-100 flex-shrink-0"
                       />
                       <div className="flex-1 text-xs">
                         <div className="font-bold text-slate-800">QR Code Attached</div>
@@ -479,7 +479,7 @@ export default function WithdrawModal({
                       </div>
                     </div>
                   ) : (
-                    <label className="border-2 border-dashed border-slate-300 hover:border-[#093A3E] rounded-xl p-5 flex flex-col items-center justify-center cursor-pointer bg-white hover:bg-slate-50 transition-colors">
+                    <label className="border-2 border-dashed border-slate-300 hover:border-[#15182B] rounded-lg p-5 flex flex-col items-center justify-center cursor-pointer bg-white hover:bg-slate-50 transition-colors">
                       <UploadCloud className="w-7 h-7 text-slate-400 mb-1" />
                       <span className="text-xs font-bold text-slate-700">Upload Wallet / Payment QR Code</span>
                       <span className="text-[10px] text-slate-400 mt-0.5">Admin will scan to disburse funds directly</span>
@@ -498,7 +498,7 @@ export default function WithdrawModal({
                         type="checkbox"
                         checked={saveToProfile}
                         onChange={(e) => setSaveToProfile(e.target.checked)}
-                        className="rounded text-[#093A3E] focus:ring-[#3AAFB9]"
+                        className="rounded text-[#15182B] focus:ring-[#E9B737]"
                       />
                       <span>Save this QR code to my profile for future withdrawals</span>
                     </label>
@@ -526,7 +526,7 @@ export default function WithdrawModal({
           {payoutMode === "address" && (
             <div className="space-y-4">
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">
+                <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 font-mono">
                   Destination Address / Account Info <span className="text-rose-500">*</span>
                 </label>
                 <input
@@ -540,22 +540,22 @@ export default function WithdrawModal({
               </div>
 
               {/* Optional QR Attachment in Address Mode */}
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-semibold text-slate-600 flex items-center gap-1.5">
+                  <span className="text-[11px] font-semibold text-slate-600 flex items-center gap-1.5 font-mono">
                     <QrCode className="w-3.5 h-3.5 text-slate-400" />
                     <span>Attach QR Code Backup (Optional)</span>
                   </span>
                 </div>
 
                 {savedQrUrl && useSavedQr ? (
-                  <div className="flex items-center gap-3 p-2 bg-white rounded-lg border border-slate-200 text-xs">
+                  <div className="flex items-center gap-3 p-2 bg-white rounded-md border border-slate-200 text-xs">
                     <img src={savedQrUrl} alt="QR" className="w-10 h-10 object-contain rounded flex-shrink-0" />
                     <span className="text-[11px] text-slate-600">Saved profile QR will also be sent with this request.</span>
                   </div>
                 ) : (
                   newQrPreview ? (
-                    <div className="flex items-center gap-3 p-2 bg-white rounded-lg border border-slate-200 text-xs">
+                    <div className="flex items-center gap-3 p-2 bg-white rounded-md border border-slate-200 text-xs">
                       <img src={newQrPreview} alt="QR" className="w-10 h-10 object-contain rounded flex-shrink-0" />
                       <button
                         type="button"
@@ -566,7 +566,7 @@ export default function WithdrawModal({
                       </button>
                     </div>
                   ) : (
-                    <label className="border border-dashed border-slate-300 rounded-lg p-2.5 flex items-center justify-center gap-2 cursor-pointer bg-white hover:bg-slate-50 text-xs text-slate-600">
+                    <label className="border border-dashed border-slate-300 rounded-md p-2.5 flex items-center justify-center gap-2 cursor-pointer bg-white hover:bg-slate-50 text-xs text-slate-600">
                       <UploadCloud className="w-4 h-4 text-slate-400" />
                       <span>Attach QR Image (Optional)</span>
                       <input
@@ -584,13 +584,13 @@ export default function WithdrawModal({
 
           {/* Actions */}
           <div className="flex justify-end gap-3 pt-2">
-            <button type="button" onClick={onClose} className="hm-btn hm-btn-secondary text-[13px] cursor-pointer">
+            <button type="button" onClick={onClose} className="hm-btn hm-btn-secondary text-[13px] cursor-pointer font-mono">
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="py-2.5 px-5 rounded-xl bg-[#093A3E] hover:bg-[#001011] text-white text-[13px] font-bold shadow-xs cursor-pointer flex items-center gap-2 transition-all"
+              className="py-2.5 px-5 rounded-md bg-[#15182B] hover:bg-[#0E101D] text-white text-[13px] font-bold shadow-xs cursor-pointer flex items-center gap-2 transition-all font-mono uppercase tracking-wider"
             >
               {loading ? (
                 <><Loader2 className="w-4 h-4 animate-spin" /><span>Processing…</span></>

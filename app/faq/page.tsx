@@ -67,7 +67,7 @@ export default function FaqPage() {
             <div className="space-y-3 py-1 text-xs font-medium">
               <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-200/80 flex items-center justify-between">
                 <span className="text-slate-500">Knowledge Index</span>
-                <span className="font-mono font-extrabold text-[#093A3E]">Updated Daily</span>
+                <span className="font-mono font-extrabold text-[#15182B]">Updated Daily</span>
               </div>
               <div className="p-3 rounded-xl bg-emerald-50/80 border border-emerald-200/80 flex items-center justify-between">
                 <span className="text-emerald-900">Support Desk Status</span>
@@ -84,7 +84,7 @@ export default function FaqPage() {
           
           {/* Glass Search Bar */}
           <div className="relative max-w-xl mx-auto mb-10 group">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#093A3E]/15 to-[#3AAFB9]/15 rounded-2xl blur-md opacity-60 group-hover:opacity-100 transition duration-500" />
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#15182B]/15 to-[#E9B737]/15 rounded-2xl blur-md opacity-60 group-hover:opacity-100 transition duration-500" />
             <div className="relative flex items-center bg-white/80 backdrop-blur-xl border border-white/90 rounded-2xl shadow-xl">
               <Search className="w-4 h-4 text-slate-400 absolute left-4" />
               <input
@@ -101,19 +101,19 @@ export default function FaqPage() {
           <div className="space-y-4">
             {filteredFaqs.map((faq, idx) => (
               <div key={idx} className="relative group">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#093A3E]/10 to-[#3AAFB9]/10 rounded-3xl blur-md opacity-40 group-hover:opacity-100 transition duration-500" />
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#15182B]/10 to-[#E9B737]/10 rounded-3xl blur-md opacity-40 group-hover:opacity-100 transition duration-500" />
                 
                 <div className="relative bg-white/70 backdrop-blur-xl border border-white/80 rounded-2xl p-6 shadow-xl shadow-slate-900/5 transition-all">
                   <div className="flex items-center justify-between cursor-pointer" onClick={() => setOpenIndex(openIndex === idx ? null : idx)}>
                     <div className="space-y-1">
-                      <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#093A3E]/8 border border-[#093A3E]/15 text-[#093A3E] text-[10px] font-extrabold uppercase tracking-wider backdrop-blur-xs">
+                      <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#15182B]/8 border border-[#15182B]/15 text-[#15182B] text-[10px] font-extrabold uppercase tracking-wider backdrop-blur-xs">
                         {faq.category}
                       </span>
                       <h3 className="text-base font-extrabold text-slate-900 flex items-center space-x-2">
                         <span>{faq.q}</span>
                       </h3>
                     </div>
-                    <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${openIndex === idx ? "rotate-180 text-[#093A3E]" : ""}`} />
+                    <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${openIndex === idx ? "rotate-180 text-[#15182B]" : ""}`} />
                   </div>
                   {(openIndex === idx || query.length > 0) && (
                     <p className="text-xs text-slate-600 font-medium pt-3 border-t border-slate-200/80 mt-3 leading-relaxed">

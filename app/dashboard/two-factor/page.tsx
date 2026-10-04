@@ -90,13 +90,19 @@ export default function TwoFactorPage() {
     <DashboardLayout userEmail={userEmail}>
       <div className="space-y-8 max-w-3xl">
         
-        <div>
-          <h1 className="text-2xl font-extrabold text-slate-900">Two-Factor Authentication (2FA)</h1>
-          <p className="text-xs text-slate-500 mt-1">Add an extra layer of security to your investor account using Google Authenticator.</p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 font-mono text-[11px] font-semibold text-[#15182B] tracking-[0.2em] uppercase mb-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E9B737]" />
+              <span>[ IDENTITY SECURITY ENCLAVE ]</span>
+            </div>
+            <h1 className="text-2xl font-bold font-display tracking-tight text-[#0E101D] uppercase">Two-Factor Authentication (2FA)</h1>
+            <p className="text-xs text-slate-500 mt-1">Add an extra layer of security to your investor account using Google Authenticator.</p>
+          </div>
         </div>
 
         {/* 2FA Status Banner */}
-        <div className="minimal-card p-6 border-slate-200 flex items-center justify-between">
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 shadow-xs flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
               is2FaEnabled ? "bg-emerald-50 text-emerald-700 border border-emerald-200" : "bg-amber-50 text-amber-700 border border-amber-200"
@@ -104,14 +110,14 @@ export default function TwoFactorPage() {
               {is2FaEnabled ? <ShieldCheck className="w-5 h-5" /> : <Key className="w-5 h-5" />}
             </div>
             <div>
-              <div className="text-xs text-slate-500 font-bold uppercase">2FA Protection</div>
-              <div className="text-sm font-extrabold text-slate-900 mt-0.5">
+              <div className="text-[10px] font-mono text-slate-500 font-bold uppercase">2FA Protection</div>
+              <div className="text-sm font-bold text-[#0E101D] font-display uppercase mt-0.5">
                 {is2FaEnabled ? "2FA Enabled & Active" : "2FA Disabled"}
               </div>
             </div>
           </div>
 
-          <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${
+          <span className={`px-3 py-1 rounded-full text-xs font-mono font-bold uppercase ${
             is2FaEnabled ? "bg-emerald-50 text-emerald-700 border border-emerald-200" : "bg-slate-100 text-slate-600 border border-slate-200"
           }`}>
             {is2FaEnabled ? "ACTIVE" : "INACTIVE"}
@@ -119,9 +125,9 @@ export default function TwoFactorPage() {
         </div>
 
         {/* Setup Instructions & Form */}
-        <div className="minimal-card p-6 border-slate-200 space-y-6">
-          <h3 className="text-sm font-extrabold text-slate-900 flex items-center space-x-2">
-            <QrCode className="w-4 h-4 text-[#093A3E]" />
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 shadow-xs space-y-6">
+          <h3 className="text-sm font-bold text-[#0E101D] flex items-center space-x-2 font-display uppercase tracking-wide">
+            <QrCode className="w-4 h-4 text-[#15182B]" />
             <span>Google Authenticator Setup</span>
           </h3>
 
@@ -141,52 +147,52 @@ export default function TwoFactorPage() {
             </p>
 
             {qrUrl && (
-              <div className="flex flex-col items-center justify-center p-4 bg-slate-50 border border-slate-200 rounded-xl max-w-xs mx-auto text-center space-y-2">
-                <img src={qrUrl} alt="2FA QR Code" className="w-40 h-40 object-contain rounded-lg border border-slate-200 bg-white p-2 shadow-xs" />
-                <span className="text-[11px] text-slate-500 font-medium">Scan QR Code with Google Authenticator</span>
+              <div className="flex flex-col items-center justify-center p-4 bg-slate-50 border border-[#E2E4EC] rounded-xl max-w-xs mx-auto text-center space-y-2">
+                <img src={qrUrl} alt="2FA QR Code" className="w-40 h-40 object-contain rounded-lg border border-[#E2E4EC] bg-white p-2 shadow-xs" />
+                <span className="text-[11px] text-slate-500 font-mono">Scan QR Code with Google Authenticator</span>
               </div>
             )}
 
             {/* Secret Key Display */}
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 flex items-center justify-between">
+            <div className="bg-slate-50 border border-[#E2E4EC] rounded-xl p-4 flex items-center justify-between">
               <div>
-                <div className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">2FA Secret Key</div>
-                <div className="text-sm font-mono font-extrabold text-[#093A3E] mt-0.5">{secretKey}</div>
+                <div className="text-[10px] text-slate-500 uppercase tracking-wider font-mono font-bold">2FA Secret Key</div>
+                <div className="text-sm font-mono font-extrabold text-[#15182B] mt-0.5">{secretKey}</div>
               </div>
 
               <button
                 type="button"
                 onClick={handleCopySecret}
-                className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-50 flex items-center space-x-1.5 cursor-pointer shadow-xs"
+                className="px-3 py-1.5 rounded-lg bg-white border border-[#E2E4EC] text-xs font-mono font-bold text-slate-700 hover:bg-slate-50 flex items-center space-x-1.5 cursor-pointer shadow-xs"
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-[#093A3E]" />}
-                <span>{copied ? "Copied" : "Copy Key"}</span>
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-[#15182B]" />}
+                <span>{copied ? "COPIED" : "COPY KEY"}</span>
               </button>
             </div>
 
             {/* OTP Verification Input Form */}
             <form onSubmit={handleToggle2Fa} className="space-y-4 max-w-sm pt-2">
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Enter 6-Digit Authenticator Code</label>
+                <label className="block text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-1">Enter 6-Digit Authenticator Code</label>
                 <input
                   type="text"
                   maxLength={6}
                   value={otpCode}
                   onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ""))}
                   placeholder="000000"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-center text-lg font-mono font-bold tracking-widest text-slate-900 focus:outline-none focus:border-[#093A3E] focus:ring-1 focus:ring-[#3AAFB9]"
+                  className="w-full bg-slate-50 border border-[#E2E4EC] rounded-xl px-3 py-2 text-center text-lg font-mono font-bold tracking-widest text-slate-900 focus:outline-none focus:border-[#15182B] focus:ring-1 focus:ring-[#E9B737]"
                 />
               </div>
 
               <button
                 type="submit"
-                className={`w-full py-2.5 rounded-xl text-xs font-bold cursor-pointer transition-all shadow-md ${
+                className={`w-full py-2.5 rounded-xl text-xs font-mono font-bold cursor-pointer transition-all shadow-md ${
                   is2FaEnabled
                     ? "bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100"
-                    : "bg-[#093A3E] hover:bg-[#001011] text-white shadow-[#093A3E]/15"
+                    : "pantera-btn-navy text-white"
                 }`}
               >
-                {is2FaEnabled ? "Disable 2FA Protection" : "Enable 2FA Protection"}
+                {is2FaEnabled ? "DISABLE 2FA PROTECTION" : "ENABLE 2FA PROTECTION"}
               </button>
             </form>
           </div>

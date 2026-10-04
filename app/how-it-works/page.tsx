@@ -30,16 +30,16 @@ export default function HowItWorksPage() {
           hudContent={
             <div className="space-y-2 py-1 text-xs font-medium">
               <div className="flex items-center space-x-3 p-2.5 rounded-xl bg-slate-50/80 border border-slate-200/80">
-                <div className="w-6 h-6 rounded-lg bg-[#093A3E]/10 border border-[#093A3E]/20 text-[#093A3E] font-extrabold flex items-center justify-center text-[10px]">1</div>
+                <div className="w-6 h-6 rounded-lg bg-[#15182B]/10 border border-[#15182B]/20 text-[#15182B] font-extrabold flex items-center justify-center text-[10px]">1</div>
                 <span className="font-extrabold text-slate-900">Create Free Account</span>
               </div>
               <div className="flex items-center space-x-3 p-2.5 rounded-xl bg-slate-50/80 border border-slate-200/80">
-                <div className="w-6 h-6 rounded-lg bg-[#093A3E]/10 border border-[#093A3E]/20 text-[#093A3E] font-extrabold flex items-center justify-center text-[10px]">2</div>
+                <div className="w-6 h-6 rounded-lg bg-[#15182B]/10 border border-[#15182B]/20 text-[#15182B] font-extrabold flex items-center justify-center text-[10px]">2</div>
                 <span className="font-extrabold text-slate-900">Fund Deposit Wallet</span>
               </div>
-              <div className="flex items-center space-x-3 p-2.5 rounded-xl bg-[#093A3E]/5 border border-[#3AAFB9]/30">
-                <div className="w-6 h-6 rounded-lg bg-[#093A3E] text-[#3AAFB9] font-extrabold flex items-center justify-center text-[10px]">3</div>
-                <span className="font-extrabold text-[#001011]">Subscribe & Earn Daily ROI</span>
+              <div className="flex items-center space-x-3 p-2.5 rounded-xl bg-[#15182B]/5 border border-[#E9B737]/30">
+                <div className="w-6 h-6 rounded-lg bg-[#15182B] text-[#E9B737] font-extrabold flex items-center justify-center text-[10px]">3</div>
+                <span className="font-extrabold text-[#0E101D]">Subscribe & Earn Weekly ROI</span>
               </div>
             </div>
           }

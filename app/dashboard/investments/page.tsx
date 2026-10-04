@@ -126,7 +126,11 @@ export default function InvestmentsPage() {
         
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-extrabold text-[#001011]">Active Investment Portfolio</h1>
+            <div className="inline-flex items-center gap-2 font-mono text-[11px] font-semibold text-[#15182B] tracking-[0.2em] uppercase mb-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E9B737]" />
+              <span>[ ASSET MANAGEMENT PORTAL ]</span>
+            </div>
+            <h1 className="text-2xl font-bold font-display tracking-tight text-[#0E101D] uppercase">Active Investment Portfolio</h1>
             <p className="text-xs text-slate-500 mt-1">Track your active yield compounding packages and test ROI projections.</p>
           </div>
 
@@ -135,32 +139,32 @@ export default function InvestmentsPage() {
               type="button"
               onClick={handleManualSync}
               disabled={syncingPayouts}
-              className="px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold flex items-center space-x-1.5 cursor-pointer shadow-2xs transition-all hover:border-[#3AAFB9]/50"
+              className="px-3.5 py-2.5 rounded-xl border border-[#E2E4EC] bg-white hover:bg-slate-50 text-slate-700 text-xs font-mono font-bold flex items-center space-x-1.5 cursor-pointer shadow-2xs transition-all hover:border-[#E9B737]"
             >
-              <Sparkles className={`w-3.5 h-3.5 text-[#3AAFB9] ${syncingPayouts ? "animate-spin" : ""}`} />
+              <Sparkles className={`w-3.5 h-3.5 text-[#E9B737] ${syncingPayouts ? "animate-spin" : ""}`} />
               <span>{syncingPayouts ? "Syncing..." : "Sync Due Payouts"}</span>
             </button>
 
             <button
               type="button"
               onClick={() => setIsInvestOpen(true)}
-              className="py-2.5 px-4 rounded-xl bg-[#093A3E] hover:bg-[#001011] text-white text-xs font-bold flex items-center space-x-2 cursor-pointer shadow-xs transition-all"
+              className="pantera-btn-navy py-2.5 px-4 text-xs font-mono font-bold flex items-center space-x-2 cursor-pointer shadow-xs transition-all"
             >
-              <Plus className="w-4 h-4 text-[#3AAFB9]" />
-              <span>Invest In New Package</span>
+              <Plus className="w-4 h-4 text-[#E9B737]" />
+              <span>INVEST IN NEW PACKAGE</span>
             </button>
           </div>
         </div>
 
         {/* ROI Profit Simulator Card */}
-        <div className="bg-white border border-[#d4e7e9] rounded-2xl p-6 shadow-xs space-y-6">
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 shadow-xs space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-extrabold text-[#001011] flex items-center space-x-2">
-              <Calculator className="w-4 h-4 text-[#093A3E]" />
+            <h3 className="text-sm font-bold text-[#0E101D] flex items-center space-x-2 font-display uppercase tracking-wide">
+              <Calculator className="w-4 h-4 text-[#15182B]" />
               <span>Interactive ROI Profit Projection Simulator</span>
             </h3>
-            <span className="text-[11px] font-bold text-[#093A3E] bg-[#093A3E]/8 px-3 py-1 rounded-full border border-[#093A3E]/20 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#3AAFB9] animate-pulse" />
+            <span className="text-[11px] font-mono font-bold text-[#15182B] bg-[#15182B]/6 px-3 py-1 rounded-full border border-[#15182B]/15 flex items-center gap-1.5 uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E9B737] animate-pulse" />
               Live Compound Yields
             </span>
           </div>
@@ -168,11 +172,11 @@ export default function InvestmentsPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-4 md:col-span-1">
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Select Investment Tier</label>
+                <label className="block text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-1">Select Investment Tier</label>
                 <select
                   value={selectedPlanId}
                   onChange={(e) => setSelectedPlanId(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#093A3E]"
+                  className="w-full bg-slate-50 border border-[#E2E4EC] rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#15182B]"
                 >
                   {availablePlans.map((p) => (
                     <option key={p.id} value={p.id}>{p.name} ({p.interest_rate}% ROI)</option>
@@ -181,7 +185,7 @@ export default function InvestmentsPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Enter Capital Amount ($)</label>
+                <label className="block text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-1">Enter Capital Amount ($)</label>
                 <input
                   type="number"
                   step="50"
@@ -189,34 +193,34 @@ export default function InvestmentsPage() {
                   max={activeSimPlan?.max_amount || 20000000}
                   value={simAmount}
                   onChange={(e) => setSimAmount(Number(e.target.value))}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono font-bold text-[#093A3E] focus:outline-none focus:border-[#093A3E]"
+                  className="w-full bg-slate-50 border border-[#E2E4EC] rounded-xl px-3 py-2 text-xs font-mono font-bold text-[#15182B] focus:outline-none focus:border-[#15182B]"
                 />
               </div>
             </div>
 
             <div className="md:col-span-2 grid grid-cols-3 gap-4">
-              <div className="bg-[#f0f8f9] border border-[#3AAFB9]/30 rounded-xl p-4 flex flex-col justify-between">
-                <div className="text-[10px] font-bold text-slate-500 uppercase">Estimated Yield / Period</div>
+              <div className="bg-[#15182B]/5 border border-[#E9B737]/30 rounded-xl p-4 flex flex-col justify-between">
+                <div className="text-[10px] font-mono font-bold text-slate-500 uppercase">Estimated Yield / Period</div>
                 <div className="text-xl font-mono font-extrabold text-emerald-600 mt-1">
                   +${simDailyYield.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </div>
-                <div className="text-[9px] text-slate-400 mt-1">{activeSimPlan.interest_rate}% ROI / Payout</div>
+                <div className="text-[9px] text-slate-400 font-mono mt-1">{activeSimPlan.interest_rate}% ROI / Payout</div>
               </div>
 
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
-                <div className="text-[10px] font-bold text-slate-500 uppercase">Total Net Profit</div>
-                <div className="text-xl font-mono font-extrabold text-[#093A3E] mt-1">
+              <div className="bg-slate-50 border border-[#E2E4EC] rounded-xl p-4 flex flex-col justify-between">
+                <div className="text-[10px] font-mono font-bold text-slate-500 uppercase">Total Net Profit</div>
+                <div className="text-xl font-mono font-extrabold text-[#15182B] mt-1">
                   +${simTotalNetProfit.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </div>
-                <div className="text-[9px] text-slate-400 mt-1">Over {activeSimPlan.repeat_time} Payout Periods</div>
+                <div className="text-[9px] text-slate-400 font-mono mt-1">Over {activeSimPlan.repeat_time} Payout Periods</div>
               </div>
 
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
-                <div className="text-[10px] font-bold text-slate-500 uppercase">Total Return (Principal + Profit)</div>
-                <div className="text-xl font-mono font-extrabold text-[#001011] mt-1">
+              <div className="bg-slate-50 border border-[#E2E4EC] rounded-xl p-4 flex flex-col justify-between">
+                <div className="text-[10px] font-mono font-bold text-slate-500 uppercase">Total Return (Principal + Profit)</div>
+                <div className="text-xl font-mono font-extrabold text-[#0E101D] mt-1">
                   ${simTotalReturn.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </div>
-                <div className="text-[9px] text-slate-400 mt-1">Full Liquidity Unlocked</div>
+                <div className="text-[9px] text-slate-400 font-mono mt-1">Full Liquidity Unlocked</div>
               </div>
             </div>
           </div>

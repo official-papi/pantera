@@ -205,15 +205,21 @@ export default function ProfilePage() {
     <DashboardLayout userEmail={userEmail}>
       <div className="space-y-8 max-w-4xl">
         
-        <div>
-          <h1 className="text-2xl font-extrabold text-slate-900">Profile Settings</h1>
-          <p className="text-xs text-slate-500 mt-1">Manage your account information and security credentials.</p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 font-mono text-[11px] font-semibold text-[#15182B] tracking-[0.2em] uppercase mb-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E9B737]" />
+              <span>[ INVESTOR CREDENTIALS & SETTLEMENTS ]</span>
+            </div>
+            <h1 className="text-2xl font-bold font-display tracking-tight text-[#0E101D] uppercase">Profile & Security</h1>
+            <p className="text-xs text-slate-500 mt-1">Manage your account information and security credentials.</p>
+          </div>
         </div>
 
         {/* Profile Info Form */}
-        <div className="minimal-card p-6 border-slate-200 space-y-6">
-          <h3 className="text-sm font-extrabold text-slate-900 flex items-center space-x-2">
-            <User className="w-4 h-4 text-[#093A3E]" />
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 shadow-xs space-y-6">
+          <h3 className="text-sm font-bold text-[#0E101D] flex items-center space-x-2 font-display uppercase tracking-wide">
+            <User className="w-4 h-4 text-[#15182B]" />
             <span>Personal Information</span>
           </h3>
 
@@ -229,40 +235,40 @@ export default function ProfilePage() {
           <form onSubmit={handleUpdateProfile} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Email Address</label>
+                <label className="block text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-1">Email Address</label>
                 <div className="relative">
                   <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                   <input
                     type="email"
                     disabled
                     value={userEmail}
-                    className="w-full bg-slate-100 border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-500 cursor-not-allowed font-semibold"
+                    className="w-full bg-slate-100 border border-[#E2E4EC] rounded-xl pl-9 pr-3 py-2 text-xs text-slate-500 cursor-not-allowed font-mono font-semibold"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Username</label>
+                <label className="block text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-1">Username</label>
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#093A3E] focus:ring-1 focus:ring-[#3AAFB9]"
+                  className="w-full bg-slate-50 border border-[#E2E4EC] rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#15182B] focus:ring-1 focus:ring-[#E9B737]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Full Name</label>
+                <label className="block text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-1">Full Name</label>
                 <input
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#093A3E] focus:ring-1 focus:ring-[#3AAFB9]"
+                  className="w-full bg-slate-50 border border-[#E2E4EC] rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#15182B] focus:ring-1 focus:ring-[#E9B737]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Phone Number</label>
+                <label className="block text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-1">Phone Number</label>
                 <div className="relative">
                   <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                   <input
@@ -270,7 +276,7 @@ export default function ProfilePage() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+1 (555) 000-0000"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#093A3E] focus:ring-1 focus:ring-[#3AAFB9]"
+                    className="w-full bg-slate-50 border border-[#E2E4EC] rounded-xl pl-9 pr-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#15182B] focus:ring-1 focus:ring-[#E9B737]"
                   />
                 </div>
               </div>
@@ -279,19 +285,19 @@ export default function ProfilePage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-[#093A3E] hover:bg-[#001011] transition-all cursor-pointer shadow-md shadow-[#093A3E]/15"
+              className="pantera-btn-navy py-2.5 px-5 text-xs font-mono font-bold transition-all cursor-pointer shadow-md"
             >
-              {saving ? "Saving Changes..." : "Save Profile Details"}
+              {saving ? "SAVING CHANGES..." : "SAVE PROFILE DETAILS"}
             </button>
           </form>
         </div>
 
         {/* Payout Destination & Wallet QR Code Form */}
-        <div className="minimal-card p-6 border-slate-200 space-y-6">
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 shadow-xs space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-              <h3 className="text-sm font-extrabold text-slate-900 flex items-center space-x-2">
-                <QrCode className="w-4 h-4 text-[#093A3E]" />
+              <h3 className="text-sm font-bold text-[#0E101D] flex items-center space-x-2 font-display uppercase tracking-wide">
+                <QrCode className="w-4 h-4 text-[#15182B]" />
                 <span>Payout Destination & Wallet QR Code</span>
               </h3>
               <p className="text-xs text-slate-500 mt-1">
@@ -299,9 +305,9 @@ export default function ProfilePage() {
               </p>
             </div>
             {payoutQrCodeUrl && (
-              <span className="self-start sm:self-auto px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5">
+              <span className="self-start sm:self-auto px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                QR Verified Active
+                QR VERIFIED ACTIVE
               </span>
             )}
           </div>
@@ -318,13 +324,13 @@ export default function ProfilePage() {
           <form onSubmit={handleUpdatePayoutSettings} className="space-y-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">
+                <label className="block text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-1">
                   Default Payout Method
                 </label>
                 <select
                   value={payoutMethod}
                   onChange={(e) => setPayoutMethod(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#093A3E] focus:ring-1 focus:ring-[#3AAFB9] font-medium"
+                  className="w-full bg-slate-50 border border-[#E2E4EC] rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#15182B] focus:ring-1 focus:ring-[#E9B737] font-medium"
                 >
                   <option value="USDT (TRC-20)">USDT (TRC-20 - Tron Network)</option>
                   <option value="Bitcoin (BTC)">Bitcoin (BTC Network)</option>
@@ -337,7 +343,7 @@ export default function ProfilePage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">
+                <label className="block text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-1">
                   Destination Wallet Address / Account Details <span className="text-slate-400 font-normal normal-case">(Optional with QR Code)</span>
                 </label>
                 <input
@@ -345,20 +351,20 @@ export default function ProfilePage() {
                   value={payoutAddress}
                   onChange={(e) => setPayoutAddress(e.target.value)}
                   placeholder="Optional: leave blank if using QR code"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-mono focus:outline-none focus:border-[#093A3E] focus:ring-1 focus:ring-[#3AAFB9]"
+                  className="w-full bg-slate-50 border border-[#E2E4EC] rounded-xl px-3 py-2 text-xs text-slate-900 font-mono focus:outline-none focus:border-[#15182B] focus:ring-1 focus:ring-[#E9B737]"
                 />
               </div>
             </div>
 
             {/* QR Code Upload / Preview Container */}
             <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-2">
                 Personal Payout QR Code
               </label>
 
               {qrPreviewUrl ? (
-                <div className="flex flex-col sm:flex-row items-center gap-5 p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                  <div className="relative group w-36 h-36 rounded-xl bg-white p-2 border border-slate-200 shadow-sm flex items-center justify-center flex-shrink-0">
+                <div className="flex flex-col sm:flex-row items-center gap-5 p-4 rounded-2xl bg-slate-50 border border-[#E2E4EC]">
+                  <div className="relative group w-36 h-36 rounded-xl bg-white p-2 border border-[#E2E4EC] shadow-sm flex items-center justify-center flex-shrink-0">
                     <img
                       src={qrPreviewUrl}
                       alt="Payout QR Code"
@@ -367,21 +373,21 @@ export default function ProfilePage() {
                     <button
                       type="button"
                       onClick={() => setIsViewingQrModal(true)}
-                      className="absolute inset-0 bg-slate-900/60 rounded-xl opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity cursor-pointer gap-1.5 text-xs font-bold"
+                      className="absolute inset-0 bg-[#0E101D]/70 rounded-xl opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity cursor-pointer gap-1.5 text-xs font-mono font-bold"
                     >
-                      <Eye className="w-4 h-4" />
+                      <Eye className="w-4 h-4 text-[#E9B737]" />
                       <span>View Full</span>
                     </button>
                   </div>
 
                   <div className="space-y-2 text-center sm:text-left flex-1">
-                    <div className="text-xs font-bold text-slate-900">QR Code Attached</div>
+                    <div className="text-xs font-bold text-slate-900 font-mono">QR Code Attached</div>
                     <p className="text-[11px] text-slate-500">
                       This QR code will be presented automatically whenever you request a withdrawal or payment.
                     </p>
                     <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1">
-                      <label className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all cursor-pointer shadow-xs inline-flex items-center gap-1.5">
-                        <UploadCloud className="w-3.5 h-3.5 text-[#093A3E]" />
+                      <label className="px-3 py-1.5 rounded-lg bg-white border border-[#E2E4EC] hover:bg-slate-50 text-slate-700 text-xs font-mono font-bold transition-all cursor-pointer shadow-xs inline-flex items-center gap-1.5">
+                        <UploadCloud className="w-3.5 h-3.5 text-[#15182B]" />
                         <span>Replace QR</span>
                         <input
                           type="file"
@@ -394,7 +400,7 @@ export default function ProfilePage() {
                       <button
                         type="button"
                         onClick={handleRemoveQr}
-                        className="px-3 py-1.5 rounded-lg bg-rose-50 border border-rose-200 hover:bg-rose-100 text-rose-700 text-xs font-bold transition-all cursor-pointer shadow-xs inline-flex items-center gap-1.5"
+                        className="px-3 py-1.5 rounded-lg bg-rose-50 border border-rose-200 hover:bg-rose-100 text-rose-700 text-xs font-mono font-bold transition-all cursor-pointer shadow-xs inline-flex items-center gap-1.5"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                         <span>Remove</span>
@@ -403,14 +409,14 @@ export default function ProfilePage() {
                   </div>
                 </div>
               ) : (
-                <label className="border-2 border-dashed border-slate-300 hover:border-[#093A3E] rounded-2xl p-6 flex flex-col items-center justify-center cursor-pointer transition-all bg-slate-50/60 hover:bg-[#093A3E]/5 group">
-                  <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 group-hover:border-[#093A3E]/30 flex items-center justify-center text-slate-400 group-hover:text-[#093A3E] shadow-xs mb-3 transition-colors">
+                <label className="border-2 border-dashed border-slate-300 hover:border-[#15182B] rounded-2xl p-6 flex flex-col items-center justify-center cursor-pointer transition-all bg-slate-50/60 hover:bg-[#15182B]/5 group">
+                  <div className="w-12 h-12 rounded-xl bg-white border border-[#E2E4EC] group-hover:border-[#15182B]/30 flex items-center justify-center text-slate-400 group-hover:text-[#15182B] shadow-xs mb-3 transition-colors">
                     <UploadCloud className="w-6 h-6" />
                   </div>
-                  <div className="text-xs font-bold text-slate-700 group-hover:text-[#093A3E]">
+                  <div className="text-xs font-bold text-slate-700 group-hover:text-[#15182B]">
                     Click to upload your Payout QR code
                   </div>
-                  <div className="text-[11px] text-slate-400 mt-1">
+                  <div className="text-[11px] text-slate-400 mt-1 font-mono">
                     PNG, JPG, or WEBP (Max 5MB)
                   </div>
                   <input
@@ -426,17 +432,17 @@ export default function ProfilePage() {
             <button
               type="submit"
               disabled={savingPayout}
-              className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-[#093A3E] hover:bg-[#001011] transition-all cursor-pointer shadow-md shadow-[#093A3E]/15 flex items-center gap-2"
+              className="pantera-btn-navy py-2.5 px-5 text-xs font-mono font-bold transition-all cursor-pointer shadow-md flex items-center gap-2"
             >
-              {savingPayout ? "Saving Payout Details..." : "Save Payout Settings"}
+              {savingPayout ? "SAVING PAYOUT DETAILS..." : "SAVE PAYOUT SETTINGS"}
             </button>
           </form>
         </div>
 
         {/* Change Password Form */}
-        <div className="minimal-card p-6 border-slate-200 space-y-6">
-          <h3 className="text-sm font-extrabold text-slate-900 flex items-center space-x-2">
-            <Lock className="w-4 h-4 text-[#093A3E]" />
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 shadow-xs space-y-6">
+          <h3 className="text-sm font-bold text-[#0E101D] flex items-center space-x-2 font-display uppercase tracking-wide">
+            <Lock className="w-4 h-4 text-[#15182B]" />
             <span>Change Password</span>
           </h3>
 
@@ -451,44 +457,44 @@ export default function ProfilePage() {
 
           <form onSubmit={handleUpdatePassword} className="space-y-4 max-w-md">
             <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">New Password</label>
+              <label className="block text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-1">New Password</label>
               <input
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Minimum 6 characters"
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#093A3E] focus:ring-1 focus:ring-[#3AAFB9]"
+                className="w-full bg-slate-50 border border-[#E2E4EC] rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#15182B] focus:ring-1 focus:ring-[#E9B737]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Confirm New Password</label>
+              <label className="block text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-1">Confirm New Password</label>
               <input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Re-enter new password"
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#093A3E] focus:ring-1 focus:ring-[#3AAFB9]"
+                className="w-full bg-slate-50 border border-[#E2E4EC] rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#15182B] focus:ring-1 focus:ring-[#E9B737]"
               />
             </div>
 
             <button
               type="submit"
-              className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-[#093A3E] hover:bg-[#001011] transition-all cursor-pointer shadow-md shadow-[#093A3E]/15"
+              className="pantera-btn-navy py-2.5 px-5 text-xs font-mono font-bold transition-all cursor-pointer shadow-md"
             >
-              Update Password
+              UPDATE PASSWORD
             </button>
           </form>
         </div>
 
         {/* QR Code Full View Modal */}
         {isViewingQrModal && qrPreviewUrl && (
-          <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="bg-white border border-slate-200 rounded-2xl p-6 w-full max-w-sm space-y-4 shadow-2xl relative">
+          <div className="fixed inset-0 z-50 bg-[#0E101D]/75 backdrop-blur-sm flex items-center justify-center p-4">
+            <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 w-full max-w-sm space-y-4 shadow-2xl relative">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div className="flex items-center gap-2">
-                  <QrCode className="w-4 h-4 text-[#093A3E]" />
-                  <span className="text-sm font-extrabold text-slate-900">Personal Payout QR</span>
+                  <QrCode className="w-4 h-4 text-[#15182B]" />
+                  <span className="text-sm font-bold text-[#0E101D] font-display uppercase">Personal Payout QR</span>
                 </div>
                 <button
                   type="button"

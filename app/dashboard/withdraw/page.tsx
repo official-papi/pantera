@@ -61,46 +61,50 @@ export default function WithdrawPage() {
         
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-extrabold text-[#001011]">Withdraw Funds</h1>
+            <div className="inline-flex items-center gap-2 font-mono text-[11px] font-semibold text-[#15182B] tracking-[0.2em] uppercase mb-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E9B737]" />
+              <span>[ CAPITAL OUTFLOW CONSOLE ]</span>
+            </div>
+            <h1 className="text-2xl font-bold font-display tracking-tight text-[#0E101D] uppercase">Withdraw Funds</h1>
             <p className="text-xs text-slate-500 mt-1">Request payout from your Interest Wallet or Deposit Wallet.</p>
           </div>
 
           <button
             type="button"
             onClick={() => setIsWithdrawOpen(true)}
-            className="py-2.5 px-4 rounded-xl bg-[#093A3E] hover:bg-[#001011] text-white text-xs font-bold flex items-center space-x-2 cursor-pointer shadow-xs transition-all self-start sm:self-auto"
+            className="pantera-btn-navy py-2.5 px-4 text-xs font-mono font-bold flex items-center space-x-2 cursor-pointer shadow-xs self-start sm:self-auto"
           >
-            <Plus className="w-4 h-4 text-[#3AAFB9]" />
-            <span>Request Withdrawal</span>
+            <Plus className="w-4 h-4 text-[#E9B737]" />
+            <span>REQUEST WITHDRAWAL</span>
           </button>
         </div>
 
         {/* Balance & Payout Destination Stat Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="bg-white border border-[#d4e7e9] rounded-2xl p-6 shadow-xs relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#093A3E] to-[#3AAFB9]" />
-            <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">Interest Wallet (Earnings)</div>
+          <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 shadow-xs relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#15182B] to-[#E9B737]" />
+            <div className="text-[11px] text-slate-400 font-mono font-bold uppercase tracking-wider">Interest Wallet (Earnings)</div>
             <div className="text-3xl font-extrabold font-mono text-emerald-600 mt-1">${interestWallet.toFixed(2)}</div>
             <p className="text-[11px] text-slate-400 mt-1">Settled returns ready for withdrawal</p>
           </div>
 
-          <div className="bg-white border border-[#d4e7e9] rounded-2xl p-6 shadow-xs relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-[#093A3E]" />
-            <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">Deposit Wallet</div>
-            <div className="text-3xl font-extrabold font-mono text-[#001011] mt-1">${depositWallet.toFixed(2)}</div>
+          <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 shadow-xs relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-[#15182B]" />
+            <div className="text-[11px] text-slate-400 font-mono font-bold uppercase tracking-wider">Deposit Wallet</div>
+            <div className="text-3xl font-extrabold font-mono text-[#0E101D] mt-1">${depositWallet.toFixed(2)}</div>
             <p className="text-[11px] text-slate-400 mt-1">Available principal capital</p>
           </div>
 
-          <div className="bg-white border border-[#d4e7e9] rounded-2xl p-5 shadow-xs relative overflow-hidden flex flex-col justify-between">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-[#3AAFB9]" />
+          <div className="bg-white border border-[#E2E4EC] rounded-2xl p-5 shadow-xs relative overflow-hidden flex flex-col justify-between">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-[#E9B737]" />
             <div className="flex items-center justify-between">
-              <div className="text-xs text-slate-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
-                <QrCode className="w-3.5 h-3.5 text-[#093A3E]" />
+              <div className="text-[11px] text-slate-400 font-mono font-bold uppercase tracking-wider flex items-center gap-1.5">
+                <QrCode className="w-3.5 h-3.5 text-[#15182B]" />
                 <span>My Payout Destination</span>
               </div>
               <Link
                 href="/dashboard/profile"
-                className="text-[11px] text-[#093A3E] hover:text-[#3AAFB9] font-bold inline-flex items-center gap-1"
+                className="text-[11px] text-[#15182B] hover:text-[#E9B737] font-bold inline-flex items-center gap-1"
               >
                 <span>Edit</span>
                 <ExternalLink className="w-3 h-3" />
@@ -115,7 +119,7 @@ export default function WithdrawPage() {
                   className="w-12 h-12 object-contain rounded-lg bg-white border border-slate-200 flex-shrink-0"
                 />
                 <div className="overflow-hidden">
-                  <div className="text-xs font-bold text-[#001011] flex items-center gap-1">
+                  <div className="text-xs font-bold text-[#0E101D] flex items-center gap-1">
                     <CheckCircle2 className="w-3 h-3 text-emerald-600 flex-shrink-0" />
                     <span className="truncate">{payoutMethod || "Custom Wallet"}</span>
                   </div>
@@ -131,30 +135,30 @@ export default function WithdrawPage() {
                 </p>
                 <Link
                   href="/dashboard/profile"
-                  className="text-[11px] font-bold text-[#093A3E] underline hover:text-[#3AAFB9] mt-0.5 inline-block"
+                  className="text-[11px] font-bold text-[#15182B] underline hover:text-[#E9B737] mt-0.5 inline-block"
                 >
                   Upload QR in Profile
                 </Link>
               </div>
             )}
 
-            <div className="text-[10px] text-slate-400">
+            <div className="text-[10px] text-slate-400 font-mono">
               Expedites withdrawal processing & scanning
             </div>
           </div>
         </div>
 
         {/* Withdraw Logs Table */}
-        <div className="bg-white border border-[#d4e7e9] rounded-2xl p-6 shadow-xs">
-          <h3 className="text-sm font-extrabold text-[#001011] mb-4 flex items-center space-x-2">
-            <History className="w-4 h-4 text-[#093A3E]" />
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 shadow-xs">
+          <h3 className="text-sm font-bold text-[#0E101D] mb-4 flex items-center space-x-2 font-display uppercase tracking-wide">
+            <History className="w-4 h-4 text-[#15182B]" />
             <span>Withdrawal History Ledger</span>
           </h3>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-slate-200 text-slate-400 uppercase text-[10px] tracking-wider">
+                <tr className="border-b border-[#E2E4EC] text-slate-400 uppercase text-[10px] tracking-wider font-mono">
                   <th className="pb-3">Wallet Source</th>
                   <th className="pb-3">Method</th>
                   <th className="pb-3">Amount</th>
@@ -181,9 +185,9 @@ export default function WithdrawPage() {
 
                     return (
                       <tr key={log.id} className="hover:bg-slate-50/80 transition-colors">
-                        <td className="py-3 font-extrabold text-[#001011] uppercase">{log.wallet_type}</td>
+                        <td className="py-3 font-bold text-[#0E101D] uppercase font-mono">{log.wallet_type}</td>
                         <td className="py-3 font-semibold text-slate-700">{log.method_name || "Crypto"}</td>
-                        <td className="py-3 font-mono font-extrabold text-[#093A3E]">-${Number(log.amount).toFixed(2)}</td>
+                        <td className="py-3 font-mono font-extrabold text-[#15182B]">-${Number(log.amount).toFixed(2)}</td>
                         <td className="py-3 font-mono text-slate-500 text-[11px] truncate max-w-[180px]">
                           {destinationText}
                         </td>
@@ -192,7 +196,7 @@ export default function WithdrawPage() {
                             <button
                               type="button"
                               onClick={() => setViewingLogQr(log)}
-                              className="px-2 py-1 rounded-lg bg-[#093A3E]/10 hover:bg-[#093A3E] text-[#093A3E] hover:text-white border border-[#093A3E]/20 text-[11px] font-bold inline-flex items-center gap-1 transition-all cursor-pointer shadow-xs"
+                              className="px-2.5 py-1 rounded-lg bg-[#15182B]/10 hover:bg-[#15182B] text-[#15182B] hover:text-[#E9B737] border border-[#15182B]/20 text-[11px] font-mono font-bold inline-flex items-center gap-1 transition-all cursor-pointer shadow-xs"
                             >
                               <QrCode className="w-3.5 h-3.5" />
                               <span>View QR</span>
@@ -210,7 +214,7 @@ export default function WithdrawPage() {
                             {log.status}
                           </span>
                         </td>
-                        <td className="py-3 text-slate-500 text-[11px]">{new Date(log.created_at).toLocaleDateString()}</td>
+                        <td className="py-3 text-slate-500 text-[11px] font-mono">{new Date(log.created_at).toLocaleDateString()}</td>
                       </tr>
                     );
                   })
@@ -231,12 +235,12 @@ export default function WithdrawPage() {
 
         {/* View Withdrawal Record QR Modal */}
         {viewingLogQr && (
-          <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="bg-white border border-slate-200 rounded-2xl p-6 w-full max-w-sm space-y-4 shadow-2xl relative">
+          <div className="fixed inset-0 z-50 bg-[#0E101D]/75 backdrop-blur-sm flex items-center justify-center p-4">
+            <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 w-full max-w-sm space-y-4 shadow-2xl relative">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div className="flex items-center gap-2">
-                  <QrCode className="w-4 h-4 text-[#093A3E]" />
-                  <span className="text-sm font-extrabold text-slate-900">Withdrawal Payout QR</span>
+                  <QrCode className="w-4 h-4 text-[#15182B]" />
+                  <span className="text-sm font-bold text-[#0E101D] font-display uppercase">Withdrawal Payout QR</span>
                 </div>
                 <button
                   type="button"
@@ -262,7 +266,7 @@ export default function WithdrawPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">Amount Requested:</span>
-                  <span className="font-mono font-bold text-[#093A3E]">${Number(viewingLogQr.amount).toFixed(2)}</span>
+                  <span className="font-mono font-bold text-[#15182B]">${Number(viewingLogQr.amount).toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">Status:</span>

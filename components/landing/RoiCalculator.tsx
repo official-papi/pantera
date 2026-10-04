@@ -140,8 +140,8 @@ export default function RoiCalculator() {
         {/* Pantera Capital Institutional Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-6 border-b border-zinc-200">
           <div>
-            <div className="flex items-center gap-2.5 font-mono text-[11px] font-semibold tracking-[0.2em] text-[#093A3E] uppercase mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#3AAFB9] animate-pulse" />
+            <div className="flex items-center gap-2.5 font-mono text-[11px] font-semibold tracking-[0.2em] text-[#15182B] uppercase mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E9B737] animate-pulse" />
               <span>[ 04 // YIELD SIMULATOR ]</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-black font-display tracking-tight text-zinc-950 uppercase">
@@ -152,17 +152,17 @@ export default function RoiCalculator() {
             </p>
           </div>
           
-          <div className="flex items-center gap-2 text-xs font-mono font-medium text-[#093A3E] bg-white border border-zinc-200 shadow-xs px-3.5 py-2 rounded-xl self-start sm:self-auto">
-            <CheckCircle2 className="w-3.5 h-3.5 text-[#3AAFB9]" />
+          <div className="flex items-center gap-2 text-xs font-mono font-semibold text-[#15182B] bg-white border border-[#E2E4EC] shadow-xs px-3.5 py-2 rounded-xl self-start sm:self-auto">
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#E9B737]" />
             <span>100% PRINCIPAL RETURNED</span>
           </div>
         </div>
 
         {/* Compact Integrated Console Container */}
-        <div className="bg-white border border-[#d4e7e9] rounded-2xl shadow-sm overflow-hidden">
+        <div className="bg-white border border-[#E2E4EC] rounded-2xl shadow-sm overflow-hidden">
           
           {/* 1. Low-Profile Tier Tabs */}
-          <div className="bg-[#f0f8f9] border-b border-[#d4e7e9] p-2 overflow-x-auto scrollbar-none">
+          <div className="bg-[#F7F8FA] border-b border-[#E2E4EC] p-2 overflow-x-auto scrollbar-none">
             <div className="flex items-center gap-1.5 min-w-max sm:min-w-0 sm:grid sm:grid-cols-6">
               {plansList.map((tier) => {
                 const isSelected = selected.id === tier.id;
@@ -173,12 +173,12 @@ export default function RoiCalculator() {
                     onClick={() => changePlan(tier)}
                     className={`py-2 px-3 rounded-xl text-center transition-all cursor-pointer border text-xs ${
                       isSelected
-                        ? "bg-[#093A3E] text-white border-[#093A3E] font-bold shadow-xs"
-                        : "bg-white text-[#001011] border-[#d4e7e9] hover:border-[#3AAFB9] hover:bg-[#f8fcfc] font-medium"
+                        ? "bg-[#15182B] text-white border-[#15182B] font-bold shadow-xs"
+                        : "bg-white text-[#15182B] border-[#E2E4EC] hover:border-[#E9B737] hover:bg-[#FDF9ED] font-medium"
                     }`}
                   >
-                    <div className="truncate">{tier.name}</div>
-                    <div className={`font-mono text-[11px] font-bold ${isSelected ? "text-[#3AAFB9]" : "text-[#093A3E]"}`}>
+                    <div className="truncate font-sans">{tier.name}</div>
+                    <div className={`font-mono text-[11px] font-bold ${isSelected ? "text-[#E9B737]" : "text-[#15182B]"}`}>
                       {tier.rate}%/wk
                     </div>
                   </button>
@@ -193,43 +193,43 @@ export default function RoiCalculator() {
             {/* Left Lever: Capital Amount */}
             <div className="space-y-2.5">
               <div className="flex justify-between items-baseline">
-                <label className="text-xs font-bold uppercase tracking-wider text-[#001011]">
+                <label className="text-xs font-bold uppercase tracking-wider text-[#15182B] font-mono">
                   Capital Amount
                 </label>
-                <span className="text-[11px] text-[#5e7e83] font-mono">
+                <span className="text-[11px] text-slate-500 font-mono">
                   ${selected.min.toLocaleString()} – ${selected.max.toLocaleString()}
                 </span>
               </div>
 
               {/* Compact Input + Min/Max */}
               <div className="relative flex items-center">
-                <span className="absolute left-3.5 text-[#5e7e83] font-bold text-base select-none">$</span>
+                <span className="absolute left-3.5 text-slate-400 font-bold text-base select-none">$</span>
                 <input
                   type="text"
                   value={Number(inputVal || 0).toLocaleString()}
                   onChange={handleInputChange}
                   onBlur={handleInputBlur}
-                  className="w-full pl-8 pr-28 py-2 bg-[#f8fcfc] border border-[#d4e7e9] rounded-xl text-base font-mono font-bold text-[#001011] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#3AAFB9]/20 focus:border-[#093A3E] transition-all"
+                  className="w-full pl-8 pr-28 py-2 bg-[#F7F8FA] border border-[#E2E4EC] rounded-xl text-base font-mono font-bold text-[#15182B] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#E9B737]/30 focus:border-[#15182B] transition-all"
                 />
-                <div className="absolute right-2 flex items-center gap-1">
+                <div className="absolute right-2 flex items-center gap-1 font-mono">
                   <button
                     type="button"
                     onClick={() => setExplicitAmount(selected.min)}
-                    className="text-[10px] uppercase font-bold text-[#093A3E] hover:text-[#001011] bg-white border border-[#d4e7e9] px-2 py-0.5 rounded transition-colors"
+                    className="text-[10px] uppercase font-bold text-[#15182B] hover:text-[#E9B737] bg-white border border-[#E2E4EC] px-2 py-0.5 rounded transition-colors"
                   >
                     Min
                   </button>
                   <button
                     type="button"
                     onClick={() => addAmount(1000)}
-                    className="text-[10px] font-bold text-[#093A3E] hover:text-[#001011] bg-white border border-[#d4e7e9] px-2 py-0.5 rounded transition-colors hidden sm:inline"
+                    className="text-[10px] font-bold text-[#15182B] hover:text-[#E9B737] bg-white border border-[#E2E4EC] px-2 py-0.5 rounded transition-colors hidden sm:inline"
                   >
                     +1k
                   </button>
                   <button
                     type="button"
                     onClick={() => setExplicitAmount(selected.max)}
-                    className="text-[10px] uppercase font-bold text-[#093A3E] hover:text-[#001011] bg-white border border-[#d4e7e9] px-2 py-0.5 rounded transition-colors"
+                    className="text-[10px] uppercase font-bold text-[#15182B] hover:text-[#E9B737] bg-white border border-[#E2E4EC] px-2 py-0.5 rounded transition-colors"
                   >
                     Max
                   </button>
@@ -249,25 +249,25 @@ export default function RoiCalculator() {
                   setInputVal(val.toString());
                 }}
                 style={{
-                  background: `linear-gradient(to right, #093A3E 0%, #093A3E ${sliderPercentage}%, #d4e7e9 ${sliderPercentage}%, #d4e7e9 100%)`,
+                  background: `linear-gradient(to right, #15182B 0%, #15182B ${sliderPercentage}%, #E2E4EC ${sliderPercentage}%, #E2E4EC 100%)`,
                 }}
-                className="w-full h-1.5 rounded-full appearance-none cursor-pointer accent-[#093A3E]"
+                className="w-full h-1.5 rounded-full appearance-none cursor-pointer accent-[#15182B]"
               />
             </div>
 
             {/* Right Lever: Holding Duration */}
             <div className="space-y-2.5">
               <div className="flex justify-between items-baseline">
-                <label className="text-xs font-bold uppercase tracking-wider text-[#001011]">
+                <label className="text-xs font-bold uppercase tracking-wider text-[#15182B] font-mono">
                   Holding Duration
                 </label>
-                <span className="text-xs font-mono font-bold text-[#093A3E]">
-                  {customWeeks} Weeks <span className="text-[11px] text-[#5e7e83] font-normal">(~{(customWeeks / 4.333).toFixed(1)} mo)</span>
+                <span className="text-xs font-mono font-bold text-[#15182B]">
+                  {customWeeks} Weeks <span className="text-[11px] text-slate-500 font-normal font-sans">(~{(customWeeks / 4.333).toFixed(1)} mo)</span>
                 </span>
               </div>
 
               {/* Horizon Quick Pills */}
-              <div className="grid grid-cols-5 gap-1">
+              <div className="grid grid-cols-5 gap-1 font-mono">
                 {durationOptions.map((opt) => {
                   const isCurrent = customWeeks === opt.weeks;
                   return (
@@ -277,8 +277,8 @@ export default function RoiCalculator() {
                       onClick={() => setCustomWeeks(opt.weeks)}
                       className={`py-1.5 px-1 rounded-lg text-xs font-semibold border text-center transition-all cursor-pointer ${
                         isCurrent
-                          ? "bg-[#093A3E] text-white border-[#093A3E]"
-                          : "bg-white text-[#2f494c] border-[#d4e7e9] hover:border-[#3AAFB9] hover:bg-[#f0f8f9]"
+                          ? "bg-[#15182B] text-white border-[#15182B]"
+                          : "bg-white text-slate-700 border-[#E2E4EC] hover:border-[#E9B737] hover:bg-[#FDF9ED]"
                       }`}
                     >
                       {opt.label}
@@ -296,30 +296,30 @@ export default function RoiCalculator() {
                 value={customWeeks}
                 onChange={(e) => setCustomWeeks(Number(e.target.value))}
                 style={{
-                  background: `linear-gradient(to right, #093A3E 0%, #093A3E ${(customWeeks / 52) * 100}%, #d4e7e9 ${(customWeeks / 52) * 100}%, #d4e7e9 100%)`,
+                  background: `linear-gradient(to right, #15182B 0%, #15182B ${(customWeeks / 52) * 100}%, #E2E4EC ${(customWeeks / 52) * 100}%, #E2E4EC 100%)`,
                 }}
-                className="w-full h-1.5 rounded-full appearance-none cursor-pointer accent-[#093A3E]"
+                className="w-full h-1.5 rounded-full appearance-none cursor-pointer accent-[#15182B]"
               />
             </div>
 
           </div>
 
-          {/* 3. Executive Real-Time Result Strip (Compact Ink Black Bar) */}
-          <div className="bg-[#001011] p-4 sm:p-5 border-t border-[#093A3E] flex flex-col md:flex-row md:items-center justify-between gap-4 text-white">
+          {/* 3. Executive Real-Time Result Strip (Pantera Navy Bar) */}
+          <div className="bg-[#15182B] p-4 sm:p-5 border-t border-[#232742] flex flex-col md:flex-row md:items-center justify-between gap-4 text-white">
             
             {/* Metric Pods Cluster */}
             <div className="grid grid-cols-3 gap-3 sm:gap-6 items-center">
               <div>
-                <span className="text-[10px] uppercase font-mono tracking-wider text-[#b5dfe3] block">
+                <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400 block">
                   Weekly Yield
                 </span>
-                <span className="text-sm sm:text-base font-bold font-mono text-[#3AAFB9]">
+                <span className="text-sm sm:text-base font-bold font-mono text-[#E9B737]">
                   +${weeklyProfit.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>
 
-              <div className="border-x border-[#093A3E] px-3 sm:px-6">
-                <span className="text-[10px] uppercase font-mono tracking-wider text-[#b5dfe3] block">
+              <div className="border-x border-[#232742] px-3 sm:px-6">
+                <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400 block">
                   Net Profit ({customWeeks}w)
                 </span>
                 <span className="text-sm sm:text-base font-bold font-mono text-white">
@@ -329,10 +329,10 @@ export default function RoiCalculator() {
 
               <div>
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[10px] uppercase font-mono tracking-wider text-[#b5dfe3]">
+                  <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400">
                     Total Return
                   </span>
-                  <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-[#093A3E] text-[#3AAFB9] font-bold">
+                  <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-[#E9B737] text-[#15182B] font-bold">
                     +{roiPercentage.toFixed(0)}%
                   </span>
                 </div>
@@ -346,10 +346,10 @@ export default function RoiCalculator() {
             <div className="flex items-center justify-end">
               <Link
                 href={`/register?plan=${encodeURIComponent(selected.name)}&amount=${amount}`}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#3AAFB9] to-[#278e98] hover:from-[#5cb4be] hover:to-[#3AAFB9] text-[#001011] font-bold text-xs px-6 py-3 rounded-xl shadow-md shadow-[#3AAFB9]/20 transition-all cursor-pointer active:scale-95 whitespace-nowrap"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#E9B737] hover:bg-[#d4a42c] text-[#15182B] font-mono font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-xl shadow-md transition-all cursor-pointer active:scale-95 whitespace-nowrap border border-[#15182B]"
               >
                 <span>Deploy ${amount.toLocaleString()} in {selected.name}</span>
-                <ArrowRight className="w-4 h-4 text-[#001011]" />
+                <ArrowRight className="w-4 h-4 text-[#15182B]" />
               </Link>
             </div>
 

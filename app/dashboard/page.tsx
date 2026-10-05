@@ -106,7 +106,7 @@ export default function DashboardPage() {
         full_name: profileRes.data.full_name || (impersonatedId ? "Investor" : user.user_metadata?.full_name) || "Investor",
         deposit_wallet: Number(profileRes.data.deposit_wallet || 0),
         interest_wallet: Number(profileRes.data.interest_wallet || 0),
-        referral_code: profileRes.data.referral_code || "REF-789",
+        referral_code: profileRes.data.username || profileRes.data.referral_code || "REF-789",
         role: profileRes.data.role || "user",
       });
     }

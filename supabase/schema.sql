@@ -330,24 +330,47 @@ RETURNS TRIGGER AS $$
 DECLARE
     v_referrer_id UUID := NULL;
     v_ref_code TEXT;
+    v_username TEXT;
 BEGIN
-    v_ref_code := NEW.raw_user_meta_data->>'referred_by_code';
+    v_ref_code := TRIM(COALESCE(NEW.raw_user_meta_data->>'referred_by_code', ''));
 
-    IF v_ref_code IS NOT NULL AND v_ref_code != '' THEN
+    -- Determine clean username
+    v_username := LOWER(TRIM(COALESCE(
+        NEW.raw_user_meta_data->>'username',
+        split_part(NEW.email, '@', 1) || '_' || substring(md5(random()::text) from 1 for 4)
+    )));
+    v_username := regexp_replace(v_username, '[^a-z0-9_]', '', 'g');
+    IF v_username IS NULL OR length(v_username) < 2 THEN
+        v_username := 'user_' || substring(md5(random()::text) from 1 for 6);
+    END IF;
+
+    -- Look up referrer by either referral_code OR username (case-insensitive)
+    IF v_ref_code != '' THEN
         SELECT id INTO v_referrer_id 
         FROM public.profiles 
-        WHERE referral_code = v_ref_code 
+        WHERE LOWER(referral_code) = LOWER(v_ref_code)
+           OR LOWER(username) = LOWER(v_ref_code)
         LIMIT 1;
     END IF;
 
-    INSERT INTO public.profiles (id, email, full_name, username, avatar_url, role, referred_by)
+    INSERT INTO public.profiles (
+        id, 
+        email, 
+        full_name, 
+        username, 
+        avatar_url, 
+        role, 
+        referral_code, 
+        referred_by
+    )
     VALUES (
         NEW.id,
         NEW.email,
         COALESCE(NEW.raw_user_meta_data->>'full_name', split_part(NEW.email, '@', 1)),
-        COALESCE(NEW.raw_user_meta_data->>'username', split_part(NEW.email, '@', 1) || '_' || substring(md5(random()::text) from 1 for 4)),
+        v_username,
         NEW.raw_user_meta_data->>'avatar_url',
         COALESCE((NEW.raw_user_meta_data->>'role')::public.user_role, 'user'::public.user_role),
+        v_username, -- Use the username directly as their referral code
         v_referrer_id
     );
     RETURN NEW;

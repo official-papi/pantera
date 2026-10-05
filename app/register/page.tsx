@@ -17,6 +17,7 @@ function RegisterForm() {
   const searchParams = useSearchParams();
 
   const [fullName,        setFullName]        = useState("");
+  const [username,        setUsername]        = useState("");
   const [email,           setEmail]           = useState("");
   const [password,        setPassword]        = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -34,12 +35,26 @@ function RegisterForm() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true); setError(null); setSuccess(null);
+
+    const cleanUsername = username.trim().toLowerCase().replace(/[^a-z0-9_]/g, "");
+    if (!cleanUsername || cleanUsername.length < 3) {
+      setError("Username must be at least 3 alphanumeric characters.");
+      setLoading(false);
+      return;
+    }
+
     if (password !== confirmPassword) { setError("Passwords do not match."); setLoading(false); return; }
     if (password.length < 6) { setError("Password must be at least 6 characters."); setLoading(false); return; }
 
     const { data, error: signUpError } = await createClient().auth.signUp({
       email, password,
-      options: { data: { full_name: fullName, referred_by_code: referralCode || null } },
+      options: { 
+        data: { 
+          full_name: fullName, 
+          username: cleanUsername,
+          referred_by_code: referralCode.trim() || null 
+        } 
+      },
     });
 
     if (signUpError) {
@@ -74,6 +89,26 @@ function RegisterForm() {
           <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 pointer-events-none" />
           <input id="fullName" type="text" required value={fullName} onChange={e => setFullName(e.target.value)} placeholder="John Doe" className={inputCls} />
         </div>
+      </div>
+
+      {/* Username */}
+      <div>
+        <label htmlFor="username" className="block text-[11px] font-semibold text-zinc-700 mb-1.5 uppercase tracking-wider">
+          Username <span className="text-zinc-400 normal-case font-normal text-[11px]">(will be your unique referral handle)</span>
+        </label>
+        <div className="relative">
+          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono font-bold text-zinc-400 text-sm pointer-events-none select-none">@</span>
+          <input 
+            id="username" 
+            type="text" 
+            required 
+            value={username} 
+            onChange={e => setUsername(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""))} 
+            placeholder="johndoe" 
+            className={inputCls} 
+          />
+        </div>
+        <p className="text-[10px] text-zinc-400 mt-1 font-mono">Your referral link will be: /register?ref={username ? username.toLowerCase() : "your_username"}</p>
       </div>
 
       {/* Email */}
@@ -113,11 +148,11 @@ function RegisterForm() {
       {/* Referral */}
       <div>
         <label htmlFor="referralCode" className="block text-[11px] font-semibold text-zinc-700 mb-1.5 uppercase tracking-wider">
-          Referral Code <span className="text-zinc-400 normal-case font-normal text-[11px]">(optional)</span>
+          Referral Username / Code <span className="text-zinc-400 normal-case font-normal text-[11px]">(optional)</span>
         </label>
         <div className="relative">
           <Share2 className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 pointer-events-none" />
-          <input id="referralCode" type="text" value={referralCode} onChange={e => setReferralCode(e.target.value)} placeholder="e.g. ALPHA789" className={inputCls} />
+          <input id="referralCode" type="text" value={referralCode} onChange={e => setReferralCode(e.target.value)} placeholder="e.g. inviter_username" className={inputCls} />
         </div>
       </div>
 

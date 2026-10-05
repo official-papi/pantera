@@ -19,8 +19,8 @@ export default function ReferralPage() {
     const activeUser = await getActiveUser(supabase);
     if (activeUser) {
       setUserEmail(activeUser.email);
-      const { data: profile } = await supabase.from("profiles").select("referral_code").eq("id", activeUser.id).single();
-      if (profile) setRefCode(profile.referral_code || "");
+      const { data: profile } = await supabase.from("profiles").select("referral_code, username").eq("id", activeUser.id).single();
+      if (profile) setRefCode(profile.username || profile.referral_code || "");
 
       // Query level 1 referrals
       const { data: refs } = await supabase.from("profiles").select("id, full_name, created_at").eq("referred_by", activeUser.id);

@@ -77,11 +77,19 @@ export default function ProfilePage() {
       return;
     }
 
+    const cleanUsername = username.trim().toLowerCase().replace(/[^a-z0-9_]/g, "");
+    if (!cleanUsername || cleanUsername.length < 3) {
+      setProfileMsg({ text: "Username must be at least 3 alphanumeric characters.", type: "error" });
+      setSaving(false);
+      return;
+    }
+
     const { error } = await supabase
       .from("profiles")
       .update({
         full_name: fullName,
-        username,
+        username: cleanUsername,
+        referral_code: cleanUsername,
         phone,
         updated_at: new Date().toISOString(),
       })
@@ -90,7 +98,8 @@ export default function ProfilePage() {
     if (error) {
       setProfileMsg({ text: error.message, type: "error" });
     } else {
-      setProfileMsg({ text: "Profile details updated successfully!", type: "success" });
+      setUsername(cleanUsername);
+      setProfileMsg({ text: "Profile & Referral Handle updated successfully!", type: "success" });
     }
     setSaving(false);
   };
@@ -248,13 +257,18 @@ export default function ProfilePage() {
               </div>
 
               <div>
-                <label className="block text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-1">Username</label>
-                <input
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="w-full bg-slate-50 border border-[#E2E4EC] rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#15182B] focus:ring-1 focus:ring-[#E9B737]"
-                />
+                <label className="block text-xs font-mono font-bold text-slate-600 uppercase tracking-wider mb-1">
+                  Username <span className="text-slate-400 normal-case font-normal">(also your referral link handle)</span>
+                </label>
+                <div className="relative">
+                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono font-bold text-slate-400 text-xs pointer-events-none select-none">@</span>
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""))}
+                    className="w-full bg-slate-50 border border-[#E2E4EC] rounded-xl pl-8 pr-3 py-2 text-xs font-mono text-slate-900 focus:outline-none focus:border-[#15182B] focus:ring-1 focus:ring-[#E9B737]"
+                  />
+                </div>
               </div>
 
               <div>

@@ -40,15 +40,24 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, []);
 
   const setLanguage = (lang: Language) => {
+    const isRtl = ["ar", "fa", "ur", "he"].includes(lang);
     setLanguageState(lang);
     try {
       localStorage.setItem("alpha_language", lang);
       document.documentElement.lang = lang;
-      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+      document.documentElement.dir = isRtl ? "rtl" : "ltr";
 
       const target = lang === "en" ? "/en/en" : `/en/${lang}`;
       document.cookie = `googtrans=${target}; path=/;`;
       document.cookie = `googtrans=${target}; path=/; domain=${window.location.hostname};`;
+
+      if (window.location.hostname !== "localhost" && !window.location.hostname.includes("127.0.0.1")) {
+        const parts = window.location.hostname.split(".");
+        if (parts.length >= 2) {
+          const rootDomain = parts.slice(-2).join(".");
+          document.cookie = `googtrans=${target}; path=/; domain=.${rootDomain};`;
+        }
+      }
 
       const select = document.querySelector(".goog-te-combo") as HTMLSelectElement | null;
       if (select) {
@@ -65,15 +74,17 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   };
 
+  const isRtl = ["ar", "fa", "ur", "he"].includes(language);
+
   useEffect(() => {
     if (mounted) {
       document.documentElement.lang = language;
-      document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+      document.documentElement.dir = isRtl ? "rtl" : "ltr";
     }
-  }, [language, mounted]);
+  }, [language, mounted, isRtl]);
 
-  const activeTranslations = translations[language] || translations.en;
-  const dir = language === "ar" ? "rtl" : "ltr";
+  const activeTranslations = (translations as Record<string, any>)[language] || translations.en;
+  const dir = isRtl ? "rtl" : "ltr";
 
   return (
     <LanguageContext.Provider

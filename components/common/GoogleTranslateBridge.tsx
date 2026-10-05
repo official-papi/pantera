@@ -22,7 +22,6 @@ export default function GoogleTranslateBridge() {
           new window.google.translate.TranslateElement(
             {
               pageLanguage: "en",
-              includedLanguages: "en,es,fr,de,pt,ar,it,ru,tr,zh-CN,hi,ja",
               autoDisplay: false,
               layout: window.google.translate.TranslateElement.InlineLayout?.SIMPLE,
             },

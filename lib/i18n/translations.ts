@@ -1,4 +1,7 @@
-export type Language = "en" | "es" | "fr" | "de" | "pt" | "ar";
+export type Language =
+  | "en" | "es" | "fr" | "de" | "pt" | "ar" | "zh-CN" | "zh-TW" | "ru" | "ja"
+  | "ko" | "it" | "tr" | "hi" | "vi" | "id" | "nl" | "pl" | "uk" | "th"
+  | "tl" | "el" | "cs" | "sv" | "ro" | "hu" | "fa" | "ur" | "he" | "bn" | "ms" | string;
 
 export interface LanguageOption {
   code: Language;
@@ -14,6 +17,31 @@ export const SUPPORTED_LANGUAGES: LanguageOption[] = [
   { code: "de", name: "German", nativeName: "Deutsch", flag: "🇩🇪" },
   { code: "pt", name: "Portuguese", nativeName: "Português", flag: "🇵🇹" },
   { code: "ar", name: "Arabic", nativeName: "العربية", flag: "🇸🇦" },
+  { code: "zh-CN", name: "Chinese (Simplified)", nativeName: "简体中文", flag: "🇨🇳" },
+  { code: "zh-TW", name: "Chinese (Traditional)", nativeName: "繁體中文", flag: "🇹🇼" },
+  { code: "ru", name: "Russian", nativeName: "Русский", flag: "🇷🇺" },
+  { code: "ja", name: "Japanese", nativeName: "日本語", flag: "🇯🇵" },
+  { code: "ko", name: "Korean", nativeName: "한국어", flag: "🇰🇷" },
+  { code: "it", name: "Italian", nativeName: "Italiano", flag: "🇮🇹" },
+  { code: "tr", name: "Turkish", nativeName: "Türkçe", flag: "🇹🇷" },
+  { code: "hi", name: "Hindi", nativeName: "हिन्दी", flag: "🇮🇳" },
+  { code: "vi", name: "Vietnamese", nativeName: "Tiếng Việt", flag: "🇻🇳" },
+  { code: "id", name: "Indonesian", nativeName: "Bahasa Indonesia", flag: "🇮🇩" },
+  { code: "nl", name: "Dutch", nativeName: "Nederlands", flag: "🇳🇱" },
+  { code: "pl", name: "Polish", nativeName: "Polski", flag: "🇵🇱" },
+  { code: "uk", name: "Ukrainian", nativeName: "Українська", flag: "🇺🇦" },
+  { code: "th", name: "Thai", nativeName: "ไทย", flag: "🇹🇭" },
+  { code: "tl", name: "Filipino", nativeName: "Tagalog", flag: "🇵🇭" },
+  { code: "el", name: "Greek", nativeName: "Ελληνικά", flag: "🇬🇷" },
+  { code: "cs", name: "Czech", nativeName: "Čeština", flag: "🇨🇿" },
+  { code: "sv", name: "Swedish", nativeName: "Svenska", flag: "🇸🇪" },
+  { code: "ro", name: "Romanian", nativeName: "Română", flag: "🇷🇴" },
+  { code: "hu", name: "Hungarian", nativeName: "Magyar", flag: "🇭🇺" },
+  { code: "fa", name: "Persian", nativeName: "فارسی", flag: "🇮🇷" },
+  { code: "ur", name: "Urdu", nativeName: "اردو", flag: "🇵🇰" },
+  { code: "he", name: "Hebrew", nativeName: "עברית", flag: "🇮🇱" },
+  { code: "bn", name: "Bengali", nativeName: "বাংলা", flag: "🇧🇩" },
+  { code: "ms", name: "Malay", nativeName: "Bahasa Melayu", flag: "🇲🇾" },
 ];
 
 export const translations = {

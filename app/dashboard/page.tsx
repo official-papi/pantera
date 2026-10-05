@@ -196,68 +196,91 @@ export default function DashboardPage() {
     setTimeout(() => setCopiedRef(false), 2000);
   };
 
+  const depositBal = Number(profile?.deposit_wallet || 0);
+  const profitBal = Number(profile?.interest_wallet || 0);
   const totalInvested = investments.reduce((acc, curr) => acc + (curr.amount || 0), 0);
+  const totalPortfolio = depositBal + profitBal + totalInvested;
+  const totalDailyYield = investments.reduce((acc, curr) => acc + (curr.dailyReturn || 0), 0);
+  const activeCount = investments.filter((i) => i.status === "active").length;
+
+  const fmt = (n: number) =>
+    n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   return (
     <DashboardLayout userEmail={profile?.email}>
-      <div className="space-y-8">
-        {/* Institutional Command Terminal Banner */}
-        <div className="relative group overflow-hidden rounded-xl border border-[#232742] bg-[#15182B] p-6 sm:p-8 shadow-xl text-white">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(233,183,55,0.12),transparent_70%)] pointer-events-none" />
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#E9B737]/5 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-          
-          <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-            <div className="space-y-2.5 max-w-xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0E101D] border border-[#E9B737]/40 text-[#E9B737] text-[11px] font-bold uppercase tracking-wider backdrop-blur-xs font-mono">
-                <Sparkles className="w-3.5 h-3.5 text-[#E9B737]" />
-                <span>Executive Terminal · Welcome Back, {profile?.full_name || "Investor"}</span>
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight font-display uppercase">
-                Institutional Wealth Console
-              </h1>
-              <p className="text-slate-300 text-xs sm:text-sm font-normal leading-relaxed">
-                Algorithmic yield tracking, verified ledger execution, and instant wallet compounding at tier-1 security standards.
-              </p>
-            </div>
+      <div className="space-y-6">
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+        {/* ── Clean Top Header & Actions ── */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white border border-[#E2E4EC] rounded-2xl p-5 sm:p-6 shadow-xs">
+          <div>
+            <div className="flex items-center gap-2 text-xs text-slate-500 font-mono mb-1">
+              <span>Welcome back,</span>
+              <strong className="text-slate-900 font-bold">{profile?.full_name || "Investor"}</strong>
+              <span className="text-slate-300">·</span>
+              <button
+                onClick={copyReferral}
+                className="inline-flex items-center gap-1 text-[11px] text-slate-500 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 px-2 py-0.5 rounded border border-slate-200 cursor-pointer transition-colors"
+                title="Click to copy your referral link"
+              >
+                <span>@{profile?.referral_code || "investor"}</span>
+                {copiedRef ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3 text-slate-400" />}
+              </button>
+            </div>
+            
+            <div className="flex items-baseline gap-3">
+              <span className="text-3xl sm:text-4xl font-extrabold text-[#15182B] font-mono tracking-tight">
+                ${fmt(totalPortfolio)}
+              </span>
+              <span className="text-xs font-semibold text-slate-400 font-mono">Total Portfolio Value</span>
+            </div>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={() => setIsDepositOpen(true)}
+              className="px-4 py-2.5 rounded-xl bg-[#15182B] hover:bg-[#0E101D] text-white text-xs font-bold font-mono transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
+            >
+              <span className="text-[#E9B737] font-extrabold">+</span>
+              <span>Deposit</span>
+            </button>
+
+            <button
+              onClick={() => setIsInvestOpen(true)}
+              className="px-4 py-2.5 rounded-xl bg-[#E9B737] hover:bg-[#D4A42C] text-[#15182B] text-xs font-bold font-mono transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
+            >
+              <span>⚡ Invest</span>
+            </button>
+
+            <button
+              onClick={() => setIsWithdrawOpen(true)}
+              className="px-3.5 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-[#E2E4EC] text-xs font-bold font-mono transition-all shadow-xs cursor-pointer"
+            >
+              <span>Withdraw</span>
+            </button>
+
+            {profitBal > 0 && (
               <button
                 onClick={() => setIsReinvestOpen(true)}
-                className="px-4 py-2.5 rounded-md bg-[#E9B737] hover:bg-[#D4A42C] text-[#15182B] text-xs font-bold flex items-center justify-center space-x-2 cursor-pointer shadow-xs transition-all font-mono uppercase tracking-wider"
+                className="px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold font-mono transition-all cursor-pointer flex items-center gap-1"
+                title="Transfer profits to deposit wallet"
               >
-                <RefreshCw className="w-4 h-4 text-[#15182B]" />
-                <span>Reinvest Earnings</span>
+                <RefreshCw className="w-3 h-3 text-slate-500" />
+                <span>Reinvest</span>
               </button>
-
-              <div className="bg-[#0E101D] border border-[#232742] p-2.5 px-4 rounded-md flex items-center justify-between gap-3">
-                <div>
-                  <div className="text-[10px] uppercase font-bold text-slate-400 font-mono">Referral ID</div>
-                  <div className="text-xs font-mono font-extrabold text-[#E9B737]">{profile?.referral_code || "ALPHA789"}</div>
-                </div>
-                <button
-                  onClick={copyReferral}
-                  className="bg-[#15182B] hover:bg-[#232742] text-white text-xs font-bold px-3 py-1.5 rounded border border-[#232742] cursor-pointer transition-colors shadow-xs"
-                  title="Copy Referral Link"
-                >
-                  {copiedRef ? <Check className="w-3.5 h-3.5 text-[#E9B737]" /> : <Copy className="w-3.5 h-3.5" />}
-                </button>
-              </div>
-            </div>
+            )}
           </div>
         </div>
 
-        {/* Account Balances Grid */}
+        {/* ── 4 Streamlined Metric Cards ── */}
         <OverviewCards
-          depositBalance={profile?.deposit_wallet || 0}
-          interestBalance={profile?.interest_wallet || 0}
+          depositBalance={depositBal}
+          interestBalance={profitBal}
           totalInvested={totalInvested}
           totalWithdrawn={totalWithdrawnSum}
-          onOpenDeposit={() => setIsDepositOpen(true)}
-          onOpenWithdraw={() => setIsWithdrawOpen(true)}
-          onOpenInvest={() => setIsInvestOpen(true)}
         />
 
-        {/* Active Investments Tracker */}
+        {/* ── Active Investments ── */}
         <InvestmentsTable
           investments={investments}
           onOpenInvest={() => setIsInvestOpen(true)}

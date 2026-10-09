@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 import { Calculator, ArrowRight, Zap, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import { getPlanIntervalInfo } from "@/lib/plans/intervals";
 
 interface InvestmentTier {
   id: string;
@@ -46,9 +47,9 @@ export default function RoiCalculator() {
 
         if (data && data.length > 0) {
           const formatted: InvestmentTier[] = data.map((p: any) => {
-            const isWeekly = Number(p.payout_interval_hours) === 168 || (p.description || "").toLowerCase().includes("week");
+            const intervalInfo = getPlanIntervalInfo(p.payout_interval_hours, p.total_payout_periods);
             const rate = Number(p.roi_percentage || 0);
-            const weeks = isWeekly ? Number(p.total_payout_periods || 8) : Math.max(1, Math.round(Number(p.total_payout_periods || 30) / 7));
+            const weeks = Number(p.total_payout_periods || 8);
             const min = Number(p.min_amount || 100);
             const max = Number(p.max_amount || 10000);
             const step = Math.max(50, Math.round((max - min) / 20));
@@ -63,7 +64,7 @@ export default function RoiCalculator() {
               max,
               step,
               badge,
-              interval: isWeekly ? "Weekly" : "Daily",
+              interval: intervalInfo.label,
               capitalBack: p.capital_back ?? true,
             };
           });

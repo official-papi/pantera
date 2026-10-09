@@ -312,3 +312,129 @@ export function getWithdrawalApprovedEmail(name: string, amount: number, method:
     }),
   };
 }
+
+// 6. DEPOSIT REJECTED EMAIL
+export function getDepositRejectedEmail(name: string, amount: number, feedback: string) {
+  const content = `
+    <h1>Deposit Request Declined</h1>
+    <p>Hello ${name || "Investor"},</p>
+    <p>Your recent deposit request could not be verified by our settlement desk.</p>
+
+    <div class="stat-box" style="border-left-color: #EF4444;">
+      <div class="stat-label">ATTEMPTED AMOUNT</div>
+      <div class="stat-value" style="color: #EF4444;">$${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+      <div class="stat-label" style="margin-top: 10px;">REASON / FEEDBACK</div>
+      <div style="font-family: ui-monospace; font-size: 13px; color: #CBD5E1; margin-top: 4px;">${feedback || "Invalid transaction hash, duplicate proof, or network confirmation failure."}</div>
+    </div>
+
+    <p>Please double-check your transaction hash or proof and submit a new deposit request, or contact support.</p>
+
+    <div style="text-align: center; margin: 24px 0;">
+      <a href="https://pantera.cfd/dashboard/deposit" class="btn">GO TO DEPOSITS</a>
+    </div>
+  `;
+
+  return {
+    subject: `Deposit Update: Request for $${amount.toFixed(2)} Declined`,
+    html: baseEmailHtml({
+      title: "Deposit Declined",
+      preheader: `Your deposit request for $${amount.toFixed(2)} was declined.`,
+      content,
+    }),
+  };
+}
+
+// 7. WITHDRAWAL REJECTED EMAIL
+export function getWithdrawalRejectedEmail(name: string, amount: number, feedback: string, targetWallet: string) {
+  const content = `
+    <h1>Withdrawal Request Declined & Funds Refunded</h1>
+    <p>Hello ${name || "Investor"},</p>
+    <p>Your withdrawal request could not be processed. The full amount has been refunded back to your ${targetWallet === "deposit_wallet" ? "Deposit Wallet" : "Interest Wallet"}.</p>
+
+    <div class="stat-box" style="border-left-color: #F59E0B;">
+      <div class="stat-label">REFUNDED AMOUNT</div>
+      <div class="stat-value" style="color: #F59E0B;">$${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+      <div class="stat-label" style="margin-top: 10px;">REASON / FEEDBACK</div>
+      <div style="font-family: ui-monospace; font-size: 13px; color: #CBD5E1; margin-top: 4px;">${feedback || "Incorrect destination address or network requirement not met."}</div>
+    </div>
+
+    <p>Your funds are safe and available in your balance. You may submit a new request with updated payout details at any time.</p>
+
+    <div style="text-align: center; margin: 24px 0;">
+      <a href="https://pantera.cfd/dashboard/withdraw" class="btn">VIEW WITHDRAWALS</a>
+    </div>
+  `;
+
+  return {
+    subject: `Withdrawal Update: Request for $${amount.toFixed(2)} Refunded`,
+    html: baseEmailHtml({
+      title: "Withdrawal Refunded",
+      preheader: `Withdrawal request for $${amount.toFixed(2)} was declined and refunded.`,
+      content,
+    }),
+  };
+}
+
+// 8. INVESTMENT STARTED EMAIL
+export function getInvestmentStartedEmail(name: string, planName: string, amount: number, roiPercentage: number, totalPeriods: number) {
+  const content = `
+    <h1>Investment Package Activated!</h1>
+    <p>Hello ${name || "Investor"},</p>
+    <p>Congratulations! Your investment in the <strong>${planName}</strong> has been confirmed and deployed to our automated yield strategy.</p>
+
+    <div class="stat-box" style="border-left-color: #E9B737;">
+      <div class="stat-label">ALLOCATED PRINCIPAL</div>
+      <div class="stat-value" style="color: #E9B737;">$${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+      <div class="stat-label" style="margin-top: 10px;">PROJECTED RETURN</div>
+      <div style="font-family: ui-monospace; font-size: 14px; color: #CBD5E1; margin-top: 4px;">${roiPercentage}% per period across ${totalPeriods} settlement intervals</div>
+    </div>
+
+    <p>Your earnings will automatically compound into your Interest Wallet on each settlement cycle.</p>
+
+    <div style="text-align: center; margin: 24px 0;">
+      <a href="https://pantera.cfd/dashboard/investments" class="btn">MONITOR PERFORMANCE &rarr;</a>
+    </div>
+  `;
+
+  return {
+    subject: `Investment Confirmed: $${amount.toFixed(2)} in ${planName}`,
+    html: baseEmailHtml({
+      title: "Investment Activated",
+      preheader: `Your investment of $${amount.toFixed(2)} in ${planName} is active.`,
+      content,
+    }),
+  };
+}
+
+// 9. KYC STATUS EMAIL
+export function getKycStatusEmail(name: string, status: "approved" | "rejected", feedback?: string) {
+  const isApproved = status === "approved";
+  const content = `
+    <h1>KYC Identity Verification ${isApproved ? "Approved" : "Requires Attention"}</h1>
+    <p>Hello ${name || "Investor"},</p>
+    <p>${isApproved ? "Your identity documents have been verified and approved. Your account now has full verified investor status." : "Your identity verification could not be approved based on the submitted documents."}</p>
+
+    <div class="stat-box" style="border-left-color: ${isApproved ? "#10B981" : "#EF4444"};">
+      <div class="stat-label">VERIFICATION STATUS</div>
+      <div class="stat-value" style="color: ${isApproved ? "#10B981" : "#EF4444"}; font-size: 16px;">${isApproved ? "VERIFIED & APPROVED" : "RESUBMISSION REQUIRED"}</div>
+      ${feedback ? `
+      <div class="stat-label" style="margin-top: 10px;">FEEDBACK</div>
+      <div style="font-family: ui-monospace; font-size: 13px; color: #CBD5E1; margin-top: 4px;">${feedback}</div>
+      ` : ""}
+    </div>
+
+    <div style="text-align: center; margin: 24px 0;">
+      <a href="https://pantera.cfd/dashboard/kyc" class="btn">${isApproved ? "VIEW ACCOUNT" : "UPDATE DOCUMENTS"}</a>
+    </div>
+  `;
+
+  return {
+    subject: `Identity Verification (KYC): ${isApproved ? "Approved" : "Action Required"}`,
+    html: baseEmailHtml({
+      title: "KYC Status",
+      preheader: `Your KYC verification is ${status}.`,
+      content,
+    }),
+  };
+}
+

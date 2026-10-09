@@ -10,6 +10,7 @@ import InvestmentDetailsModal from "@/components/dashboard/InvestmentDetailsModa
 import { Plus, Calculator, TrendingUp, Sparkles, CheckCircle2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { getActiveUser } from "@/lib/auth/activeUser";
+import { getPlanIntervalInfo } from "@/lib/plans/intervals";
 
 const DEFAULT_PLANS = [
   { id: "plan-1", name: "Regular Package", min_amount: 500, max_amount: 2000, interest_rate: 2.5, return_type: "weekly", repeat_time: 8 },
@@ -84,15 +85,21 @@ export default function InvestmentsPage() {
 
       const { data: livePlans } = await supabase.from("investment_plans").select("*").eq("is_active", true);
       if (livePlans && livePlans.length > 0) {
-        const formattedPlans = livePlans.map((p: any) => ({
-          id: p.id,
-          name: p.name,
-          min_amount: Number(p.min_amount),
-          max_amount: Number(p.max_amount),
-          interest_rate: Number(p.roi_percentage),
-          return_type: "weekly",
-          repeat_time: p.total_payout_periods,
-        }));
+        const formattedPlans = livePlans.map((p: any) => {
+          const info = getPlanIntervalInfo(p.payout_interval_hours, p.total_payout_periods);
+          return {
+            id: p.id,
+            name: p.name,
+            min_amount: Number(p.min_amount),
+            max_amount: Number(p.max_amount),
+            interest_rate: Number(p.roi_percentage),
+            payout_interval_hours: Number(p.payout_interval_hours || 24),
+            return_type: info.label,
+            interval_short: info.shortLabel,
+            interval_unit: info.periodUnit,
+            repeat_time: p.total_payout_periods,
+          };
+        });
         setDbPlans(formattedPlans);
         if (formattedPlans[0]) setSelectedPlanId(formattedPlans[0].id);
       }

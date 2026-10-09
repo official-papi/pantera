@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { getAdminSupabase } from "@/lib/supabase/admin";
+import { sendEmail } from "@/lib/email/resend";
+import { getDepositRejectedEmail } from "@/lib/email/templates";
 
 // Elevated API endpoint to reject deposit and update audit state
 
@@ -13,15 +15,36 @@ export async function POST(req: Request) {
 
     const supabase = getAdminSupabase();
 
+    // Fetch deposit and user profile
+    const { data: depObj } = await supabase
+      .from("deposits")
+      .select("*, profiles(email, full_name)")
+      .eq("id", depositId)
+      .single();
+
+    const rejectReason = feedback || "Invalid transaction hash or proof";
+
     // Try RPC first
     try {
       const { data: rpcRes, error: rpcErr } = await supabase.rpc("reject_deposit_rpc", {
         p_deposit_id: depositId,
         p_admin_id: "00000000-0000-0000-0000-000000000000",
-        p_feedback: feedback || "Invalid transaction hash or proof",
+        p_feedback: rejectReason,
       });
 
       if (!rpcErr && rpcRes && rpcRes.success) {
+        // Send email
+        if (depObj?.profiles?.email) {
+          const emailData = getDepositRejectedEmail(
+            depObj.profiles.full_name || "Investor",
+            Number(depObj.final_amount || depObj.amount || 0),
+            rejectReason
+          );
+          sendEmail({ to: depObj.profiles.email, subject: emailData.subject, html: emailData.html }).catch((e) =>
+            console.warn("Reject email error:", e)
+          );
+        }
+
         return NextResponse.json({ success: true, message: "Deposit request rejected." });
       }
     } catch (rpcEx) {
@@ -31,12 +54,24 @@ export async function POST(req: Request) {
     // Direct update
     const { error: updateErr } = await supabase.from("deposits").update({
       status: "rejected",
-      admin_feedback: feedback || "Invalid transaction hash or proof",
+      admin_feedback: rejectReason,
       updated_at: new Date().toISOString(),
     }).eq("id", depositId);
 
     if (updateErr) {
       throw new Error(`Failed to update deposit status: ${updateErr.message}`);
+    }
+
+    // Send email notification
+    if (depObj?.profiles?.email) {
+      const emailData = getDepositRejectedEmail(
+        depObj.profiles.full_name || "Investor",
+        Number(depObj.final_amount || depObj.amount || 0),
+        rejectReason
+      );
+      sendEmail({ to: depObj.profiles.email, subject: emailData.subject, html: emailData.html }).catch((e) =>
+        console.warn("Reject email error in direct execution:", e)
+      );
     }
 
     return NextResponse.json({ success: true, message: "Deposit request rejected." });

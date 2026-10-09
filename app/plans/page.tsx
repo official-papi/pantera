@@ -18,12 +18,12 @@ export default function PlansPage() {
         <PageHero
           badge="High-Yield Investment Tiers"
           title="Transparent Investment Packages &"
-          titleHighlight="Guaranteed Weekly Returns"
-          subtitle="Explore our 6 structured investment packages. Select a plan tailored to your budget and project your weekly ROI and total principal refunds."
+          titleHighlight="Guaranteed Yield Returns"
+          subtitle="Explore our structured investment packages. Select a plan tailored to your timeframe and budget to project automated ROI settlements and principal refunds."
           icon={TrendingUp}
           breadcrumb="Investment Plans"
           stats={[
-            { label: "Weekly Yield", value: "2.5% - 15.5%" },
+            { label: "Active Yield", value: "2.5% - 15.5%" },
             { label: "Principal Back", value: "Guaranteed" },
             { label: "Withdrawal Fee", value: "0%" },
           ]}

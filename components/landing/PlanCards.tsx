@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { Check, ArrowRight, Zap, ChevronLeft, ChevronRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { getPlanIntervalInfo } from "@/lib/plans/intervals";
 
 const DEFAULT_PLANS = [
   {
@@ -68,9 +69,9 @@ export default function PlanCards() {
 
       if (data && data.length > 0) {
         const formatted = data.map((p: any) => {
-          const isWeekly = Number(p.payout_interval_hours) === 168 || (p.description || "").toLowerCase().includes("week");
-          const intervalText = isWeekly ? "Weekly" : "Daily";
-          const cycleText = isWeekly ? `Weekly for ${p.total_payout_periods} Weeks` : `${p.total_payout_periods} Days`;
+          const intervalInfo = getPlanIntervalInfo(p.payout_interval_hours, p.total_payout_periods);
+          const intervalText = intervalInfo.label;
+          const cycleText = intervalInfo.cycleText;
           const isElite = (p.name || "").toLowerCase().includes("elite");
 
           const customFeatures = [];

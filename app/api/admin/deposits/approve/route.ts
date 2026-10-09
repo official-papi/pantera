@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     // 1. Fetch deposit record
     const { data: depObj, error: fetchErr } = await supabase
       .from("deposits")
-      .select("*, profiles(deposit_wallet, email)")
+      .select("*, profiles(deposit_wallet, email, full_name)")
       .eq("id", depositId)
       .single();
 
@@ -46,8 +46,15 @@ export async function POST(req: Request) {
 
       if (!rpcErr && rpcRes && rpcRes.success) {
         if (userEmail) {
-          const emailData = getDepositApprovedEmail(userName, depositAmount, depObj.gateway_name || "Crypto", (Number(depObj.profiles?.deposit_wallet || 0) + depositAmount));
-          sendEmail({ to: userEmail, subject: emailData.subject, html: emailData.html }).catch((e) => console.warn("Email error:", e));
+          const emailData = getDepositApprovedEmail(
+            userName,
+            depositAmount,
+            depObj.gateway_name || depObj.gateway || "Payment Gateway",
+            Number(depObj.profiles?.deposit_wallet || 0) + depositAmount
+          );
+          sendEmail({ to: userEmail, subject: emailData.subject, html: emailData.html }).catch((e) =>
+            console.warn("Email error:", e)
+          );
         }
 
         return NextResponse.json({
@@ -98,6 +105,19 @@ export async function POST(req: Request) {
       description: `Deposit approved via ${depObj.gateway || depObj.gateway_name || "Payment Gateway"}`,
       trx_ref: `DEP-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
     });
+
+    // Send email notification to user
+    if (userEmail) {
+      const emailData = getDepositApprovedEmail(
+        userName,
+        depositAmount,
+        depObj.gateway_name || depObj.gateway || "Payment Gateway",
+        newBal
+      );
+      sendEmail({ to: userEmail, subject: emailData.subject, html: emailData.html }).catch((e) =>
+        console.warn("Email error in direct approval:", e)
+      );
+    }
 
     return NextResponse.json({
       success: true,

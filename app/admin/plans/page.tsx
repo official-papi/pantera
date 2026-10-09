@@ -5,6 +5,7 @@ export const dynamic = "force-dynamic";
 import { useEffect, useState } from "react";
 import { TrendingUp, Plus, CheckCircle2, AlertCircle, ToggleLeft, ToggleRight, X, Edit2, Trash2, ShieldCheck, Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { getPlanIntervalInfo } from "@/lib/plans/intervals";
 
 export default function AdminPlansPage() {
   const [plans, setPlans] = useState<any[]>([]);
@@ -308,18 +309,20 @@ export default function AdminPlansPage() {
                   <div className="flex justify-between">
                     <span className="text-slate-500">Return Rate:</span>
                     <span className="font-extrabold text-indigo-600 font-mono">
-                      {plan.roi_percentage}% {plan.payout_interval_hours === 168 ? "/ week" : plan.payout_interval_hours === 24 ? "/ day" : `/ ${plan.payout_interval_hours}h`}
+                      {plan.roi_percentage}% {getPlanIntervalInfo(plan.payout_interval_hours, plan.total_payout_periods).shortLabel}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-500">Interval Frequency:</span>
                     <span className="font-bold text-slate-900">
-                      {plan.payout_interval_hours === 168 ? "Every Week (168h)" : plan.payout_interval_hours === 24 ? "Every Day (24h)" : `${plan.payout_interval_hours} Hours`}
+                      {getPlanIntervalInfo(plan.payout_interval_hours, plan.total_payout_periods).label} ({plan.payout_interval_hours || 24}h)
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-500">Total Duration:</span>
-                    <span className="font-bold text-slate-900">{plan.total_payout_periods} Periods</span>
+                    <span className="font-bold text-slate-900">
+                      {plan.total_payout_periods} {getPlanIntervalInfo(plan.payout_interval_hours, plan.total_payout_periods).periodUnit}
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-500">Min - Max Deposit:</span>
@@ -458,16 +461,44 @@ export default function AdminPlansPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Interval (Hours)</label>
+                  <div className="flex justify-between items-center mb-1">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">Interval (Hours)</label>
+                    <span className="text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded font-mono">
+                      {getPlanIntervalInfo(intervalHours, totalPeriods).label} ({getPlanIntervalInfo(intervalHours, totalPeriods).shortLabel})
+                    </span>
+                  </div>
                   <input
                     type="number"
                     required
+                    min="1"
                     value={intervalHours}
                     onChange={(e) => setIntervalHours(e.target.value)}
-                    placeholder="168 for Weekly, 24 for Daily"
+                    placeholder="24 for Daily, 168 for Weekly"
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 font-mono"
                   />
-                  <span className="text-[10px] text-slate-400">168 = 1 Week | 24 = 1 Day</span>
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {[
+                      { label: "1h", val: "1" },
+                      { label: "12h", val: "12" },
+                      { label: "24h (1 Day)", val: "24" },
+                      { label: "48h (2 Days)", val: "48" },
+                      { label: "168h (1 Week)", val: "168" },
+                      { label: "720h (1 Month)", val: "720" },
+                    ].map((p) => (
+                      <button
+                        key={p.val}
+                        type="button"
+                        onClick={() => setIntervalHours(p.val)}
+                        className={`text-[10px] font-mono px-2 py-1 rounded border transition-colors ${
+                          intervalHours === p.val
+                            ? "bg-indigo-600 text-white border-indigo-600 font-bold"
+                            : "bg-white text-slate-600 border-slate-200 hover:bg-slate-100"
+                        }`}
+                      >
+                        {p.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 <div>

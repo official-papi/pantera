@@ -54,6 +54,19 @@ export default function AdminKycPage() {
     if (error) {
       setMsg({ text: error.message, type: "error" });
     } else {
+      if (targetReq?.profiles?.email) {
+        fetch("/api/email/notification", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: "kyc_status",
+            to: targetReq.profiles.email,
+            name: targetReq.profiles.full_name,
+            status: "approved",
+          }),
+        }).catch((e) => console.warn("KYC email error:", e));
+      }
+
       setMsg({ text: "KYC request approved and user marked as verified!", type: "success" });
       setTimeout(() => {
         setSelectedReq(null);
@@ -69,12 +82,13 @@ export default function AdminKycPage() {
 
     const supabase = createClient();
     const targetReq = requests.find((r) => r.id === reqId);
+    const rejectReason = feedback || "Document unreadable or invalid copy.";
 
     const { error } = await supabase
       .from("kyc_requests")
       .update({
         status: "rejected",
-        admin_feedback: feedback || "Document unreadable or invalid copy.",
+        admin_feedback: rejectReason,
         reviewed_at: new Date().toISOString(),
       })
       .eq("id", reqId);
@@ -89,6 +103,20 @@ export default function AdminKycPage() {
     if (error) {
       setMsg({ text: error.message, type: "error" });
     } else {
+      if (targetReq?.profiles?.email) {
+        fetch("/api/email/notification", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: "kyc_status",
+            to: targetReq.profiles.email,
+            name: targetReq.profiles.full_name,
+            status: "rejected",
+            feedback: rejectReason,
+          }),
+        }).catch((e) => console.warn("KYC email error:", e));
+      }
+
       setMsg({ text: "KYC request rejected.", type: "success" });
       setTimeout(() => {
         setSelectedReq(null);

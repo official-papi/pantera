@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { getAdminSupabase } from "@/lib/supabase/admin";
+import { sendEmail } from "@/lib/email/resend";
+import { getWithdrawalRejectedEmail } from "@/lib/email/templates";
 
 export async function POST(req: Request) {
   try {
@@ -15,7 +17,7 @@ export async function POST(req: Request) {
     // 1. Fetch withdrawal details
     const { data: withObj, error: fetchErr } = await supabase
       .from("withdrawals")
-      .select("*, profiles(deposit_wallet, interest_wallet, email)")
+      .select("*, profiles(deposit_wallet, interest_wallet, email, full_name)")
       .eq("id", withdrawalId)
       .single();
 
@@ -27,6 +29,7 @@ export async function POST(req: Request) {
     const userId = withObj.user_id;
     const targetWallet: "deposit_wallet" | "interest_wallet" =
       withObj.wallet_type === "deposit_wallet" ? "deposit_wallet" : "interest_wallet";
+    const rejectReason = feedback || "Withdrawal request rejected by administrator";
 
     // If it was already rejected and not forcing a refund, check if refund transaction already exists
     if (withObj.status === "rejected" && !forceRefund) {
@@ -42,10 +45,22 @@ export async function POST(req: Request) {
         const { data: rpcRes, error: rpcErr } = await supabase.rpc("reject_withdrawal_rpc", {
           p_withdrawal_id: withdrawalId,
           p_admin_id: userId,
-          p_feedback: feedback || "Withdrawal request rejected by administrator",
+          p_feedback: rejectReason,
         });
 
         if (!rpcErr && rpcRes && rpcRes.success) {
+          if (withObj.profiles?.email) {
+            const emailData = getWithdrawalRejectedEmail(
+              withObj.profiles.full_name || "Investor",
+              refundAmount,
+              rejectReason,
+              targetWallet
+            );
+            sendEmail({ to: withObj.profiles.email, subject: emailData.subject, html: emailData.html }).catch((e) =>
+              console.warn("Reject email error:", e)
+            );
+          }
+
           return NextResponse.json({
             success: true,
             message: `Withdrawal rejected and $${refundAmount.toFixed(2)} refunded to user's ${targetWallet}.`,
@@ -59,10 +74,9 @@ export async function POST(req: Request) {
     }
 
     // Direct execution with Admin Privileges (bypasses client triggers/RLS)
-    // Update withdrawal record
     await supabase.from("withdrawals").update({
       status: "rejected",
-      admin_feedback: feedback || "Withdrawal request rejected by administrator",
+      admin_feedback: rejectReason,
       updated_at: new Date().toISOString(),
     }).eq("id", withdrawalId);
 
@@ -99,6 +113,19 @@ export async function POST(req: Request) {
       description: `Refunded rejected withdrawal of $${refundAmount.toFixed(2)} to ${targetWallet}`,
       trx_ref: `REF-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
     });
+
+    // Send email notification
+    if (withObj.profiles?.email) {
+      const emailData = getWithdrawalRejectedEmail(
+        withObj.profiles.full_name || "Investor",
+        refundAmount,
+        rejectReason,
+        targetWallet
+      );
+      sendEmail({ to: withObj.profiles.email, subject: emailData.subject, html: emailData.html }).catch((e) =>
+        console.warn("Reject email error in direct execution:", e)
+      );
+    }
 
     return NextResponse.json({
       success: true,

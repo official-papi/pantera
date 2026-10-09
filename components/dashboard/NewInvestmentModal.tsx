@@ -4,6 +4,7 @@ import { useState } from "react";
 import { X, TrendingUp, AlertCircle, Loader2, Sparkles } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { getActiveUser } from "@/lib/auth/activeUser";
+import { getPlanIntervalInfo } from "@/lib/plans/intervals";
 
 interface InvestmentPlan {
   id: string;
@@ -13,6 +14,9 @@ interface InvestmentPlan {
   interest_rate: number;
   return_type: string;
   repeat_time: number;
+  payout_interval_hours?: number;
+  interval_short?: string;
+  interval_unit?: string;
 }
 
 interface NewInvestmentModalProps {
@@ -75,6 +79,21 @@ export default function NewInvestmentModal({
       return;
     }
 
+    // Dispatch investment confirmation email via Resend
+    fetch("/api/email/notification", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "investment_started",
+        to: activeUser.email,
+        name: activeUser.full_name,
+        planName: selectedPlan.name,
+        amount: numAmount,
+        roiPercentage: selectedPlan.interest_rate,
+        totalPeriods: selectedPlan.repeat_time,
+      }),
+    }).catch((err) => console.warn("Investment email error:", err));
+
     setLoading(false);
     onSuccess();
     onClose();
@@ -126,28 +145,31 @@ export default function NewInvestmentModal({
               )}
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 max-h-48 overflow-y-auto p-1.5 border border-slate-200/80 rounded-lg bg-slate-50/60">
-              {plans.map((p) => (
-                <button
-                  key={p.id}
-                  type="button"
-                  onClick={() => setSelectedPlan(p)}
-                  className={`p-3 rounded-lg border text-left transition-all cursor-pointer ${
-                    selectedPlan?.id === p.id
-                      ? "border-[#15182B] bg-[#15182B]/5 ring-2 ring-[#E9B737]/50 shadow-xs"
-                      : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/80"
-                  }`}
-                >
-                  <p className="text-[13px] font-extrabold text-[#15182B] truncate font-mono">{p.name}</p>
-                  <div className="flex items-baseline gap-1 mt-1">
-                    <span className="text-[15px] font-extrabold text-[#15182B] font-mono">{p.interest_rate}%</span>
-                    <span className="text-[10px] font-medium text-slate-400 font-mono">/ week</span>
-                  </div>
-                  <div className="text-[10px] text-slate-500 mt-1 flex justify-between font-mono">
-                    <span>{p.repeat_time} wks</span>
-                    <span className="font-semibold text-slate-700">${p.min_amount.toLocaleString()}–${p.max_amount.toLocaleString()}</span>
-                  </div>
-                </button>
-              ))}
+              {plans.map((p) => {
+                const intervalInfo = getPlanIntervalInfo(p.payout_interval_hours, p.repeat_time);
+                return (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => setSelectedPlan(p)}
+                    className={`p-3 rounded-lg border text-left transition-all cursor-pointer ${
+                      selectedPlan?.id === p.id
+                        ? "border-[#15182B] bg-[#15182B]/5 ring-2 ring-[#E9B737]/50 shadow-xs"
+                        : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/80"
+                    }`}
+                  >
+                    <p className="text-[13px] font-extrabold text-[#15182B] truncate font-mono">{p.name}</p>
+                    <div className="flex items-baseline gap-1 mt-1">
+                      <span className="text-[15px] font-extrabold text-[#15182B] font-mono">{p.interest_rate}%</span>
+                      <span className="text-[10px] font-medium text-slate-400 font-mono">{p.interval_short || intervalInfo.shortLabel}</span>
+                    </div>
+                    <div className="text-[10px] text-slate-500 mt-1 flex justify-between font-mono">
+                      <span>{p.repeat_time} {p.interval_unit || intervalInfo.periodUnit}</span>
+                      <span className="font-semibold text-slate-700">${p.min_amount.toLocaleString()}–${p.max_amount.toLocaleString()}</span>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
 

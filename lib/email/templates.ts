@@ -438,3 +438,61 @@ export function getKycStatusEmail(name: string, status: "approved" | "rejected",
   };
 }
 
+// 10. BROADCAST & CUSTOM EMAIL
+export function getBroadcastEmailTemplate({
+  subject,
+  message,
+  name,
+  ctaText,
+  ctaUrl,
+}: {
+  subject: string;
+  message: string;
+  name?: string;
+  ctaText?: string;
+  ctaUrl?: string;
+}) {
+  const formattedBody = message.includes("<p>") || message.includes("<br")
+    ? message
+    : message
+        .split("\n\n")
+        .map((p) => `<p>${p.replace(/\n/g, "<br/>")}</p>`)
+        .join("");
+
+  const content = `
+    <h1>${subject}</h1>
+    <p>Hello ${name || "Valued Investor"},</p>
+    <div style="font-size: 15px; line-height: 1.6; color: #CBD5E1; margin: 18px 0;">
+      ${formattedBody}
+    </div>
+    ${
+      ctaText && ctaUrl
+        ? `
+    <div style="text-align: center; margin: 28px 0;">
+      <a href="${ctaUrl}" class="btn">${ctaText} &rarr;</a>
+    </div>
+    `
+        : ""
+    }
+    <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #232742; font-size: 11px; color: #64748B;">
+      This official communication was transmitted by Pantera Capital Institutional Portal. If you have questions regarding your account or portfolio, please reach out to <a href="mailto:support@pantera.cfd" style="color: #E9B737; text-decoration: none;">support@pantera.cfd</a>.
+    </div>
+  `;
+
+  const cleanPreheader = message
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 120);
+
+  return {
+    subject,
+    html: baseEmailHtml({
+      title: subject,
+      preheader: cleanPreheader || "Official update from Pantera Capital",
+      content,
+    }),
+  };
+}
+
+

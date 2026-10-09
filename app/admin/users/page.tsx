@@ -3,14 +3,30 @@
 export const dynamic = "force-dynamic";
 
 import { useEffect, useState } from "react";
-import { Users, Search, PlusCircle, MinusCircle, CheckCircle2, AlertCircle, X, ShieldOff, ShieldCheck, FileText, Printer } from "lucide-react";
+import {
+  Users,
+  Search,
+  PlusCircle,
+  MinusCircle,
+  CheckCircle2,
+  AlertCircle,
+  X,
+  ShieldOff,
+  ShieldCheck,
+  FileText,
+  Printer,
+  Mail,
+  Send,
+  Eye,
+  Sparkles,
+} from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedUser, setSelectedUser] = useState<any | null>(null);
-  
+
   // Balance modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [targetWallet, setTargetWallet] = useState<"deposit_wallet" | "interest_wallet">("deposit_wallet");
@@ -24,6 +40,17 @@ export default function AdminUsersPage() {
   const [statementUser, setStatementUser] = useState<any | null>(null);
   const [userTransactions, setUserTransactions] = useState<any[]>([]);
   const [loadingStatement, setLoadingStatement] = useState(false);
+
+  // Direct User Email Modal states
+  const [emailUser, setEmailUser] = useState<any | null>(null);
+  const [emailSubject, setEmailSubject] = useState("");
+  const [emailMessage, setEmailMessage] = useState("");
+  const [emailCtaText, setEmailCtaText] = useState("");
+  const [emailCtaUrl, setEmailCtaUrl] = useState("https://pantera.cfd/dashboard");
+  const [emailSendInApp, setEmailSendInApp] = useState(true);
+  const [emailSubmitting, setEmailSubmitting] = useState(false);
+  const [emailMsg, setEmailMsg] = useState<{ text: string; type: "success" | "error" } | null>(null);
+  const [emailTab, setEmailTab] = useState<"compose" | "preview">("compose");
 
   useEffect(() => {
     fetchUsers();
@@ -45,6 +72,97 @@ export default function AdminUsersPage() {
     setRemark("");
     setMsg(null);
     setIsModalOpen(true);
+  };
+
+  const handleOpenEmailModal = (user: any) => {
+    setEmailUser(user);
+    setEmailSubject(`Pantera Capital: Regarding Your Account (${user.email})`);
+    setEmailMessage(
+      `Hello ${user.full_name || user.username || "Investor"},\n\nWe are contacting you regarding your account on Pantera Capital.\n\nPlease let us know if you have any questions or require assistance with your portfolio.\n\nWarm regards,\nPantera Capital Investor Relations`
+    );
+    setEmailCtaText("ACCESS MY PORTFOLIO");
+    setEmailCtaUrl("https://pantera.cfd/dashboard");
+    setEmailSendInApp(true);
+    setEmailMsg(null);
+    setEmailTab("compose");
+  };
+
+  const handleApplyEmailPreset = (presetType: "general" | "deposit" | "kyc" | "vip") => {
+    const name = emailUser?.full_name || emailUser?.username || "Investor";
+    if (presetType === "general") {
+      setEmailSubject("Pantera Capital: Important Account Update");
+      setEmailMessage(
+        `Hello ${name},\n\nWe wanted to share an important update regarding your investment account.\n\nIf you have any questions or need account support, our VIP desk is available 24/7.\n\nBest regards,\nPantera Capital Management`
+      );
+      setEmailCtaText("VIEW DASHBOARD");
+      setEmailCtaUrl("https://pantera.cfd/dashboard");
+    } else if (presetType === "deposit") {
+      setEmailSubject("Pantera Capital: Funding & Deposit Assistance");
+      setEmailMessage(
+        `Hello ${name},\n\nWe noticed you are exploring funding options for your Pantera portfolio.\n\nOur institutional gateways support crypto deposits with fast confirmation. If you need any manual payment assistance or custom routing, please reply to this email.\n\nSincerely,\nTreasury & Payments Desk`
+      );
+      setEmailCtaText("DEPOSIT FUNDS NOW");
+      setEmailCtaUrl("https://pantera.cfd/dashboard/deposit");
+    } else if (presetType === "kyc") {
+      setEmailSubject("Pantera Capital: Identity Verification (KYC) Notice");
+      setEmailMessage(
+        `Hello ${name},\n\nTo ensure regulatory compliance and secure high-volume withdrawals on your account, please complete your identity verification.\n\nYou can submit your valid passport or national ID directly in your investor portal.\n\nThank you,\nCompliance Team`
+      );
+      setEmailCtaText("COMPLETE KYC VERIFICATION");
+      setEmailCtaUrl("https://pantera.cfd/dashboard/kyc");
+    } else if (presetType === "vip") {
+      setEmailSubject("Pantera Capital: Invitation to Private Staking Tier");
+      setEmailMessage(
+        `Hello ${name},\n\nCongratulations! Based on your account standing, you are eligible for our high-yield Private Tier investment allocations.\n\nEnjoy preferential settlement intervals and priority capital routing.\n\nCordially,\nVIP Asset Management`
+      );
+      setEmailCtaText("EXPLORE INVESTMENT TIERS");
+      setEmailCtaUrl("https://pantera.cfd/dashboard/investments");
+    }
+  };
+
+  const handleSendUserEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!emailUser?.email || !emailSubject.trim() || !emailMessage.trim()) {
+      setEmailMsg({ text: "Please enter both a subject line and email body.", type: "error" });
+      return;
+    }
+
+    setEmailSubmitting(true);
+    setEmailMsg(null);
+
+    try {
+      const res = await fetch("/api/admin/email/broadcast", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          targetAudience: "single_user",
+          singleEmail: emailUser.email.trim(),
+          subject: emailSubject.trim(),
+          message: emailMessage.trim(),
+          ctaText: emailCtaText.trim() || undefined,
+          ctaUrl: emailCtaText.trim() ? emailCtaUrl.trim() : undefined,
+          sendInAppNotification: emailSendInApp,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to dispatch email");
+      }
+
+      setEmailMsg({
+        text: `Email successfully delivered to ${emailUser.email}!`,
+        type: "success",
+      });
+
+      setTimeout(() => {
+        setEmailUser(null);
+      }, 1500);
+    } catch (err: any) {
+      setEmailMsg({ text: err.message || "Failed to dispatch email.", type: "error" });
+    } finally {
+      setEmailSubmitting(false);
+    }
   };
 
   const handleToggleFreezeUser = async (userId: string, currentBanned: boolean) => {
@@ -98,19 +216,21 @@ export default function AdminUsersPage() {
     setSubmitting(false);
   };
 
-  const filteredUsers = users.filter((u) =>
-    (u.email || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (u.full_name || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (u.username || "").toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredUsers = users.filter(
+    (u) =>
+      (u.email || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (u.full_name || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (u.username || "").toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="space-y-6">
-      
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-extrabold text-slate-900">User Management</h1>
-          <p className="text-xs text-slate-500 mt-1">Manage investor accounts, freeze/unfreeze wallets, and inspect statements.</p>
+          <p className="text-xs text-slate-500 mt-1">
+            Manage investor accounts, send individual emails, freeze/unfreeze wallets, and inspect statements.
+          </p>
         </div>
 
         <div className="relative w-full sm:w-64">
@@ -150,27 +270,52 @@ export default function AdminUsersPage() {
                 filteredUsers.map((user) => (
                   <tr key={user.id} className="hover:bg-slate-50/80 transition-colors">
                     <td className="py-3">
-                      <div className="font-extrabold text-slate-900">{user.full_name || user.username || "User"}</div>
+                      <div className="font-extrabold text-slate-900">
+                        {user.full_name || user.username || "User"}
+                      </div>
                       <div className="text-[11px] text-slate-500 font-mono">{user.email}</div>
                     </td>
                     <td className="py-3">
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
-                        user.role === "admin" ? "bg-indigo-50 text-indigo-700 border border-indigo-200" : "bg-slate-100 text-slate-600 border border-slate-200"
-                      }`}>
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
+                          user.role === "admin"
+                            ? "bg-indigo-50 text-indigo-700 border border-indigo-200"
+                            : "bg-slate-100 text-slate-600 border border-slate-200"
+                        }`}
+                      >
                         {user.role}
                       </span>
                     </td>
                     <td className="py-3">
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
-                        user.is_banned ? "bg-rose-50 text-rose-700 border border-rose-200" : "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                      }`}>
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
+                          user.is_banned
+                            ? "bg-rose-50 text-rose-700 border border-rose-200"
+                            : "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                        }`}
+                      >
                         {user.is_banned ? "FROZEN" : "ACTIVE"}
                       </span>
                     </td>
-                    <td className="py-3 font-mono font-bold text-slate-900">${Number(user.deposit_wallet || 0).toFixed(2)}</td>
-                    <td className="py-3 font-mono font-bold text-indigo-600">${Number(user.interest_wallet || 0).toFixed(2)}</td>
+                    <td className="py-3 font-mono font-bold text-slate-900">
+                      ${Number(user.deposit_wallet || 0).toFixed(2)}
+                    </td>
+                    <td className="py-3 font-mono font-bold text-indigo-600">
+                      ${Number(user.interest_wallet || 0).toFixed(2)}
+                    </td>
                     <td className="py-3 text-right">
-                      <div className="flex flex-wrap items-center justify-end gap-1.5 min-w-[260px]">
+                      <div className="flex flex-wrap items-center justify-end gap-1.5 min-w-[320px]">
+                        {/* Direct Email Button */}
+                        <button
+                          type="button"
+                          onClick={() => handleOpenEmailModal(user)}
+                          className="px-2 py-1 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 text-[11px] font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-1 shadow-xs"
+                          title={`Send branded email to ${user.email}`}
+                        >
+                          <Mail className="w-3 h-3" />
+                          <span>Email</span>
+                        </button>
+
                         <button
                           type="button"
                           onClick={() => handleOpenStatement(user)}
@@ -183,7 +328,9 @@ export default function AdminUsersPage() {
                           type="button"
                           onClick={() => handleToggleFreezeUser(user.id, user.is_banned)}
                           className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer whitespace-nowrap ${
-                            user.is_banned ? "bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100" : "bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100"
+                            user.is_banned
+                              ? "bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100"
+                              : "bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100"
                           }`}
                         >
                           {user.is_banned ? "Unfreeze" : "Freeze"}
@@ -209,7 +356,6 @@ export default function AdminUsersPage() {
                         </button>
                       </div>
                     </td>
-
                   </tr>
                 ))
               )}
@@ -218,11 +364,302 @@ export default function AdminUsersPage() {
         </div>
       </div>
 
+      {/* Direct User Email Modal */}
+      {emailUser && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 w-full max-w-2xl space-y-4 shadow-2xl relative text-slate-800 max-h-[90vh] flex flex-col">
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3 flex-shrink-0">
+              <div className="flex items-center space-x-2">
+                <div className="p-2 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-600">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-extrabold text-slate-900">
+                    Send Direct Email to Investor
+                  </h3>
+                  <p className="text-[11px] text-slate-500">
+                    Delivered from verified sender{" "}
+                    <span className="font-mono text-emerald-600 font-bold">
+                      support@pantera.cfd
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {/* Tabs */}
+                <div className="flex items-center bg-slate-100 p-0.5 rounded-lg text-xs">
+                  <button
+                    type="button"
+                    onClick={() => setEmailTab("compose")}
+                    className={`px-2.5 py-1 font-bold rounded-md transition-all ${
+                      emailTab === "compose"
+                        ? "bg-white text-indigo-600 shadow-xs"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    Compose
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setEmailTab("preview")}
+                    className={`px-2.5 py-1 font-bold rounded-md transition-all flex items-center gap-1 ${
+                      emailTab === "preview"
+                        ? "bg-white text-indigo-600 shadow-xs"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    <Eye className="w-3 h-3" />
+                    Preview
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setEmailUser(null)}
+                  className="text-slate-400 hover:text-slate-700 p-1 rounded-lg hover:bg-slate-100 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Recipient Details Bar */}
+            <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 flex flex-wrap justify-between items-center text-xs gap-2 flex-shrink-0">
+              <div>
+                <span className="text-[10px] uppercase font-bold text-slate-400 block">
+                  Recipient
+                </span>
+                <span className="font-extrabold text-slate-900 mr-2">
+                  {emailUser.full_name || emailUser.username || "Investor"}
+                </span>
+                <span className="font-mono text-slate-500 text-[11px]">({emailUser.email})</span>
+              </div>
+              <div className="flex items-center gap-3 font-mono text-[11px]">
+                <div>
+                  <span className="text-slate-400 text-[10px] uppercase block">Deposit:</span>
+                  <span className="font-bold text-slate-800">
+                    ${Number(emailUser.deposit_wallet || 0).toFixed(2)}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-slate-400 text-[10px] uppercase block">Interest:</span>
+                  <span className="font-bold text-indigo-600">
+                    ${Number(emailUser.interest_wallet || 0).toFixed(2)}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Status Feedback */}
+            {emailMsg && (
+              <div
+                className={`p-3 rounded-xl text-xs flex items-center space-x-2 font-semibold flex-shrink-0 ${
+                  emailMsg.type === "success"
+                    ? "bg-emerald-50 border border-emerald-200 text-emerald-700"
+                    : "bg-rose-50 border border-rose-200 text-rose-700"
+                }`}
+              >
+                {emailMsg.type === "success" ? (
+                  <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+                ) : (
+                  <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
+                )}
+                <span>{emailMsg.text}</span>
+              </div>
+            )}
+
+            {/* Content Area */}
+            <div className="overflow-y-auto flex-1 pr-1">
+              {emailTab === "compose" ? (
+                <form onSubmit={handleSendUserEmail} className="space-y-4">
+                  {/* Quick Preset Buttons */}
+                  <div>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1">
+                      <Sparkles className="w-3 h-3 text-amber-500" />
+                      Quick Message Presets
+                    </label>
+                    <div className="flex flex-wrap gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => handleApplyEmailPreset("general")}
+                        className="px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-[10px] font-bold text-slate-700 cursor-pointer"
+                      >
+                        Account Update
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleApplyEmailPreset("deposit")}
+                        className="px-2 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-[10px] font-bold text-emerald-700 border border-emerald-200 cursor-pointer"
+                      >
+                        Deposit Assistance
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleApplyEmailPreset("kyc")}
+                        className="px-2 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-[10px] font-bold text-amber-700 border border-amber-200 cursor-pointer"
+                      >
+                        KYC Notice
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleApplyEmailPreset("vip")}
+                        className="px-2 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-[10px] font-bold text-indigo-700 border border-indigo-200 cursor-pointer"
+                      >
+                        VIP Invitation
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Subject Line */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                      Subject Line
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={emailSubject}
+                      onChange={(e) => setEmailSubject(e.target.value)}
+                      placeholder="e.g. Pantera Capital: Important Account Update"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 font-medium"
+                    />
+                  </div>
+
+                  {/* Action Button (Optional) */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 bg-slate-50 border border-slate-100 rounded-xl">
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+                        Call-To-Action Button Label (Optional)
+                      </label>
+                      <input
+                        type="text"
+                        value={emailCtaText}
+                        onChange={(e) => setEmailCtaText(e.target.value)}
+                        placeholder="e.g. VIEW DASHBOARD"
+                        className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+                        Button Destination Link
+                      </label>
+                      <input
+                        type="url"
+                        value={emailCtaUrl}
+                        onChange={(e) => setEmailCtaUrl(e.target.value)}
+                        placeholder="https://pantera.cfd/dashboard"
+                        className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 font-mono text-[11px]"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Message Body */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                      Email Body Content
+                    </label>
+                    <textarea
+                      rows={6}
+                      required
+                      value={emailMessage}
+                      onChange={(e) => setEmailMessage(e.target.value)}
+                      placeholder="Type your message to this investor here..."
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 leading-relaxed font-sans"
+                    />
+                  </div>
+
+                  {/* Also create in-app notification */}
+                  <label className="flex items-center gap-2 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={emailSendInApp}
+                      onChange={(e) => setEmailSendInApp(e.target.checked)}
+                      className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 w-4 h-4 cursor-pointer"
+                    />
+                    <span className="text-xs font-semibold text-slate-700">
+                      Also place a notification record in this investor's dashboard inbox
+                    </span>
+                  </label>
+
+                  {/* Buttons */}
+                  <div className="pt-2 flex items-center justify-end gap-2 border-t border-slate-100">
+                    <button
+                      type="button"
+                      onClick={() => setEmailUser(null)}
+                      className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={emailSubmitting}
+                      className="px-5 py-2.5 rounded-xl text-xs font-extrabold text-white bg-emerald-600 hover:bg-emerald-500 shadow-md shadow-emerald-600/20 flex items-center space-x-1.5 cursor-pointer disabled:opacity-50 transition-all"
+                    >
+                      <Send className="w-3.5 h-3.5" />
+                      <span>{emailSubmitting ? "Delivering Email..." : "Send Email Now"}</span>
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                /* Live Preview Mode */
+                <div className="space-y-4">
+                  <div className="rounded-xl overflow-hidden border border-[#232742] bg-[#0E101D] shadow-xl p-5 text-slate-100 font-sans">
+                    <div className="border-b border-[#232742] pb-3 mb-4">
+                      <div className="text-lg font-black tracking-tight text-white">
+                        PANTERA <span className="text-[#E9B737]">CAPITAL</span>
+                      </div>
+                      <div className="text-[8px] font-mono tracking-widest text-[#E9B737] uppercase">
+                        INSTITUTIONAL DIGITAL ASSET INFRASTRUCTURE
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <h4 className="text-base font-bold text-white tracking-tight">
+                        {emailSubject || "Account Notice"}
+                      </h4>
+                      <p className="text-xs text-slate-300">
+                        Hello {emailUser.full_name || emailUser.username || "Investor"},
+                      </p>
+                      <div className="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap font-sans">
+                        {emailMessage || "Your message body content will appear here..."}
+                      </div>
+
+                      {emailCtaText && (
+                        <div className="text-center py-3">
+                          <span className="inline-block bg-[#E9B737] text-[#0E101D] font-extrabold text-xs px-5 py-2 rounded-lg shadow-md uppercase tracking-wider">
+                            {emailCtaText} &rarr;
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="border-t border-[#232742] pt-3 mt-4 text-[9px] text-slate-500 leading-relaxed">
+                      This official communication was transmitted by Pantera Capital to{" "}
+                      <span className="font-mono text-slate-400">{emailUser.email}</span>.
+                    </div>
+                  </div>
+
+                  <div className="text-right">
+                    <button
+                      type="button"
+                      onClick={() => setEmailTab("compose")}
+                      className="text-xs text-indigo-600 hover:underline font-bold"
+                    >
+                      &larr; Return to Compose
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Adjust Balance Modal */}
       {isModalOpen && selectedUser && (
         <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white border border-slate-200 rounded-2xl p-6 w-full max-w-md space-y-4 shadow-2xl relative text-slate-800">
-            
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <h3 className="text-sm font-extrabold text-slate-900">Adjust User Balance</h3>
               <button
@@ -238,35 +675,53 @@ export default function AdminUsersPage() {
             </div>
 
             {msg && (
-              <div className={`p-3 rounded-xl text-xs flex items-center space-x-2 font-semibold ${
-                msg.type === "success" ? "bg-emerald-50 border border-emerald-200 text-emerald-700" : "bg-rose-50 border border-rose-200 text-rose-700"
-              }`}>
-                {msg.type === "success" ? <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" /> : <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />}
+              <div
+                className={`p-3 rounded-xl text-xs flex items-center space-x-2 font-semibold ${
+                  msg.type === "success"
+                    ? "bg-emerald-50 border border-emerald-200 text-emerald-700"
+                    : "bg-rose-50 border border-rose-200 text-rose-700"
+                }`}
+              >
+                {msg.type === "success" ? (
+                  <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+                ) : (
+                  <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
+                )}
                 <span>{msg.text}</span>
               </div>
             )}
 
             <form onSubmit={handleAdjustBalance} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Target Wallet</label>
+                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">
+                  Target Wallet
+                </label>
                 <select
                   value={targetWallet}
                   onChange={(e: any) => setTargetWallet(e.target.value)}
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-600"
                 >
-                  <option value="deposit_wallet">Deposit Wallet (${Number(selectedUser.deposit_wallet || 0).toFixed(2)})</option>
-                  <option value="interest_wallet">Interest Wallet (${Number(selectedUser.interest_wallet || 0).toFixed(2)})</option>
+                  <option value="deposit_wallet">
+                    Deposit Wallet (${Number(selectedUser.deposit_wallet || 0).toFixed(2)})
+                  </option>
+                  <option value="interest_wallet">
+                    Interest Wallet (${Number(selectedUser.interest_wallet || 0).toFixed(2)})
+                  </option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Action Type</label>
+                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">
+                  Action Type
+                </label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={() => setAction("add")}
                     className={`py-2 rounded-xl text-xs font-bold flex items-center justify-center space-x-1 cursor-pointer border transition-all ${
-                      action === "add" ? "bg-emerald-50 text-emerald-700 border-emerald-300 font-bold" : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
+                      action === "add"
+                        ? "bg-emerald-50 text-emerald-700 border-emerald-300 font-bold"
+                        : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
                     }`}
                   >
                     <PlusCircle className="w-3.5 h-3.5" />
@@ -277,7 +732,9 @@ export default function AdminUsersPage() {
                     type="button"
                     onClick={() => setAction("subtract")}
                     className={`py-2 rounded-xl text-xs font-bold flex items-center justify-center space-x-1 cursor-pointer border transition-all ${
-                      action === "subtract" ? "bg-rose-50 text-rose-700 border-rose-300 font-bold" : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
+                      action === "subtract"
+                        ? "bg-rose-50 text-rose-700 border-rose-300 font-bold"
+                        : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
                     }`}
                   >
                     <MinusCircle className="w-3.5 h-3.5" />
@@ -287,7 +744,9 @@ export default function AdminUsersPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Amount ($)</label>
+                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">
+                  Amount ($)
+                </label>
                 <input
                   type="number"
                   step="0.01"
@@ -301,7 +760,9 @@ export default function AdminUsersPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Admin Remark / Note</label>
+                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">
+                  Admin Remark / Note
+                </label>
                 <input
                   type="text"
                   value={remark}
@@ -319,7 +780,6 @@ export default function AdminUsersPage() {
                 {submitting ? "Processing..." : "Confirm Adjustment"}
               </button>
             </form>
-
           </div>
         </div>
       )}
@@ -328,7 +788,6 @@ export default function AdminUsersPage() {
       {statementUser && (
         <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white border border-slate-200 rounded-2xl p-6 w-full max-w-2xl space-y-4 shadow-2xl relative text-slate-800 max-h-[85vh] flex flex-col">
-            
             <div className="flex items-center justify-between border-b border-slate-100 pb-3 flex-shrink-0">
               <div className="flex items-center space-x-2">
                 <FileText className="w-5 h-5 text-indigo-600" />
@@ -342,7 +801,10 @@ export default function AdminUsersPage() {
                   <Printer className="w-3.5 h-3.5" />
                   <span>Print</span>
                 </button>
-                <button onClick={() => setStatementUser(null)} className="text-slate-400 hover:text-slate-700 p-1">
+                <button
+                  onClick={() => setStatementUser(null)}
+                  className="text-slate-400 hover:text-slate-700 p-1"
+                >
                   <X className="w-4 h-4" />
                 </button>
               </div>
@@ -350,13 +812,19 @@ export default function AdminUsersPage() {
 
             <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex justify-between items-center text-xs flex-shrink-0">
               <div>
-                <div className="font-extrabold text-slate-900">{statementUser.full_name || "Investor"}</div>
+                <div className="font-extrabold text-slate-900">
+                  {statementUser.full_name || "Investor"}
+                </div>
                 <div className="text-slate-500 font-mono">{statementUser.email}</div>
               </div>
               <div className="text-right">
                 <div className="text-[10px] text-slate-400 uppercase font-bold">Total Balances</div>
                 <div className="font-mono font-extrabold text-indigo-600 text-sm">
-                  ${(Number(statementUser.deposit_wallet || 0) + Number(statementUser.interest_wallet || 0)).toFixed(2)}
+                  $
+                  {(
+                    Number(statementUser.deposit_wallet || 0) +
+                    Number(statementUser.interest_wallet || 0)
+                  ).toFixed(2)}
                 </div>
               </div>
             </div>
@@ -374,30 +842,48 @@ export default function AdminUsersPage() {
                 </thead>
                 <tbody className="divide-y divide-slate-100">
                   {loadingStatement ? (
-                    <tr><td colSpan={5} className="py-6 text-center text-slate-400">Loading ledger data...</td></tr>
+                    <tr>
+                      <td colSpan={5} className="py-6 text-center text-slate-400">
+                        Loading ledger data...
+                      </td>
+                    </tr>
                   ) : userTransactions.length === 0 ? (
-                    <tr><td colSpan={5} className="py-6 text-center text-slate-400">No transaction logs recorded for this investor.</td></tr>
+                    <tr>
+                      <td colSpan={5} className="py-6 text-center text-slate-400">
+                        No transaction logs recorded for this investor.
+                      </td>
+                    </tr>
                   ) : (
                     userTransactions.map((tx) => (
                       <tr key={tx.id} className="hover:bg-slate-50">
-                        <td className="py-2.5 font-bold uppercase text-[10px] text-indigo-600">{tx.type}</td>
-                        <td className="py-2.5 font-mono text-slate-500 text-[11px]">{tx.wallet_type || "deposit"}</td>
-                        <td className={`py-2.5 font-mono font-bold ${Number(tx.amount) >= 0 ? "text-emerald-600" : "text-rose-600"}`}>
+                        <td className="py-2.5 font-bold uppercase text-[10px] text-indigo-600">
+                          {tx.type}
+                        </td>
+                        <td className="py-2.5 font-mono text-slate-500 text-[11px]">
+                          {tx.wallet_type || "deposit"}
+                        </td>
+                        <td
+                          className={`py-2.5 font-mono font-bold ${
+                            Number(tx.amount) >= 0 ? "text-emerald-600" : "text-rose-600"
+                          }`}
+                        >
                           {Number(tx.amount) >= 0 ? "+" : ""}${Number(tx.amount).toFixed(2)}
                         </td>
-                        <td className="py-2.5 text-slate-600 text-[11px] truncate max-w-xs">{tx.description || "-"}</td>
-                        <td className="py-2.5 text-right text-slate-500 text-[10px]">{new Date(tx.created_at).toLocaleDateString()}</td>
+                        <td className="py-2.5 text-slate-600 text-[11px] truncate max-w-xs">
+                          {tx.description || "-"}
+                        </td>
+                        <td className="py-2.5 text-right text-slate-500 text-[10px]">
+                          {new Date(tx.created_at).toLocaleDateString()}
+                        </td>
                       </tr>
                     ))
                   )}
                 </tbody>
               </table>
             </div>
-
           </div>
         </div>
       )}
-
     </div>
   );
 }

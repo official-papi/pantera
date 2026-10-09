@@ -394,9 +394,17 @@ export default function AdminEmailPage() {
               <h2 className="text-lg font-bold text-white tracking-tight">
                 {subject || "Platform Announcement"}
               </h2>
-              <p className="text-xs text-slate-300">
-                Hello {targetAudience === "single_user" ? singleEmail || "Investor" : "Valued Investor"},
-              </p>
+              {!(
+                message.trim().toLowerCase().startsWith("hello") ||
+                message.trim().toLowerCase().startsWith("dear") ||
+                message.trim().toLowerCase().startsWith("hi ") ||
+                message.trim().toLowerCase().startsWith("good") ||
+                message.trim().toLowerCase().startsWith("greetings")
+              ) && (
+                <p className="text-xs text-slate-300">
+                  Hello {targetAudience === "single_user" ? singleEmail || "Investor" : "Valued Investor"},
+                </p>
+              )}
               <div className="text-xs text-slate-300 leading-relaxed space-y-3 whitespace-pre-wrap font-sans">
                 {message || "Your message body content will appear here..."}
               </div>

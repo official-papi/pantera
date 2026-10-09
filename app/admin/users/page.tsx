@@ -618,9 +618,17 @@ export default function AdminUsersPage() {
                       <h4 className="text-base font-bold text-white tracking-tight">
                         {emailSubject || "Account Notice"}
                       </h4>
-                      <p className="text-xs text-slate-300">
-                        Hello {emailUser.full_name || emailUser.username || "Investor"},
-                      </p>
+                      {!(
+                        emailMessage.trim().toLowerCase().startsWith("hello") ||
+                        emailMessage.trim().toLowerCase().startsWith("dear") ||
+                        emailMessage.trim().toLowerCase().startsWith("hi ") ||
+                        emailMessage.trim().toLowerCase().startsWith("good") ||
+                        emailMessage.trim().toLowerCase().startsWith("greetings")
+                      ) && (
+                        <p className="text-xs text-slate-300">
+                          Hello {emailUser.full_name || emailUser.username || "Investor"},
+                        </p>
+                      )}
                       <div className="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap font-sans">
                         {emailMessage || "Your message body content will appear here..."}
                       </div>

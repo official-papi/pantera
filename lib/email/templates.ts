@@ -459,9 +459,23 @@ export function getBroadcastEmailTemplate({
         .map((p) => `<p>${p.replace(/\n/g, "<br/>")}</p>`)
         .join("");
 
+  // Check if message already begins with an opening greeting (e.g. Hello, Dear, Hi)
+  const cleanTrimmed = message.replace(/<[^>]*>/g, "").trim().toLowerCase();
+  const alreadyHasGreeting =
+    cleanTrimmed.startsWith("hello") ||
+    cleanTrimmed.startsWith("dear") ||
+    cleanTrimmed.startsWith("hi ") ||
+    cleanTrimmed.startsWith("good day") ||
+    cleanTrimmed.startsWith("good morning") ||
+    cleanTrimmed.startsWith("greetings");
+
+  const greetingHtml = alreadyHasGreeting
+    ? ""
+    : `<p>Hello ${name || "Valued Investor"},</p>`;
+
   const content = `
     <h1>${subject}</h1>
-    <p>Hello ${name || "Valued Investor"},</p>
+    ${greetingHtml}
     <div style="font-size: 15px; line-height: 1.6; color: #CBD5E1; margin: 18px 0;">
       ${formattedBody}
     </div>

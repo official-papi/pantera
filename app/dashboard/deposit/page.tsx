@@ -95,9 +95,9 @@ export default function DepositPage() {
                 ) : (
                   depositLogs.map((log) => (
                     <tr key={log.id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3 font-bold text-[#0E101D] uppercase font-mono">{log.gateway}</td>
+                      <td className="py-3 font-bold text-[#0E101D] uppercase font-mono">{log.gateway_name || log.gateway || "Deposit Gateway"}</td>
                       <td className="py-3 font-mono font-extrabold text-[#15182B]">${Number(log.amount).toFixed(2)}</td>
-                      <td className="py-3 font-mono text-slate-500 text-[11px] truncate max-w-[150px]">{log.transaction_id || "-"}</td>
+                      <td className="py-3 font-mono text-slate-500 text-[11px] truncate max-w-[150px]">{log.trx_id || log.transaction_id || "-"}</td>
                       <td className="py-3">
                         <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
                           log.status === "approved" ? "bg-emerald-50 text-emerald-700 border border-emerald-200" :

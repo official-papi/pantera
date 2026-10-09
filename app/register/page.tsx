@@ -59,12 +59,25 @@ function RegisterForm() {
 
     if (signUpError) {
       setError(signUpError.message); setLoading(false);
-    } else if (data.session) {
-      setSuccess("Account created! Redirecting…");
-      setTimeout(() => { router.push("/dashboard"); router.refresh(); }, 1500);
     } else {
-      setSuccess("Registration successful! Check your email to verify your account.");
-      setLoading(false);
+      // Dispatch Welcome Email asynchronously via Resend
+      fetch("/api/email/notification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "welcome",
+          to: email,
+          name: fullName || cleanUsername,
+        }),
+      }).catch((err) => console.warn("Failed to send welcome email:", err));
+
+      if (data.session) {
+        setSuccess("Account created! Redirecting…");
+        setTimeout(() => { router.push("/dashboard"); router.refresh(); }, 1500);
+      } else {
+        setSuccess("Registration successful! Check your email to verify your account.");
+        setLoading(false);
+      }
     }
   };
 

@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { getAdminSupabase } from "@/lib/supabase/admin";
+import { sendEmail } from "@/lib/email/resend";
+import { getDepositApprovedEmail } from "@/lib/email/templates";
 
 // Elevated API endpoint to approve deposit and credit user wallet
 
@@ -31,6 +33,9 @@ export async function POST(req: Request) {
     const depositAmount = Number(depObj.final_amount || depObj.amount || 0);
     const userId = depObj.user_id;
 
+    const userEmail = depObj.profiles?.email;
+    const userName = depObj.profiles?.full_name || "Investor";
+
     // 2. Try RPC first (which also distributes multi-level referral commissions)
     try {
       const { data: rpcRes, error: rpcErr } = await supabase.rpc("approve_deposit_rpc", {
@@ -40,6 +45,11 @@ export async function POST(req: Request) {
       });
 
       if (!rpcErr && rpcRes && rpcRes.success) {
+        if (userEmail) {
+          const emailData = getDepositApprovedEmail(userName, depositAmount, depObj.gateway_name || "Crypto", (Number(depObj.profiles?.deposit_wallet || 0) + depositAmount));
+          sendEmail({ to: userEmail, subject: emailData.subject, html: emailData.html }).catch((e) => console.warn("Email error:", e));
+        }
+
         return NextResponse.json({
           success: true,
           message: `Deposit of $${depositAmount.toFixed(2)} approved and credited successfully!`,

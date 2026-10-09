@@ -225,6 +225,20 @@ export default function WithdrawModal({
         .eq("id", activeUser.id);
     }
 
+    // Dispatch withdrawal request confirmation email asynchronously via Resend
+    fetch("/api/email/notification", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "withdrawal_requested",
+        to: activeUser.email,
+        name: activeUser.full_name,
+        amount: numAmount,
+        method: selectedMethod.name,
+        destination: finalDetails,
+      }),
+    }).catch((err) => console.warn("Failed to send withdrawal email:", err));
+
     setLoading(false);
     onSuccess();
     onClose();

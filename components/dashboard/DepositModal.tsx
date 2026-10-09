@@ -108,6 +108,20 @@ export default function DepositModal({ isOpen, gateways, onClose, onSuccess }: D
       setError(insertError.message);
       setLoading(false);
     } else {
+      // Dispatch deposit confirmation email asynchronously via Resend
+      fetch("/api/email/notification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "deposit_received",
+          to: activeUser.email,
+          name: activeUser.full_name,
+          amount: numAmount,
+          gateway: selectedGateway.name,
+          trxId: trxId.trim() || "Generated Transaction",
+        }),
+      }).catch((err) => console.warn("Failed to send deposit email:", err));
+
       setLoading(false);
       onSuccess();
       onClose();

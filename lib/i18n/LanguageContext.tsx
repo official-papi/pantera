@@ -65,7 +65,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       const select = document.querySelector(".goog-te-combo") as HTMLSelectElement | null;
       if (select) {
         select.value = lang;
-        select.dispatchEvent(new Event("change"));
+        select.dispatchEvent(new Event("change", { bubbles: true }));
       } else if (!NATIVE_LANGS.includes(lang)) {
         // If selecting a non-native dictionary language and Google Translate isn't ready, reload with cookie
         if (typeof window !== "undefined") {

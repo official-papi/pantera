@@ -2,6 +2,7 @@
 
 import Script from "next/script";
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 declare global {
@@ -13,6 +14,7 @@ declare global {
 
 export default function GoogleTranslateBridge() {
   const { language } = useLanguage();
+  const pathname = usePathname();
 
   useEffect(() => {
     // Define the initialization function for Google Translate
@@ -38,40 +40,46 @@ export default function GoogleTranslateBridge() {
     }
   }, []);
 
-  // Sync Google Translate when active language changes
+  // Multi-pass trigger when language OR route (pathname) changes
   useEffect(() => {
-    const applyTranslation = () => {
-      try {
-        const targetLang = language === "en" ? "/en/en" : `/en/${language}`;
-        document.cookie = `googtrans=${targetLang}; path=/;`;
-        document.cookie = `googtrans=${targetLang}; path=/; domain=${window.location.hostname};`;
+    try {
+      const targetLang = language === "en" ? "/en/en" : `/en/${language}`;
+      document.cookie = `googtrans=${targetLang}; path=/;`;
+      document.cookie = `googtrans=${targetLang}; path=/; domain=${window.location.hostname};`;
 
-        if (window.location.hostname !== "localhost" && !window.location.hostname.includes("127.0.0.1")) {
-          const parts = window.location.hostname.split(".");
-          if (parts.length >= 2) {
-            const rootDomain = parts.slice(-2).join(".");
-            if (!rootDomain.endsWith("vercel.app")) {
-              document.cookie = `googtrans=${targetLang}; path=/; domain=.${rootDomain};`;
-            }
+      if (window.location.hostname !== "localhost" && !window.location.hostname.includes("127.0.0.1")) {
+        const parts = window.location.hostname.split(".");
+        if (parts.length >= 2) {
+          const rootDomain = parts.slice(-2).join(".");
+          if (!rootDomain.endsWith("vercel.app")) {
+            document.cookie = `googtrans=${targetLang}; path=/; domain=.${rootDomain};`;
           }
         }
-
-        // Trigger Google Translate combo box if present
-        const select = document.querySelector(".goog-te-combo") as HTMLSelectElement | null;
-        if (select && select.value !== language) {
-          select.value = language;
-          select.dispatchEvent(new Event("change"));
-        }
-      } catch (e) {
-        console.error("Error setting translation cookie", e);
       }
-    };
 
-    applyTranslation();
+      const applyTranslation = () => {
+        const select = document.querySelector(".goog-te-combo") as HTMLSelectElement | null;
+        if (select) {
+          select.value = language;
+          select.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+      };
 
-    const timer = setTimeout(applyTranslation, 600);
-    return () => clearTimeout(timer);
-  }, [language]);
+      // Fire immediately and with staggered delays to catch async React hydration on page transitions
+      applyTranslation();
+      const t1 = setTimeout(applyTranslation, 150);
+      const t2 = setTimeout(applyTranslation, 450);
+      const t3 = setTimeout(applyTranslation, 900);
+
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+        clearTimeout(t3);
+      };
+    } catch (e) {
+      console.error("Error setting translation cookie or event", e);
+    }
+  }, [language, pathname]);
 
   return (
     <>

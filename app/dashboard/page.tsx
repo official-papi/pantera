@@ -10,6 +10,7 @@ import NewInvestmentModal from "@/components/dashboard/NewInvestmentModal";
 import InvestmentDetailsModal from "@/components/dashboard/InvestmentDetailsModal";
 import { Copy, Check, Sparkles, RefreshCw, X, CheckCircle2, AlertCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 interface UserProfile {
   id: string;
@@ -31,6 +32,7 @@ const DEFAULT_PLANS = [
 ];
 
 export default function DashboardPage() {
+  const { t } = useLanguage();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [investments, setInvestments] = useState<any[]>([]);
   const [dbPlans, setDbPlans] = useState<any[]>([]);
@@ -236,7 +238,7 @@ export default function DashboardPage() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white border border-[#E2E4EC] rounded-2xl p-5 sm:p-6 shadow-xs">
           <div>
             <div className="flex items-center gap-2 text-xs text-slate-500 font-mono mb-1">
-              <span>Welcome back,</span>
+              <span>{t.overview?.welcomeBack || "Welcome back"},</span>
               <strong className="text-slate-900 font-bold">{profile?.full_name || "Investor"}</strong>
               <span className="text-slate-300">·</span>
               <button
@@ -249,11 +251,13 @@ export default function DashboardPage() {
               </button>
             </div>
             
-            <div className="flex items-baseline gap-3 notranslate" translate="no">
+            <div className="flex items-baseline gap-3">
               <span className="text-3xl sm:text-4xl font-extrabold text-[#15182B] font-mono tracking-tight notranslate" translate="no">
                 ${fmt(totalPortfolio)}
               </span>
-              <span className="text-xs font-semibold text-slate-400 font-mono">Total Portfolio Value</span>
+              <span className="text-xs font-semibold text-slate-400 font-mono">
+                {t.overview?.totalPortfolioValue || "Total Portfolio Value"}
+              </span>
             </div>
           </div>
 
@@ -264,21 +268,21 @@ export default function DashboardPage() {
               className="px-4 py-2.5 rounded-xl bg-[#15182B] hover:bg-[#0E101D] text-white text-xs font-bold font-mono transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
             >
               <span className="text-[#E9B737] font-extrabold">+</span>
-              <span>Deposit</span>
+              <span>{t.dashboard?.deposit || "Deposit"}</span>
             </button>
 
             <button
               onClick={() => setIsInvestOpen(true)}
               className="px-4 py-2.5 rounded-xl bg-[#E9B737] hover:bg-[#D4A42C] text-[#15182B] text-xs font-bold font-mono transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
             >
-              <span>⚡ Invest</span>
+              <span>⚡ {t.dashboard?.investNow || "Invest"}</span>
             </button>
 
             <button
               onClick={() => setIsWithdrawOpen(true)}
               className="px-3.5 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-[#E2E4EC] text-xs font-bold font-mono transition-all shadow-xs cursor-pointer"
             >
-              <span>Withdraw</span>
+              <span>{t.dashboard?.withdraw || "Withdraw"}</span>
             </button>
 
             {profitBal > 0 && (
@@ -288,7 +292,7 @@ export default function DashboardPage() {
                 title="Transfer profits to deposit wallet"
               >
                 <RefreshCw className="w-3 h-3 text-slate-500" />
-                <span>Reinvest</span>
+                <span>{t.overview?.reinvest || "Reinvest"}</span>
               </button>
             )}
           </div>

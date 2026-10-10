@@ -17,6 +17,8 @@ const LanguageContext = createContext<LanguageContextType>({
   dir: "ltr",
 });
 
+const NATIVE_LANGS = ["en", "es", "fr", "de", "pt", "ar"];
+
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>("en");
   const [mounted, setMounted] = useState(false);
@@ -27,7 +29,6 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       if (savedLang && SUPPORTED_LANGUAGES.some((l) => l.code === savedLang)) {
         setLanguageState(savedLang);
       } else {
-        // Optional: detect browser language
         const browserLang = navigator.language?.slice(0, 2) as Language;
         if (browserLang && SUPPORTED_LANGUAGES.some((l) => l.code === browserLang)) {
           setLanguageState(browserLang);
@@ -55,7 +56,9 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         const parts = window.location.hostname.split(".");
         if (parts.length >= 2) {
           const rootDomain = parts.slice(-2).join(".");
-          document.cookie = `googtrans=${target}; path=/; domain=.${rootDomain};`;
+          if (!rootDomain.endsWith("vercel.app")) {
+            document.cookie = `googtrans=${target}; path=/; domain=.${rootDomain};`;
+          }
         }
       }
 
@@ -63,6 +66,11 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       if (select) {
         select.value = lang;
         select.dispatchEvent(new Event("change"));
+      } else if (!NATIVE_LANGS.includes(lang)) {
+        // If selecting a non-native dictionary language and Google Translate isn't ready, reload with cookie
+        if (typeof window !== "undefined") {
+          window.location.reload();
+        }
       }
     } catch (e) {
       console.error("Failed to save language to localStorage", e);

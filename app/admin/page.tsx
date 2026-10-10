@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import { Users, ArrowDownRight, ArrowUpRight, TrendingUp, Clock, FileCheck, Play, CheckCircle2, BarChart3 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import Link from "next/link";
 
 export default function AdminDashboardPage() {
+  const { t } = useLanguage();
   const [stats, setStats] = useState({
     totalUsers:          0,
     totalDeposits:       0,
@@ -95,10 +97,10 @@ export default function AdminDashboardPage() {
   };
 
   const statCards = [
-    { label: "Total Registered Users",  value: String(stats.totalUsers),                   sub: "Active platform accounts",                         icon: Users,          href: "/admin/users" },
-    { label: "Approved Deposits",       value: `$${stats.totalDeposits.toFixed(2)}`,        sub: stats.pendingDeposits > 0 ? `${stats.pendingDeposits} Pending Review` : "0 Pending Requests", icon: ArrowDownRight, href: "/admin/deposits", alert: stats.pendingDeposits > 0 },
-    { label: "Approved Withdrawals",    value: `$${stats.totalWithdrawals.toFixed(2)}`,     sub: stats.pendingWithdrawals > 0 ? `${stats.pendingWithdrawals} Pending Payouts` : "0 Pending Requests", icon: ArrowUpRight, href: "/admin/withdrawals", alert: stats.pendingWithdrawals > 0 },
-    { label: "Active Investments",      value: String(stats.activeInvestments),             sub: "Generating interest yields",                        icon: TrendingUp,     href: "/admin/investments" },
+    { label: t.admin?.totalRegisteredUsers || "Total Registered Users",  value: String(stats.totalUsers),                   sub: t.admin?.activeAccounts || "Active platform accounts",                         icon: Users,          href: "/admin/users" },
+    { label: t.admin?.approvedDeposits || "Approved Deposits",       value: `$${stats.totalDeposits.toFixed(2)}`,        sub: stats.pendingDeposits > 0 ? `${stats.pendingDeposits} ${t.admin?.pendingReview || "Pending Review"}` : `0 ${t.admin?.pendingRequests || "Pending Requests"}`, icon: ArrowDownRight, href: "/admin/deposits", alert: stats.pendingDeposits > 0 },
+    { label: t.admin?.approvedWithdrawals || "Approved Withdrawals",    value: `$${stats.totalWithdrawals.toFixed(2)}`,     sub: stats.pendingWithdrawals > 0 ? `${stats.pendingWithdrawals} ${t.admin?.pendingPayouts || "Pending Payouts"}` : `0 ${t.admin?.pendingRequests || "Pending Requests"}`, icon: ArrowUpRight, href: "/admin/withdrawals", alert: stats.pendingWithdrawals > 0 },
+    { label: t.admin?.activeInvestments || "Active Investments",      value: String(stats.activeInvestments),             sub: t.admin?.generatingYields || "Generating interest yields",                        icon: TrendingUp,     href: "/admin/investments" },
   ];
 
   return (
@@ -107,8 +109,8 @@ export default function AdminDashboardPage() {
       {/* Page Header with Cron Trigger */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-950">System Executive Dashboard</h1>
-          <p className="text-xs text-zinc-500 mt-1 font-medium font-mono uppercase tracking-wider">[ 01 // PLATFORM FINANCIAL ANALYTICS & OPERATIONAL OVERVIEW ]</p>
+          <h1 className="text-2xl font-bold tracking-tight text-zinc-950">{t.admin?.systemExecutiveDashboard || "System Executive Dashboard"}</h1>
+          <p className="text-xs text-zinc-500 mt-1 font-medium font-mono uppercase tracking-wider">{t.admin?.platformOverview || "[ 01 // PLATFORM FINANCIAL ANALYTICS & OPERATIONAL OVERVIEW ]"}</p>
         </div>
 
         <button
@@ -118,7 +120,7 @@ export default function AdminDashboardPage() {
           className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#15182B] hover:bg-[#0E101D] border border-[#E9B737]/40 shadow-sm flex items-center space-x-2 self-start sm:self-auto cursor-pointer transition-all"
         >
           <Play className={`w-3.5 h-3.5 text-[#E9B737] ${cronRunning ? "animate-spin" : ""}`} />
-          <span>{cronRunning ? "Executing Engine..." : "Run Interest Payout Engine"}</span>
+          <span>{cronRunning ? (t.admin?.executingEngine || "Executing Engine...") : (t.admin?.runPayoutEngine || "Run Interest Payout Engine")}</span>
         </button>
       </div>
 
@@ -139,12 +141,12 @@ export default function AdminDashboardPage() {
               {stats.pendingDeposits}
             </div>
             <div>
-              <div className="text-sm font-semibold text-white">{stats.pendingDeposits} Pending Deposit Request{stats.pendingDeposits > 1 ? "s" : ""} Awaiting Review</div>
-              <div className="text-xs text-slate-300 font-normal">Investors have submitted funding receipts that require manual verification and wallet crediting.</div>
+              <div className="text-sm font-semibold text-white">{stats.pendingDeposits} {t.admin?.pendingDepositAlert || "Pending Deposit Request(s) Awaiting Review"}</div>
+              <div className="text-xs text-slate-300 font-normal">{t.admin?.pendingDepositSub || "Investors have submitted funding receipts that require manual verification and wallet crediting."}</div>
             </div>
           </div>
           <Link href="/admin/deposits" className="px-3.5 py-1.5 rounded-lg bg-[#E9B737] text-[#0E101D] text-xs font-bold hover:bg-white transition-colors">
-            Review Deposits →
+            {t.admin?.reviewDeposits || "Review Deposits"} →
           </Link>
         </div>
       )}
@@ -169,7 +171,7 @@ export default function AdminDashboardPage() {
                     <Icon className="w-4 h-4" />
                   </div>
                 </div>
-                <div className="text-2xl font-extrabold tracking-tight text-slate-900 font-mono tabular-nums">{card.value}</div>
+                <div className="text-2xl font-extrabold tracking-tight text-slate-900 font-mono tabular-nums notranslate" translate="no">{card.value}</div>
                 <div className={`text-[11px] mt-1 font-medium ${card.alert ? "text-amber-600 font-bold" : "text-slate-400"}`}>{card.sub}</div>
               </div>
             </Link>
@@ -185,9 +187,9 @@ export default function AdminDashboardPage() {
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
               <BarChart3 className="w-4 h-4 text-[#15182B]" />
-              <span>Cash Inflow vs Outflow</span>
+              <span>{t.admin?.cashInflowVsOutflow || "Cash Inflow vs Outflow"}</span>
             </h3>
-            <span className="text-[10px] font-mono font-bold text-[#15182B] bg-[#15182B]/10 px-2 py-0.5 rounded-md border border-[#15182B]/20">30-Day Trend</span>
+            <span className="text-[10px] font-mono font-bold text-[#15182B] bg-[#15182B]/10 px-2 py-0.5 rounded-md border border-[#15182B]/20">{t.admin?.trend30Day || "30-Day Trend"}</span>
           </div>
 
           <div className="h-32 flex items-end justify-between gap-2 pt-4 px-2">
@@ -205,11 +207,11 @@ export default function AdminDashboardPage() {
           <div className="flex items-center justify-center space-x-4 text-[11px] font-medium text-slate-600 pt-2 border-t border-slate-100">
             <div className="flex items-center space-x-1.5">
               <span className="w-2.5 h-2.5 rounded-xs bg-[#15182B]" />
-              <span>Deposits</span>
+              <span>{t.admin?.deposits || "Deposits"}</span>
             </div>
             <div className="flex items-center space-x-1.5">
               <span className="w-2.5 h-2.5 rounded-xs bg-[#E9B737]" />
-              <span>Withdrawals</span>
+              <span>{t.admin?.withdrawals || "Withdrawals"}</span>
             </div>
           </div>
         </div>
@@ -219,9 +221,9 @@ export default function AdminDashboardPage() {
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
               <Users className="w-4 h-4 text-[#15182B]" />
-              <span>User Acquisition Growth</span>
+              <span>{t.admin?.userAcquisitionGrowth || "User Acquisition Growth"}</span>
             </h3>
-            <span className="text-[10px] font-mono font-bold text-[#15182B] bg-[#E9B737]/20 px-2 py-0.5 rounded-md border border-[#E9B737]/40">+24% MoM</span>
+            <span className="text-[10px] font-mono font-bold text-[#15182B] bg-[#E9B737]/20 px-2 py-0.5 rounded-md border border-[#E9B737]/40">{t.admin?.momGrowth || "+24% MoM"}</span>
           </div>
 
           <div className="h-32 flex items-end justify-between gap-2 pt-4 px-2">
@@ -234,7 +236,7 @@ export default function AdminDashboardPage() {
           </div>
 
           <div className="text-[11px] text-slate-500 text-center pt-2 border-t border-slate-100 font-normal">
-            Steady upward trajectory in active investor accounts.
+            {t.admin?.userGrowthSub || "Steady upward trajectory in active investor accounts."}
           </div>
         </div>
 
@@ -243,14 +245,14 @@ export default function AdminDashboardPage() {
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
               <TrendingUp className="w-4 h-4 text-[#15182B]" />
-              <span>Active Yield Packages</span>
+              <span>{t.admin?.activeYieldPackages || "Active Yield Packages"}</span>
             </h3>
-            <span className="text-[10px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">Healthy</span>
+            <span className="text-[10px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">{t.admin?.healthy || "Healthy"}</span>
           </div>
 
           <div className="h-32 flex items-center justify-center relative">
             <div className="w-24 h-24 rounded-full border-8 border-slate-100 border-t-[#15182B] border-r-[#E9B737] flex items-center justify-center">
-              <span className="font-mono tabular-nums font-bold text-slate-900 text-xs">84% Paid</span>
+              <span className="font-mono tabular-nums font-bold text-slate-900 text-xs">84% {t.admin?.paid || "Paid"}</span>
             </div>
           </div>
 
@@ -286,10 +288,10 @@ export default function AdminDashboardPage() {
         <div className="bg-white border border-zinc-200/80 rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
           <div className="flex items-center justify-between mb-5">
             <h3 className="text-sm font-bold text-zinc-950 flex items-center gap-2">
-              <Clock className="w-4 h-4 text-zinc-700" /> Recent Deposits
+              <Clock className="w-4 h-4 text-zinc-700" /> {t.admin?.depositRequests || "Recent Deposits"}
             </h3>
             <Link href="/admin/deposits" className="text-xs text-zinc-600 hover:text-zinc-950 font-semibold">
-              View All ({stats.pendingDeposits} Pending) →
+              {t.admin?.viewAll || "View All"} ({stats.pendingDeposits} {t.admin?.pendingReview || "Pending"}) →
             </Link>
           </div>
           <div className="space-y-2">
@@ -302,7 +304,7 @@ export default function AdminDashboardPage() {
                   <div className="text-[10px] text-zinc-400 font-mono tabular-nums">{dep.transaction_id || dep.trx_id || "—"}</div>
                 </div>
                 <div className="text-right">
-                  <div className="font-mono tabular-nums font-bold text-zinc-950">${Number(dep.amount || dep.final_amount || 0).toFixed(2)}</div>
+                  <div className="font-mono tabular-nums font-bold text-zinc-950 notranslate" translate="no">${Number(dep.amount || dep.final_amount || 0).toFixed(2)}</div>
                   <span className={`text-[10px] font-medium uppercase ${dep.status === "pending" ? "text-amber-600" : dep.status === "approved" ? "text-emerald-600" : "text-rose-600"}`}>
                     {dep.status}
                   </span>
@@ -316,10 +318,10 @@ export default function AdminDashboardPage() {
         <div className="bg-white border border-zinc-200/80 rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
           <div className="flex items-center justify-between mb-5">
             <h3 className="text-sm font-bold text-zinc-950 flex items-center gap-2">
-              <Clock className="w-4 h-4 text-zinc-700" /> Recent Withdrawals
+              <Clock className="w-4 h-4 text-zinc-700" /> {t.admin?.withdrawRequests || "Recent Withdrawals"}
             </h3>
             <Link href="/admin/withdrawals" className="text-xs text-zinc-600 hover:text-zinc-950 font-semibold">
-              View All ({stats.pendingWithdrawals} Pending) →
+              {t.admin?.viewAll || "View All"} ({stats.pendingWithdrawals} {t.admin?.pendingPayouts || "Pending"}) →
             </Link>
           </div>
           <div className="space-y-2">

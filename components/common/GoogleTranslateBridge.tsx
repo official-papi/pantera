@@ -32,13 +32,16 @@ export default function GoogleTranslateBridge() {
         console.error("Google translate init error:", err);
       }
     };
+
+    if (window.google?.translate?.TranslateElement && !document.querySelector(".goog-te-combo")) {
+      window.googleTranslateElementInit();
+    }
   }, []);
 
   // Sync Google Translate when active language changes
   useEffect(() => {
     const applyTranslation = () => {
       try {
-        // Set Google Translate cookie for the current and root domain
         const targetLang = language === "en" ? "/en/en" : `/en/${language}`;
         document.cookie = `googtrans=${targetLang}; path=/;`;
         document.cookie = `googtrans=${targetLang}; path=/; domain=${window.location.hostname};`;
@@ -47,13 +50,15 @@ export default function GoogleTranslateBridge() {
           const parts = window.location.hostname.split(".");
           if (parts.length >= 2) {
             const rootDomain = parts.slice(-2).join(".");
-            document.cookie = `googtrans=${targetLang}; path=/; domain=.${rootDomain};`;
+            if (!rootDomain.endsWith("vercel.app")) {
+              document.cookie = `googtrans=${targetLang}; path=/; domain=.${rootDomain};`;
+            }
           }
         }
 
         // Trigger Google Translate combo box if present
         const select = document.querySelector(".goog-te-combo") as HTMLSelectElement | null;
-        if (select) {
+        if (select && select.value !== language) {
           select.value = language;
           select.dispatchEvent(new Event("change"));
         }
@@ -64,14 +69,26 @@ export default function GoogleTranslateBridge() {
 
     applyTranslation();
 
-    // Check again after a slight delay in case the Google widget finished loading
     const timer = setTimeout(applyTranslation, 600);
     return () => clearTimeout(timer);
   }, [language]);
 
   return (
     <>
-      <div id="google_translate_element" className="hidden" style={{ display: "none" }} />
+      <div
+        id="google_translate_element"
+        aria-hidden="true"
+        style={{
+          position: "fixed",
+          top: "-10000px",
+          left: "-10000px",
+          width: "1px",
+          height: "1px",
+          overflow: "hidden",
+          opacity: 0,
+          pointerEvents: "none",
+        }}
+      />
       <Script
         src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
         strategy="afterInteractive"

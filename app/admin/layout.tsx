@@ -8,7 +8,7 @@ import {
   ArrowUpRight, TrendingUp, Share2, FileCheck, Settings,
   ArrowLeft, LogOut, Menu, X, CreditCard, Wallet,
   FileText, Newspaper, Layout, Mail, ShieldCheck, Wrench,
-  Search, Bell, Sparkles, Command, Globe, User
+  Search, Bell, Sparkles, Command, Globe, User, Layers
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -143,7 +143,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { label: t.admin.paymentGateways,  href: "/admin/gateways",         icon: CreditCard },
     { label: t.admin.withdrawRequests, href: "/admin/withdrawals",      icon: ArrowUpRight },
     { label: t.admin.withdrawMethods,  href: "/admin/withdraw-methods", icon: Wallet },
-    { label: t.admin.investmentPlans,  href: "/admin/plans",            icon: TrendingUp },
+    { label: "Active Investments",     href: "/admin/investments",      icon: TrendingUp },
+    { label: t.admin.investmentPlans,  href: "/admin/plans",            icon: Layers },
     { label: t.admin.referralLevels,   href: "/admin/referrals",        icon: Share2 },
     { label: t.admin.kycDocuments,     href: "/admin/kyc",              icon: FileCheck },
     { label: t.admin.financialReports, href: "/admin/reports",          icon: FileText },

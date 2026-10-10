@@ -71,74 +71,79 @@ export default function DashboardPage() {
     const targetUserId = impersonatedId || user.id;
     if (impersonatedId) setIsImpersonating(true);
 
-    const [profileRes, investRes, withdrawRes, plansRes, gatewaysRes] = await Promise.all([
-      supabase.from("profiles").select("*").eq("id", targetUserId).single(),
-      supabase.from("user_investments").select("*, investment_plans(name, badge, capital_back)").eq("user_id", targetUserId),
-      supabase.from("withdrawals").select("net_amount").eq("user_id", targetUserId).eq("status", "approved"),
-      supabase.from("investment_plans").select("*").eq("is_active", true),
-      supabase.from("gateways").select("*").eq("status", true),
-    ]);
+    try {
+      const [profileRes, investRes, withdrawRes, plansRes, gatewaysRes] = await Promise.allSettled([
+        supabase.from("profiles").select("*").eq("id", targetUserId).single(),
+        supabase.from("user_investments").select("*, investment_plans(name, badge, capital_back)").eq("user_id", targetUserId),
+        supabase.from("withdrawals").select("net_amount").eq("user_id", targetUserId).eq("status", "approved"),
+        supabase.from("investment_plans").select("*").eq("is_active", true),
+        supabase.from("gateways").select("*").eq("status", true),
+      ]);
 
-    if (gatewaysRes.data && gatewaysRes.data.length > 0) {
-      setGateways(gatewaysRes.data);
-    }
+      if (gatewaysRes.status === "fulfilled" && gatewaysRes.value.data && gatewaysRes.value.data.length > 0) {
+        setGateways(gatewaysRes.value.data);
+      }
 
-    if (plansRes.data && plansRes.data.length > 0) {
-      setDbPlans(
-        plansRes.data.map((p: any) => ({
+      if (plansRes.status === "fulfilled" && plansRes.value.data && plansRes.value.data.length > 0) {
+        setDbPlans(
+          plansRes.value.data.map((p: any) => ({
+            id: p.id,
+            name: p.name,
+            min_amount: Number(p.min_amount),
+            max_amount: Number(p.max_amount),
+            interest_rate: Number(p.roi_percentage),
+            return_type: "daily",
+            repeat_time: p.total_payout_periods,
+          }))
+        );
+      } else {
+        setDbPlans(DEFAULT_PLANS);
+      }
+
+      if (profileRes.status === "fulfilled" && profileRes.value.data) {
+        const p = profileRes.value.data;
+        setProfile({
           id: p.id,
-          name: p.name,
-          min_amount: Number(p.min_amount),
-          max_amount: Number(p.max_amount),
-          interest_rate: Number(p.roi_percentage),
-          return_type: "daily",
-          repeat_time: p.total_payout_periods,
-        }))
-      );
-    } else {
-      setDbPlans(DEFAULT_PLANS);
-    }
+          email: p.email || (typeof window !== "undefined" ? sessionStorage.getItem("impersonate_user_email") : "") || user.email,
+          full_name: p.full_name || (impersonatedId ? "Investor" : user.user_metadata?.full_name) || "Investor",
+          deposit_wallet: Number(p.deposit_wallet || 0),
+          interest_wallet: Number(p.interest_wallet || 0),
+          referral_code: p.username || p.referral_code || "REF-789",
+          role: p.role || "user",
+        });
+      }
 
-    if (profileRes.data) {
-      setProfile({
-        id: profileRes.data.id,
-        email: profileRes.data.email || (typeof window !== "undefined" ? sessionStorage.getItem("impersonate_user_email") : "") || user.email,
-        full_name: profileRes.data.full_name || (impersonatedId ? "Investor" : user.user_metadata?.full_name) || "Investor",
-        deposit_wallet: Number(profileRes.data.deposit_wallet || 0),
-        interest_wallet: Number(profileRes.data.interest_wallet || 0),
-        referral_code: profileRes.data.username || profileRes.data.referral_code || "REF-789",
-        role: profileRes.data.role || "user",
-      });
-    }
+      if (investRes.status === "fulfilled" && investRes.value.data && investRes.value.data.length > 0) {
+        setInvestments(
+          investRes.value.data.map((inv: any) => ({
+            id: inv.id,
+            planName: inv.investment_plans?.name || "Active Tier",
+            badge: inv.investment_plans?.badge || "Active Package",
+            capital_back: inv.investment_plans?.capital_back ?? true,
+            amount: Number(inv.invest_amount || inv.amount || 0),
+            dailyReturn: Number(inv.payout_per_period || inv.daily_return || 0),
+            totalPayouts: inv.total_payout_periods || inv.total_payouts || 30,
+            completedPayouts: inv.paid_periods || inv.payouts_completed || 0,
+            total_profit_earned: Number(inv.total_profit_earned || 0),
+            next_payout_at: inv.next_payout_at,
+            nextPayout: inv.next_payout_at ? new Date(inv.next_payout_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "Active",
+            status: inv.status,
+            created_at: inv.created_at,
+          }))
+        );
+      } else {
+        setInvestments([]);
+      }
 
-    if (investRes.data && investRes.data.length > 0) {
-      setInvestments(
-        investRes.data.map((inv: any) => ({
-          id: inv.id,
-          planName: inv.investment_plans?.name || "Active Tier",
-          badge: inv.investment_plans?.badge || "Active Package",
-          capital_back: inv.investment_plans?.capital_back ?? true,
-          amount: Number(inv.invest_amount || inv.amount || 0),
-          dailyReturn: Number(inv.payout_per_period || inv.daily_return || 0),
-          totalPayouts: inv.total_payout_periods || inv.total_payouts || 30,
-          completedPayouts: inv.paid_periods || inv.payouts_completed || 0,
-          total_profit_earned: Number(inv.total_profit_earned || 0),
-          next_payout_at: inv.next_payout_at,
-          nextPayout: inv.next_payout_at ? new Date(inv.next_payout_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "Active",
-          status: inv.status,
-          created_at: inv.created_at,
-        }))
-      );
-    } else {
-      setInvestments([]);
+      if (withdrawRes.status === "fulfilled" && withdrawRes.value.data) {
+        const sum = withdrawRes.value.data.reduce((acc: number, curr: any) => acc + Number(curr.net_amount || 0), 0);
+        setTotalWithdrawnSum(sum);
+      }
+    } catch (err) {
+      console.error("Dashboard fetch error:", err);
+    } finally {
+      setLoading(false);
     }
-
-    if (withdrawRes.data) {
-      const sum = withdrawRes.data.reduce((acc: number, curr: any) => acc + Number(curr.net_amount || 0), 0);
-      setTotalWithdrawnSum(sum);
-    }
-
-    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -206,6 +211,23 @@ export default function DashboardPage() {
   const fmt = (n: number) =>
     n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
+  if (loading) {
+    return (
+      <DashboardLayout userEmail={profile?.email}>
+        <div className="space-y-6 animate-pulse notranslate" translate="no">
+          <div className="bg-white border border-[#E2E4EC] rounded-2xl p-6 h-32" />
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="bg-white border border-[#E2E4EC] rounded-xl p-5 h-28" />
+            <div className="bg-white border border-[#E2E4EC] rounded-xl p-5 h-28" />
+            <div className="bg-white border border-[#E2E4EC] rounded-xl p-5 h-28" />
+            <div className="bg-white border border-[#E2E4EC] rounded-xl p-5 h-28" />
+          </div>
+          <div className="bg-white border border-[#E2E4EC] rounded-xl p-6 h-64" />
+        </div>
+      </DashboardLayout>
+    );
+  }
+
   return (
     <DashboardLayout userEmail={profile?.email}>
       <div className="space-y-6">
@@ -227,8 +249,8 @@ export default function DashboardPage() {
               </button>
             </div>
             
-            <div className="flex items-baseline gap-3">
-              <span className="text-3xl sm:text-4xl font-extrabold text-[#15182B] font-mono tracking-tight">
+            <div className="flex items-baseline gap-3 notranslate" translate="no">
+              <span className="text-3xl sm:text-4xl font-extrabold text-[#15182B] font-mono tracking-tight notranslate" translate="no">
                 ${fmt(totalPortfolio)}
               </span>
               <span className="text-xs font-semibold text-slate-400 font-mono">Total Portfolio Value</span>

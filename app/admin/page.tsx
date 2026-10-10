@@ -98,7 +98,7 @@ export default function AdminDashboardPage() {
     { label: "Total Registered Users",  value: String(stats.totalUsers),                   sub: "Active platform accounts",                         icon: Users,          href: "/admin/users" },
     { label: "Approved Deposits",       value: `$${stats.totalDeposits.toFixed(2)}`,        sub: stats.pendingDeposits > 0 ? `${stats.pendingDeposits} Pending Review` : "0 Pending Requests", icon: ArrowDownRight, href: "/admin/deposits", alert: stats.pendingDeposits > 0 },
     { label: "Approved Withdrawals",    value: `$${stats.totalWithdrawals.toFixed(2)}`,     sub: stats.pendingWithdrawals > 0 ? `${stats.pendingWithdrawals} Pending Payouts` : "0 Pending Requests", icon: ArrowUpRight, href: "/admin/withdrawals", alert: stats.pendingWithdrawals > 0 },
-    { label: "Active Investments",      value: String(stats.activeInvestments),             sub: "Generating interest yields",                        icon: TrendingUp,     href: "/admin/plans" },
+    { label: "Active Investments",      value: String(stats.activeInvestments),             sub: "Generating interest yields",                        icon: TrendingUp,     href: "/admin/investments" },
   ];
 
   return (

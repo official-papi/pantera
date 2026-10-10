@@ -63,11 +63,6 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       if (select) {
         select.value = lang;
         select.dispatchEvent(new Event("change"));
-      } else {
-        // Smooth reload if changing language and google widget needs a refresh
-        if (typeof window !== "undefined") {
-          window.location.reload();
-        }
       }
     } catch (e) {
       console.error("Failed to save language to localStorage", e);

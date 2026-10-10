@@ -19,6 +19,20 @@ import {
   Send,
   Eye,
   Sparkles,
+  User,
+  QrCode,
+  Phone,
+  Calendar,
+  Hash,
+  ExternalLink,
+  ShieldAlert,
+  Award,
+  Copy,
+  Check,
+  DollarSign,
+  Zap,
+  Share2,
+  RefreshCw,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -26,6 +40,13 @@ export default function AdminUsersPage() {
   const [users, setUsers] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedUser, setSelectedUser] = useState<any | null>(null);
+
+  // Bio Data & Profile Inspector states
+  const [bioUser, setBioUser] = useState<any | null>(null);
+  const [loadingBio, setLoadingBio] = useState(false);
+  const [bioDetails, setBioDetails] = useState<any | null>(null);
+  const [bioTab, setBioTab] = useState<"bio" | "finance" | "payout" | "referral" | "kyc">("bio");
+  const [copiedAddress, setCopiedAddress] = useState(false);
 
   // Balance modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,6 +76,50 @@ export default function AdminUsersPage() {
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  const handleOpenBioModal = async (user: any) => {
+    setBioUser(user);
+    setLoadingBio(true);
+    setBioTab("bio");
+    setBioDetails(null);
+
+    try {
+      const supabase = createClient();
+      const [kycRes, referrerRes, refCountRes, depositsRes, withdrawRes, investRes] = await Promise.all([
+        supabase.from("kyc_requests").select("*").eq("user_id", user.id).maybeSingle(),
+        user.referred_by
+          ? supabase.from("profiles").select("id, full_name, username, email").eq("id", user.referred_by).maybeSingle()
+          : Promise.resolve({ data: null }),
+        supabase.from("profiles").select("id", { count: "exact", head: true }).eq("referred_by", user.id),
+        supabase.from("deposits").select("amount").eq("user_id", user.id).eq("status", "approved"),
+        supabase.from("withdrawals").select("amount").eq("user_id", user.id).eq("status", "approved"),
+        supabase.from("user_investments").select("invest_amount, status, payout_per_period, total_profit_earned").eq("user_id", user.id),
+      ]);
+
+      const depositsTotal = (depositsRes.data || []).reduce((acc: number, d: any) => acc + Number(d.amount || 0), 0);
+      const withdrawalsTotal = (withdrawRes.data || []).reduce((acc: number, w: any) => acc + Number(w.amount || 0), 0);
+      const activeInvestments = (investRes.data || []).filter((i: any) => i.status === "active");
+      const activeInvestmentsTotal = activeInvestments.reduce((acc: number, i: any) => acc + Number(i.invest_amount || 0), 0);
+      const totalProfitEarned = (investRes.data || []).reduce((acc: number, i: any) => acc + Number(i.total_profit_earned || 0), 0);
+
+      setBioDetails({
+        kyc: kycRes.data,
+        referrer: referrerRes.data,
+        referralsCount: refCountRes.count || 0,
+        depositsTotal,
+        depositsCount: depositsRes.data?.length || 0,
+        withdrawalsTotal,
+        withdrawalsCount: withdrawRes.data?.length || 0,
+        investmentsTotal: activeInvestmentsTotal,
+        investmentsCount: activeInvestments.length,
+        totalProfitEarned,
+      });
+    } catch (err) {
+      console.error("Error loading user bio details:", err);
+    } finally {
+      setLoadingBio(false);
+    }
+  };
 
   const fetchUsers = async () => {
     const supabase = createClient();
@@ -270,7 +335,11 @@ export default function AdminUsersPage() {
                 filteredUsers.map((user) => (
                   <tr key={user.id} className="hover:bg-slate-50/80 transition-colors">
                     <td className="py-3">
-                      <div className="font-extrabold text-slate-900">
+                      <div
+                        onClick={() => handleOpenBioModal(user)}
+                        className="font-extrabold text-slate-900 hover:text-indigo-600 transition-colors cursor-pointer"
+                        title="Click to inspect full bio data & profile"
+                      >
                         {user.full_name || user.username || "User"}
                       </div>
                       <div className="text-[11px] text-slate-500 font-mono">{user.email}</div>
@@ -304,7 +373,18 @@ export default function AdminUsersPage() {
                       ${Number(user.interest_wallet || 0).toFixed(2)}
                     </td>
                     <td className="py-3 text-right">
-                      <div className="flex flex-wrap items-center justify-end gap-1.5 min-w-[320px]">
+                      <div className="flex flex-wrap items-center justify-end gap-1.5 min-w-[360px]">
+                        {/* Full Bio Data Button */}
+                        <button
+                          type="button"
+                          onClick={() => handleOpenBioModal(user)}
+                          className="px-2 py-1 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 text-[11px] font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-1 shadow-xs"
+                          title="View all bio data, personal details, KYC and portfolio"
+                        >
+                          <User className="w-3 h-3" />
+                          <span>Bio Data</span>
+                        </button>
+
                         {/* Direct Email Button */}
                         <button
                           type="button"
@@ -363,6 +443,441 @@ export default function AdminUsersPage() {
           </table>
         </div>
       </div>
+
+      {/* Bio Data & Profile Inspector Modal */}
+      {bioUser && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 w-full max-w-2xl space-y-4 shadow-2xl relative text-slate-800 max-h-[90vh] flex flex-col">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3 flex-shrink-0">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-sm uppercase shadow-sm">
+                  {(bioUser.full_name || bioUser.username || bioUser.email || "U").charAt(0)}
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-base font-extrabold text-slate-900">
+                      {bioUser.full_name || bioUser.username || "Investor Profile"}
+                    </h3>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
+                      bioUser.role === "admin"
+                        ? "bg-indigo-50 text-indigo-700 border border-indigo-200"
+                        : "bg-slate-100 text-slate-600 border border-slate-200"
+                    }`}>
+                      {bioUser.role}
+                    </span>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
+                      bioUser.is_banned
+                        ? "bg-rose-50 text-rose-700 border border-rose-200"
+                        : "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                    }`}>
+                      {bioUser.is_banned ? "FROZEN" : "ACTIVE"}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 font-mono">{bioUser.email}</p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setBioUser(null)}
+                className="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Navigation Tabs */}
+            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl text-xs font-bold overflow-x-auto flex-shrink-0">
+              <button
+                type="button"
+                onClick={() => setBioTab("bio")}
+                className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap cursor-pointer ${
+                  bioTab === "bio" ? "bg-white text-indigo-600 shadow-xs" : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                👤 Bio & Contact
+              </button>
+              <button
+                type="button"
+                onClick={() => setBioTab("finance")}
+                className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap cursor-pointer ${
+                  bioTab === "finance" ? "bg-white text-indigo-600 shadow-xs" : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                💰 Financial Portfolio
+              </button>
+              <button
+                type="button"
+                onClick={() => setBioTab("payout")}
+                className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap cursor-pointer ${
+                  bioTab === "payout" ? "bg-white text-indigo-600 shadow-xs" : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                💳 Payout & Crypto
+              </button>
+              <button
+                type="button"
+                onClick={() => setBioTab("referral")}
+                className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap cursor-pointer ${
+                  bioTab === "referral" ? "bg-white text-indigo-600 shadow-xs" : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                🤝 Referrals
+              </button>
+              <button
+                type="button"
+                onClick={() => setBioTab("kyc")}
+                className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap cursor-pointer ${
+                  bioTab === "kyc" ? "bg-white text-indigo-600 shadow-xs" : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                🛡️ KYC Identity
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="overflow-y-auto flex-1 pr-1 space-y-4">
+              {loadingBio ? (
+                <div className="py-16 text-center text-slate-400 text-xs">
+                  <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-indigo-600" />
+                  Loading investor bio details and intelligence...
+                </div>
+              ) : (
+                <>
+                  {/* TAB 1: Bio & Contact */}
+                  {bioTab === "bio" && (
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                        <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block mb-0.5">Full Legal Name</span>
+                          <span className="font-extrabold text-slate-900 text-sm">{bioUser.full_name || "(Not provided)"}</span>
+                        </div>
+                        <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block mb-0.5">Username</span>
+                          <span className="font-bold text-slate-900 font-mono">@{bioUser.username || "(Not set)"}</span>
+                        </div>
+                        <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block mb-0.5">Primary Email</span>
+                          <span className="font-bold text-slate-900 font-mono">{bioUser.email}</span>
+                        </div>
+                        <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block mb-0.5">Phone Number</span>
+                          <span className="font-bold text-slate-900 font-mono">{bioUser.phone || "(Not provided)"}</span>
+                        </div>
+                        <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl sm:col-span-2">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block mb-0.5">Account User ID (UUID)</span>
+                          <span className="font-mono text-slate-700 text-[11px] select-all">{bioUser.id}</span>
+                        </div>
+                        <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block mb-0.5">Registration Timestamp</span>
+                          <span className="text-slate-700 font-mono text-[11px]">
+                            {bioUser.created_at ? new Date(bioUser.created_at).toLocaleString() : "-"}
+                          </span>
+                        </div>
+                        <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block mb-0.5">Last Record Update</span>
+                          <span className="text-slate-700 font-mono text-[11px]">
+                            {bioUser.updated_at ? new Date(bioUser.updated_at).toLocaleString() : "-"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* TAB 2: Financial Portfolio */}
+                  {bioTab === "finance" && (
+                    <div className="space-y-4 text-xs">
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block">Deposit Wallet</span>
+                          <span className="text-lg font-black text-slate-900 font-mono">
+                            ${Number(bioUser.deposit_wallet || 0).toFixed(2)}
+                          </span>
+                          <span className="text-[10px] text-slate-400 block mt-0.5">Available for investment</span>
+                        </div>
+                        <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block">Interest Wallet</span>
+                          <span className="text-lg font-black text-indigo-600 font-mono">
+                            ${Number(bioUser.interest_wallet || 0).toFixed(2)}
+                          </span>
+                          <span className="text-[10px] text-slate-400 block mt-0.5">Withdrawable profit</span>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div className="p-3 border border-slate-200 rounded-xl bg-white">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block">Approved Deposits</span>
+                          <span className="text-sm font-black text-emerald-600 font-mono">
+                            ${Number(bioDetails?.depositsTotal || 0).toFixed(2)}
+                          </span>
+                          <span className="text-[10px] text-slate-400 block">({bioDetails?.depositsCount || 0} deposits)</span>
+                        </div>
+                        <div className="p-3 border border-slate-200 rounded-xl bg-white">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block">Approved Withdrawals</span>
+                          <span className="text-sm font-black text-slate-800 font-mono">
+                            ${Number(bioDetails?.withdrawalsTotal || 0).toFixed(2)}
+                          </span>
+                          <span className="text-[10px] text-slate-400 block">({bioDetails?.withdrawalsCount || 0} payouts)</span>
+                        </div>
+                        <div className="p-3 border border-slate-200 rounded-xl bg-white">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block">Active Staking Capital</span>
+                          <span className="text-sm font-black text-indigo-600 font-mono">
+                            ${Number(bioDetails?.investmentsTotal || 0).toFixed(2)}
+                          </span>
+                          <span className="text-[10px] text-slate-400 block">({bioDetails?.investmentsCount || 0} active packages)</span>
+                        </div>
+                      </div>
+
+                      <div className="p-3 bg-emerald-50/60 border border-emerald-200 rounded-xl flex items-center justify-between">
+                        <div>
+                          <span className="text-[10px] font-bold text-emerald-800 uppercase block">Lifetime Staking Profits Earned</span>
+                          <span className="text-sm font-black text-emerald-700 font-mono">
+                            +${Number(bioDetails?.totalProfitEarned || 0).toFixed(2)}
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const u = bioUser;
+                            setBioUser(null);
+                            handleOpenStatement(u);
+                          }}
+                          className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] cursor-pointer"
+                        >
+                          View Full Statement &rarr;
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* TAB 3: Payout & Crypto */}
+                  {bioTab === "payout" && (
+                    <div className="space-y-4 text-xs">
+                      <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase block">Preferred Withdrawal Method</span>
+                        <div className="text-sm font-extrabold text-slate-900">
+                          {bioUser.payout_method || "USDT (TRC-20)"}
+                        </div>
+                      </div>
+
+                      <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase">Payout Destination Wallet Address</span>
+                          {bioUser.payout_address && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                navigator.clipboard.writeText(bioUser.payout_address);
+                                setCopiedAddress(true);
+                                setTimeout(() => setCopiedAddress(false), 2000);
+                              }}
+                              className="text-indigo-600 hover:underline text-[11px] font-bold flex items-center gap-1 cursor-pointer"
+                            >
+                              {copiedAddress ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                              <span>{copiedAddress ? "Copied!" : "Copy"}</span>
+                            </button>
+                          )}
+                        </div>
+                        <div className="font-mono text-xs text-slate-800 bg-white p-2.5 rounded-lg border border-slate-200 break-all select-all">
+                          {bioUser.payout_address || "(No payout destination address configured yet)"}
+                        </div>
+                      </div>
+
+                      {bioUser.payout_qr_code_url ? (
+                        <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block">Uploaded Payout QR Code</span>
+                          <div className="bg-white p-2 rounded-xl border border-slate-200 inline-block shadow-sm">
+                            <img
+                              src={bioUser.payout_qr_code_url}
+                              alt="Payout QR Code"
+                              className="w-44 h-44 object-contain rounded-lg"
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="p-4 bg-slate-50 border border-dashed border-slate-200 rounded-xl text-center text-slate-400 text-xs">
+                          No payout QR code uploaded by this user.
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* TAB 4: Referrals */}
+                  {bioTab === "referral" && (
+                    <div className="space-y-4 text-xs">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block mb-1">Personal Referral Code</span>
+                          <span className="text-base font-extrabold text-indigo-600 font-mono tracking-wider">
+                            {bioUser.referral_code || bioUser.username || "-"}
+                          </span>
+                        </div>
+                        <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block mb-1">Total Invited Downline</span>
+                          <span className="text-base font-extrabold text-slate-900 font-mono">
+                            {bioDetails?.referralsCount || 0} Users
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase block">Referred By (Sponsor)</span>
+                        {bioDetails?.referrer ? (
+                          <div className="flex items-center gap-2">
+                            <span className="font-extrabold text-slate-900 text-sm">
+                              {bioDetails.referrer.full_name || bioDetails.referrer.username}
+                            </span>
+                            <span className="text-slate-500 font-mono text-[11px]">({bioDetails.referrer.email})</span>
+                          </div>
+                        ) : (
+                          <div className="text-slate-500 italic">Direct Organic Registration (No Sponsor)</div>
+                        )}
+                      </div>
+
+                      <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase block">Referral Signup URL</span>
+                        <div className="font-mono text-[11px] text-slate-700 bg-white p-2 rounded-lg border border-slate-200 select-all">
+                          https://pantera.cfd/register?ref={bioUser.username || bioUser.referral_code}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* TAB 5: KYC Identity */}
+                  {bioTab === "kyc" && (
+                    <div className="space-y-4 text-xs">
+                      <div className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+                        <div>
+                          <span className="text-[10px] font-bold text-slate-400 uppercase block">KYC Verification Status</span>
+                          <span className="font-extrabold text-slate-900 text-sm capitalize">
+                            {bioDetails?.kyc?.status || "Unverified / Not Submitted"}
+                          </span>
+                        </div>
+                        <span
+                          className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${
+                            bioDetails?.kyc?.status === "approved"
+                              ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                              : bioDetails?.kyc?.status === "pending"
+                              ? "bg-amber-50 text-amber-700 border border-amber-200"
+                              : "bg-slate-100 text-slate-600 border border-slate-200"
+                          }`}
+                        >
+                          {bioDetails?.kyc?.status || "UNVERIFIED"}
+                        </span>
+                      </div>
+
+                      {bioDetails?.kyc ? (
+                        <div className="space-y-3">
+                          <div className="grid grid-cols-2 gap-3">
+                            <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                              <span className="text-[10px] font-bold text-slate-400 uppercase block">Document Type</span>
+                              <span className="font-bold text-slate-900 capitalize">{bioDetails.kyc.document_type || "-"}</span>
+                            </div>
+                            <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                              <span className="text-[10px] font-bold text-slate-400 uppercase block">Document Number</span>
+                              <span className="font-bold text-slate-900 font-mono">{bioDetails.kyc.document_number || "-"}</span>
+                            </div>
+                          </div>
+
+                          {bioDetails.kyc.admin_feedback && (
+                            <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900">
+                              <span className="text-[10px] font-bold uppercase block">Admin Verification Note:</span>
+                              <span className="text-xs">{bioDetails.kyc.admin_feedback}</span>
+                            </div>
+                          )}
+
+                          <div className="space-y-2">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase block">Submitted Identity Proofs</span>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              {bioDetails.kyc.document_front_url && (
+                                <div className="border border-slate-200 rounded-xl p-2 bg-white space-y-1">
+                                  <span className="text-[10px] font-bold text-slate-500 uppercase block">Document Front</span>
+                                  <a href={bioDetails.kyc.document_front_url} target="_blank" rel="noreferrer" className="block">
+                                    <img
+                                      src={bioDetails.kyc.document_front_url}
+                                      alt="Front ID"
+                                      className="w-full h-36 object-cover rounded-lg border border-slate-100"
+                                    />
+                                  </a>
+                                </div>
+                              )}
+                              {bioDetails.kyc.document_back_url && (
+                                <div className="border border-slate-200 rounded-xl p-2 bg-white space-y-1">
+                                  <span className="text-[10px] font-bold text-slate-500 uppercase block">Document Back</span>
+                                  <a href={bioDetails.kyc.document_back_url} target="_blank" rel="noreferrer" className="block">
+                                    <img
+                                      src={bioDetails.kyc.document_back_url}
+                                      alt="Back ID"
+                                      className="w-full h-36 object-cover rounded-lg border border-slate-100"
+                                    />
+                                  </a>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="p-6 bg-slate-50 border border-dashed border-slate-200 rounded-xl text-center text-slate-400 text-xs">
+                          This investor has not submitted KYC identification documents yet.
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+
+            {/* Modal Footer Quick Actions */}
+            <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 flex-shrink-0">
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const u = bioUser;
+                    setBioUser(null);
+                    handleOpenEmailModal(u);
+                  }}
+                  className="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 font-bold text-xs flex items-center gap-1 cursor-pointer"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>Send Email</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const u = bioUser;
+                    setBioUser(null);
+                    handleOpenBalanceModal(u);
+                  }}
+                  className="px-3 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 font-bold text-xs flex items-center gap-1 cursor-pointer"
+                >
+                  <span>Adjust Balance</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleToggleFreezeUser(bioUser.id, bioUser.is_banned)}
+                  className={`px-3 py-1.5 rounded-lg font-bold text-xs cursor-pointer ${
+                    bioUser.is_banned
+                      ? "bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100"
+                      : "bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100"
+                  }`}
+                >
+                  {bioUser.is_banned ? "Unfreeze Account" : "Freeze Account"}
+                </button>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setBioUser(null)}
+                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Direct User Email Modal */}
       {emailUser && (

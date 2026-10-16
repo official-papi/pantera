@@ -21,7 +21,7 @@ export async function POST(req: Request) {
       process.env.NEXT_PUBLIC_SITE_URL ||
       "https://pantera.cfd";
 
-    const redirectTo = `${origin}/auth/callback?next=/reset-password`;
+    const redirectTo = `${origin}/reset-password`;
     const supabaseAdmin = getAdminSupabase();
 
     // 1. Generate the recovery link via Supabase Admin SDK
@@ -66,7 +66,7 @@ export async function POST(req: Request) {
     // linkData.properties.action_link is the verified Supabase recovery link
     const resetUrl =
       linkData?.properties?.action_link ||
-      `${origin}/auth/callback?token_hash=${linkData?.properties?.hashed_token}&type=recovery&next=/reset-password`;
+      `${origin}/reset-password#token=${linkData?.properties?.hashed_token}`;
 
     // 4. Render branded institutional email template
     const template = getPasswordResetEmail({

@@ -32,34 +32,92 @@ export default function ResetPasswordPage() {
 
   useEffect(() => {
     const supabase = createClient();
+    let isMounted = true;
 
-    // 1. Check existing session
+    // 1. Inspect URL hash for direct tokens or errors
+    if (typeof window !== "undefined" && window.location.hash) {
+      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const hashError = hashParams.get("error_description");
+      const accessToken = hashParams.get("access_token");
+      const refreshToken = hashParams.get("refresh_token");
+
+      if (hashError) {
+        if (isMounted) {
+          setError(decodeURIComponent(hashError.replace(/\+/g, " ")));
+          setVerifyingSession(false);
+        }
+        return;
+      }
+
+      if (accessToken && refreshToken) {
+        supabase.auth
+          .setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          })
+          .then(({ data, error: setSessionError }: any) => {
+            if (!isMounted) return;
+            if (data?.session?.user) {
+              setHasValidSession(true);
+              setUserEmail(data.session.user.email || null);
+              setUserName(
+                data.session.user.user_metadata?.full_name ||
+                  data.session.user.user_metadata?.username ||
+                  null
+              );
+              setVerifyingSession(false);
+            } else if (setSessionError) {
+              console.warn("[ResetPassword] setSession error:", setSessionError.message);
+            }
+          });
+      }
+    }
+
+    // 2. Check existing active session
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!isMounted) return;
+
       if (session?.user) {
         setHasValidSession(true);
         setUserEmail(session.user.email || null);
         setUserName(
           session.user.user_metadata?.full_name ||
-          session.user.user_metadata?.username ||
-          null
+            session.user.user_metadata?.username ||
+            null
         );
+        setVerifyingSession(false);
+      } else {
+        // If there is an access_token in hash, give onAuthStateChange 2s before timing out
+        const hasHashToken =
+          typeof window !== "undefined" &&
+          window.location.hash.includes("access_token");
+
+        if (!hasHashToken) {
+          setVerifyingSession(false);
+        } else {
+          setTimeout(() => {
+            if (isMounted) setVerifyingSession(false);
+          }, 2000);
+        }
       }
-      setVerifyingSession(false);
     };
 
     checkSession();
 
-    // 2. Listen to PASSWORD_RECOVERY auth state changes
+    // 3. Listen to PASSWORD_RECOVERY & auth state changes
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event: any, session: any) => {
+        if (!isMounted) return;
         if (event === "PASSWORD_RECOVERY" || session?.user) {
           setHasValidSession(true);
           setUserEmail(session?.user?.email || null);
           setUserName(
             session?.user?.user_metadata?.full_name ||
-            session?.user?.user_metadata?.username ||
-            null
+              session?.user?.user_metadata?.username ||
+              null
           );
           setVerifyingSession(false);
         }
@@ -67,6 +125,7 @@ export default function ResetPasswordPage() {
     );
 
     return () => {
+      isMounted = false;
       authListener.subscription.unsubscribe();
     };
   }, []);

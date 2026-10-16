@@ -30,6 +30,7 @@ export const metadata: Metadata = {
 
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 import GoogleTranslateBridge from "@/components/common/GoogleTranslateBridge";
+import AuthRecoveryListener from "@/components/common/AuthRecoveryListener";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className="min-h-full flex flex-col font-sans antialiased text-zinc-900 bg-[#fafafa]"
         suppressHydrationWarning
       >
+        <AuthRecoveryListener />
         <LanguageProvider>
           <GoogleTranslateBridge />
           {children}

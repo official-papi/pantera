@@ -75,9 +75,28 @@ function RegisterForm() {
         setSuccess("Account created! Redirecting…");
         setTimeout(() => { router.push("/dashboard"); router.refresh(); }, 1500);
       } else {
-        setSuccess("Registration successful! Check your email to verify your account.");
+        setSuccess("Registration successful! We have dispatched a confirmation email to activate your account.");
         setLoading(false);
       }
+    }
+  };
+
+  const handleResendVerification = async () => {
+    if (!email) return;
+    try {
+      const res = await fetch("/api/auth/resend-verification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const resData = await res.json();
+      if (resData.success) {
+        setSuccess("Verification email has been resent to " + email);
+      } else {
+        setError(resData.error || "Failed to resend verification email.");
+      }
+    } catch (err: any) {
+      setError(err?.message || "Failed to resend email.");
     }
   };
 
@@ -90,8 +109,22 @@ function RegisterForm() {
         </div>
       )}
       {success && (
-        <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 flex items-start gap-2.5 text-emerald-700 text-[13px] font-medium">
-          <CheckCircle2 className="w-4.5 h-4.5 flex-shrink-0 mt-0.5" /><span>{success}</span>
+        <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 space-y-2 text-emerald-700 text-[13px] font-medium">
+          <div className="flex items-start gap-2.5">
+            <CheckCircle2 className="w-4.5 h-4.5 flex-shrink-0 mt-0.5 text-emerald-600" />
+            <span>{success}</span>
+          </div>
+          {email && (
+            <div className="pl-7">
+              <button
+                type="button"
+                onClick={handleResendVerification}
+                className="text-xs text-emerald-800 underline hover:text-emerald-950 font-semibold cursor-pointer"
+              >
+                Didn&apos;t receive it? Click to resend verification email
+              </button>
+            </div>
+          )}
         </div>
       )}
 

@@ -10,6 +10,9 @@ import {
   getWithdrawalRejectedEmail,
   getInvestmentStartedEmail,
   getKycStatusEmail,
+  getPasswordResetEmail,
+  getPasswordChangedNotificationEmail,
+  getResendVerificationEmail,
 } from "@/lib/email/templates";
 
 export async function POST(req: Request) {
@@ -31,6 +34,9 @@ export async function POST(req: Request) {
       roiPercentage,
       totalPeriods,
       status,
+      resetUrl,
+      verifyUrl,
+      expiresInMinutes,
     } = body;
 
     if (!to) {
@@ -66,6 +72,33 @@ export async function POST(req: Request) {
         break;
       case "kyc_status":
         emailData = getKycStatusEmail(name || "Investor", status || "approved", feedback);
+        break;
+      case "password_reset":
+        if (!resetUrl) {
+          return NextResponse.json({ success: false, error: "resetUrl is required for password_reset" }, { status: 400 });
+        }
+        emailData = getPasswordResetEmail({
+          name: name || "Investor",
+          email: to,
+          resetUrl,
+          expiresInMinutes: expiresInMinutes || 60,
+        });
+        break;
+      case "password_changed":
+        emailData = getPasswordChangedNotificationEmail({
+          name: name || "Investor",
+          email: to,
+        });
+        break;
+      case "resend_verification":
+        if (!verifyUrl) {
+          return NextResponse.json({ success: false, error: "verifyUrl is required for resend_verification" }, { status: 400 });
+        }
+        emailData = getResendVerificationEmail({
+          name: name || "Investor",
+          email: to,
+          verifyUrl,
+        });
         break;
       default:
         return NextResponse.json({ success: false, error: `Unknown email type: ${type}` }, { status: 400 });

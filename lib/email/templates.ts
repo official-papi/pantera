@@ -509,4 +509,139 @@ export function getBroadcastEmailTemplate({
   };
 }
 
+// 11. PASSWORD RESET EMAIL
+export function getPasswordResetEmail({
+  name,
+  email,
+  resetUrl,
+  expiresInMinutes = 60,
+}: {
+  name?: string;
+  email: string;
+  resetUrl: string;
+  expiresInMinutes?: number;
+}) {
+  const content = `
+    <h1>Password Reset Authorization</h1>
+    <p>Hello ${name || "Investor"},</p>
+    <p>We received an official request to reset the login credentials associated with your Pantera Capital institutional account.</p>
+
+    <div class="stat-box" style="border-left-color: #E9B737;">
+      <div class="stat-label">ACCOUNT IDENTIFIER</div>
+      <div class="stat-value" style="font-size: 15px;">${email}</div>
+      <div class="stat-label" style="margin-top: 10px;">AUTHORIZATION WINDOW</div>
+      <div style="font-family: ui-monospace; font-size: 13px; color: #CBD5E1; margin-top: 4px;">Valid for ${expiresInMinutes} minutes</div>
+    </div>
+
+    <p>To establish a new master password for your account, please click the secure authorization link below:</p>
+
+    <div style="text-align: center; margin: 28px 0;">
+      <a href="${resetUrl}" class="btn">RESET YOUR PASSWORD &rarr;</a>
+    </div>
+
+    <p style="font-size: 12px; color: #94A3B8; word-break: break-all;">
+      If the button above does not work, copy and paste this secure link directly into your browser:<br/>
+      <a href="${resetUrl}" style="color: #E9B737; text-decoration: underline;">${resetUrl}</a>
+    </p>
+
+    <div style="margin-top: 28px; padding: 14px 18px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px;">
+      <p style="font-size: 12px; color: #F87171; margin: 0; line-height: 1.5;">
+        <strong>SECURITY NOTICE:</strong> If you did not initiate this password reset request, no action is required and your account remains secure. However, we recommend reviewing your account security or contacting our security desk at <a href="mailto:support@pantera.cfd" style="color: #FCA5A5;">support@pantera.cfd</a>.
+      </p>
+    </div>
+  `;
+
+  return {
+    subject: "Security: Password Reset Authorization — Pantera Capital",
+    html: baseEmailHtml({
+      title: "Password Reset Authorization",
+      preheader: "Reset the master password for your Pantera Capital account.",
+      content,
+    }),
+  };
+}
+
+// 12. PASSWORD CHANGED SECURITY ALERT
+export function getPasswordChangedNotificationEmail({
+  name,
+  email,
+}: {
+  name?: string;
+  email: string;
+}) {
+  const content = `
+    <h1>Security Alert: Master Password Updated</h1>
+    <p>Hello ${name || "Investor"},</p>
+    <p>This is an automated confirmation that the master password for your Pantera Capital institutional account (<strong>${email}</strong>) has been successfully changed.</p>
+
+    <div class="stat-box" style="border-left-color: #10B981;">
+      <div class="stat-label">EVENT TYPE</div>
+      <div class="stat-value" style="font-size: 16px; color: #10B981;">PASSWORD SUCCESSFULLY UPDATED</div>
+      <div class="stat-label" style="margin-top: 10px;">TIMESTAMP</div>
+      <div style="font-family: ui-monospace; font-size: 13px; color: #CBD5E1; margin-top: 4px;">${new Date().toUTCString()}</div>
+    </div>
+
+    <p>You can now sign in using your newly configured password. Any active temporary recovery sessions have been revoked.</p>
+
+    <div style="text-align: center; margin: 28px 0;">
+      <a href="https://pantera.cfd/login" class="btn">SIGN IN TO YOUR PORTFOLIO &rarr;</a>
+    </div>
+
+    <div style="margin-top: 28px; padding: 14px 18px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px;">
+      <p style="font-size: 12px; color: #F87171; margin: 0; line-height: 1.5;">
+        <strong>URGENT NOTICE:</strong> If you did NOT authorize this change, your account may be compromised. Please immediately reset your password and reach out to our security desk at <a href="mailto:support@pantera.cfd" style="color: #FCA5A5;">support@pantera.cfd</a>.
+      </p>
+    </div>
+  `;
+
+  return {
+    subject: "Security Alert: Password Updated — Pantera Capital",
+    html: baseEmailHtml({
+      title: "Password Updated",
+      preheader: "Your Pantera Capital account password has been successfully changed.",
+      content,
+    }),
+  };
+}
+
+// 13. RESEND VERIFICATION EMAIL
+export function getResendVerificationEmail({
+  name,
+  email,
+  verifyUrl,
+}: {
+  name?: string;
+  email: string;
+  verifyUrl: string;
+}) {
+  const content = `
+    <h1>Confirm Your Institutional Account</h1>
+    <p>Hello ${name || "Investor"},</p>
+    <p>You requested a new verification link for your Pantera Capital account (<strong>${email}</strong>).</p>
+
+    <p>Please confirm your email address by clicking the secure button below to activate your account and start managing your portfolio:</p>
+
+    <div style="text-align: center; margin: 28px 0;">
+      <a href="${verifyUrl}" class="btn">VERIFY ACCOUNT &rarr;</a>
+    </div>
+
+    <p style="font-size: 12px; color: #94A3B8; word-break: break-all;">
+      If the button does not work, copy and paste this link into your browser:<br/>
+      <a href="${verifyUrl}" style="color: #E9B737; text-decoration: underline;">${verifyUrl}</a>
+    </p>
+
+    <p style="font-size: 12px; color: #64748B;">If you did not request this email, please disregard it.</p>
+  `;
+
+  return {
+    subject: "Verify Your Pantera Capital Account",
+    html: baseEmailHtml({
+      title: "Verify Your Account",
+      preheader: "Confirm your email address for Pantera Capital.",
+      content,
+    }),
+  };
+}
+
+
 

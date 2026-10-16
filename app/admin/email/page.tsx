@@ -14,6 +14,9 @@ import {
   UserCheck,
   SendHorizontal,
   ExternalLink,
+  Settings,
+  ShieldCheck,
+  Key,
 } from "lucide-react";
 
 export default function AdminEmailPage() {
@@ -32,7 +35,7 @@ export default function AdminEmailPage() {
     text: string;
     type: "success" | "error";
   } | null>(null);
-  const [activeTab, setActiveTab] = useState<"compose" | "preview">("compose");
+  const [activeTab, setActiveTab] = useState<"compose" | "preview" | "settings">("compose");
 
   // Dispatch real broadcast or single email
   const handleSendBroadcast = async (e: React.FormEvent) => {
@@ -172,6 +175,18 @@ export default function AdminEmailPage() {
           >
             <Eye className="w-3.5 h-3.5" />
             Live Preview
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("settings")}
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 ${
+              activeTab === "settings"
+                ? "bg-white text-indigo-600 shadow-sm"
+                : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            <Settings className="w-3.5 h-3.5" />
+            Supabase & SMTP
           </button>
         </div>
       </div>
@@ -422,6 +437,107 @@ export default function AdminEmailPage() {
             <div className="border-t border-[#232742] pt-4 mt-6 text-[10px] text-slate-500 leading-relaxed">
               This official communication was transmitted by Pantera Capital Institutional Portal.
               Sent from <span className="text-slate-400 font-mono">support@pantera.cfd</span>.
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Tab: Supabase & Resend SMTP Setup Guide */}
+      {activeTab === "settings" && (
+        <div className="space-y-6">
+          <div className="minimal-card p-6 border-slate-200 space-y-5">
+            <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
+              <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+                <Key className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-sm font-extrabold text-slate-900">
+                  Supabase Auth & Resend SMTP Integration
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Configure your Supabase Project to route native authentication emails (password resets, magic links, confirmations) through Resend.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+                  SMTP Host
+                </span>
+                <p className="font-mono text-xs font-semibold text-slate-800 bg-white p-2 rounded-lg border border-slate-200 select-all">
+                  smtp.resend.com
+                </p>
+              </div>
+
+              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+                  Port
+                </span>
+                <p className="font-mono text-xs font-semibold text-slate-800 bg-white p-2 rounded-lg border border-slate-200 select-all">
+                  465 (SSL) or 587 (TLS)
+                </p>
+              </div>
+
+              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+                  User
+                </span>
+                <p className="font-mono text-xs font-semibold text-slate-800 bg-white p-2 rounded-lg border border-slate-200 select-all">
+                  resend
+                </p>
+              </div>
+
+              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+                  Password
+                </span>
+                <p className="font-mono text-xs font-semibold text-slate-800 bg-white p-2 rounded-lg border border-slate-200">
+                  Your Resend API Key (re_...)
+                </p>
+              </div>
+
+              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+                  Sender Email
+                </span>
+                <p className="font-mono text-xs font-semibold text-slate-800 bg-white p-2 rounded-lg border border-slate-200 select-all">
+                  support@pantera.cfd
+                </p>
+              </div>
+
+              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+                  Sender Name
+                </span>
+                <p className="font-mono text-xs font-semibold text-slate-800 bg-white p-2 rounded-lg border border-slate-200 select-all">
+                  Pantera Capital
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-4 p-4 bg-indigo-50/70 border border-indigo-100 rounded-xl space-y-2">
+              <h4 className="text-xs font-bold text-indigo-900 flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-indigo-600" />
+                Required Redirect URLs in Supabase Authentication &rarr; URL Configuration
+              </h4>
+              <p className="text-xs text-indigo-800 leading-relaxed">
+                Add these exact URLs to Supabase Dashboard &rarr; Authentication &rarr; URL Configuration &rarr; Redirect URLs:
+              </p>
+              <ul className="text-xs font-mono space-y-1 text-indigo-950 pt-1">
+                <li className="bg-white/80 px-2 py-1 rounded border border-indigo-200 select-all">
+                  https://pantera.cfd/auth/callback
+                </li>
+                <li className="bg-white/80 px-2 py-1 rounded border border-indigo-200 select-all">
+                  https://pantera.cfd/reset-password
+                </li>
+                <li className="bg-white/80 px-2 py-1 rounded border border-indigo-200 select-all">
+                  http://localhost:3000/auth/callback
+                </li>
+                <li className="bg-white/80 px-2 py-1 rounded border border-indigo-200 select-all">
+                  http://localhost:3000/reset-password
+                </li>
+              </ul>
             </div>
           </div>
         </div>

@@ -1,28 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import {
-  BarChart2, Lock, Mail, ArrowRight, AlertCircle, Loader2,
-  Eye, EyeOff, TrendingUp, ShieldCheck, Zap
+  BarChart2,
+  Lock,
+  Mail,
+  ArrowRight,
+  AlertCircle,
+  Loader2,
+  CheckCircle2,
+  Eye,
+  EyeOff,
+  TrendingUp,
+  ShieldCheck,
+  Zap,
 } from "lucide-react";
-import Image from "next/image";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
-  const [email,    setEmail]    = useState("");
+  const searchParams = useSearchParams();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPw,   setShowPw]   = useState(false);
-  const [loading,  setLoading]  = useState(false);
-  const [error,    setError]    = useState<string | null>(null);
+  const [showPw, setShowPw] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [infoMsg, setInfoMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    const msgParam = searchParams.get("message");
+    const errParam = searchParams.get("error");
+
+    if (msgParam === "password_updated") {
+      setInfoMsg("Your password has been reset successfully. Please sign in with your new credentials.");
+    }
+    if (errParam) {
+      setError(errParam);
+    }
+  }, [searchParams]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    const { error: authError } = await createClient().auth.signInWithPassword({ email, password });
+    setInfoMsg(null);
+
+    const { error: authError } = await createClient().auth.signInWithPassword({
+      email,
+      password,
+    });
+
     if (authError) {
       setError(authError.message);
       setLoading(false);
@@ -33,17 +62,154 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="w-full max-w-[380px]">
+      {/* Mobile logo */}
+      <Link href="/" className="flex items-center gap-2 mb-8 lg:hidden">
+        <div className="w-8 h-8 rounded-xl bg-[#15182B] flex items-center justify-center text-[#E9B737]">
+          <BarChart2 className="w-4 h-4" />
+        </div>
+        <span className="text-[17px] font-bold tracking-tight text-zinc-950 font-display">
+          PANTERA<span className="text-[#E9B737]">.</span>
+        </span>
+      </Link>
 
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-zinc-950 tracking-tight">Welcome back</h1>
+        <p className="text-zinc-500 text-xs mt-1.5 font-normal">
+          Sign in to your investor portal
+        </p>
+      </div>
+
+      {infoMsg && (
+        <div className="mb-5 bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 flex items-start gap-2.5 text-emerald-800 text-xs font-medium">
+          <CheckCircle2 className="w-4 h-4 flex-shrink-0 mt-0.5 text-emerald-600" />
+          <span>{infoMsg}</span>
+        </div>
+      )}
+
+      {error && (
+        <div className="mb-5 bg-red-50 border border-red-200 rounded-xl p-3.5 flex items-start gap-2.5 text-red-600 text-xs font-normal">
+          <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+          <span>{error}</span>
+        </div>
+      )}
+
+      <form onSubmit={handleLogin} className="space-y-4">
+        {/* Email */}
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-[11px] font-semibold text-zinc-700 mb-1.5 uppercase tracking-wider"
+          >
+            Email Address
+          </label>
+          <div className="relative">
+            <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 pointer-events-none" />
+            <input
+              id="email"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="investor@example.com"
+              className="hm-input hm-input-with-icon-left"
+            />
+          </div>
+        </div>
+
+        {/* Password */}
+        <div>
+          <div className="flex items-center justify-between mb-1.5">
+            <label
+              htmlFor="password"
+              className="text-[11px] font-semibold text-zinc-700 uppercase tracking-wider"
+            >
+              Password
+            </label>
+            <Link
+              href="/forgot-password"
+              className="text-xs text-zinc-600 hover:text-zinc-950 font-medium transition-colors"
+            >
+              Forgot password?
+            </Link>
+          </div>
+          <div className="relative">
+            <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 pointer-events-none" />
+            <input
+              id="password"
+              type={showPw ? "text" : "password"}
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••••••"
+              className="hm-input hm-input-with-icon-left hm-input-with-icon-right"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPw(!showPw)}
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 cursor-pointer"
+            >
+              {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </button>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="hm-btn hm-btn-primary w-full py-3 text-xs mt-2 cursor-pointer font-medium"
+        >
+          {loading ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span>Signing in…</span>
+            </>
+          ) : (
+            <>
+              <span>Sign In to Account</span>
+              <ArrowRight className="w-4 h-4" />
+            </>
+          )}
+        </button>
+      </form>
+
+      <div className="mt-6 pt-6 border-t border-zinc-200 text-center">
+        <p className="text-xs text-zinc-500 font-normal">
+          Don&apos;t have an account?{" "}
+          <Link
+            href="/register"
+            className="font-semibold text-zinc-950 hover:underline transition-colors"
+          >
+            Create an account
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <div className="min-h-screen flex">
       {/* ── Left Brand Panel ── */}
       <div className="hidden lg:flex w-[42%] bg-[#0E101D] flex-col justify-between p-12 relative overflow-hidden border-r border-[#232742]">
-        
         {/* Pantera Generative Coordinate Grid & Ambient Topological Texture */}
         <div className="absolute inset-0 pointer-events-none select-none opacity-25">
           <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <pattern id="auth-grid-login" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E2E4EC" strokeWidth="0.5" strokeOpacity="0.25" />
+              <pattern
+                id="auth-grid-login"
+                width="40"
+                height="40"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M 40 0 L 0 0 0 40"
+                  fill="none"
+                  stroke="#E2E4EC"
+                  strokeWidth="0.5"
+                  strokeOpacity="0.25"
+                />
                 <circle cx="40" cy="0" r="1" fill="#E9B737" fillOpacity="0.6" />
               </pattern>
             </defs>
@@ -76,15 +242,16 @@ export default function LoginPage() {
               Invest Smarter.<br />Earn Daily.<br />Withdraw Freely.
             </h2>
             <p className="text-zinc-400 text-sm mt-4 leading-relaxed font-sans">
-              Join 124,500+ investors earning automated weekly returns through Pantera&apos;s institutional digital asset yield infrastructure.
+              Join 124,500+ investors earning automated weekly returns through
+              Pantera&apos;s institutional digital asset yield infrastructure.
             </p>
           </div>
 
           <div className="space-y-3">
             {[
-              { icon: TrendingUp,  label: "Up to 15.0% weekly ROI on managed portfolios" },
+              { icon: TrendingUp, label: "Up to 15.0% weekly ROI on managed portfolios" },
               { icon: ShieldCheck, label: "256-bit SSL encrypted institutional custody" },
-              { icon: Zap,         label: "Real-time automated on-chain settlements" },
+              { icon: Zap, label: "Real-time automated on-chain settlements" },
             ].map(({ icon: Icon, label }) => (
               <div key={label} className="flex items-center gap-3">
                 <div className="w-7 h-7 rounded-lg bg-[#15182B] border border-[#232742] flex items-center justify-center flex-shrink-0 text-[#E9B737]">
@@ -107,90 +274,9 @@ export default function LoginPage() {
 
       {/* ── Right Form Panel ── */}
       <div className="flex-1 flex flex-col justify-center items-center p-6 sm:p-12 bg-[#fafafa]">
-        <div className="w-full max-w-[380px]">
-
-          {/* Mobile logo */}
-          <Link href="/" className="flex items-center gap-2 mb-8 lg:hidden">
-            <div className="w-8 h-8 rounded-xl bg-[#15182B] flex items-center justify-center text-[#E9B737]">
-              <BarChart2 className="w-4 h-4" />
-            </div>
-            <span className="text-[17px] font-bold tracking-tight text-zinc-950 font-display">
-              PANTERA<span className="text-[#E9B737]">.</span>
-            </span>
-          </Link>
-
-          <div className="mb-8">
-            <h1 className="text-2xl font-bold text-zinc-950 tracking-tight">Welcome back</h1>
-            <p className="text-zinc-500 text-xs mt-1.5 font-normal">Sign in to your investor portal</p>
-          </div>
-
-          {error && (
-            <div className="mb-5 bg-red-50 border border-red-200 rounded-xl p-3.5 flex items-start gap-2.5 text-red-600 text-xs font-normal">
-              <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-              <span>{error}</span>
-            </div>
-          )}
-
-          <form onSubmit={handleLogin} className="space-y-4">
-            {/* Email */}
-            <div>
-              <label htmlFor="email" className="block text-[11px] font-semibold text-zinc-700 mb-1.5 uppercase tracking-wider">
-                Email Address
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 pointer-events-none" />
-                <input
-                  id="email" type="email" required value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  placeholder="investor@example.com"
-                  className="hm-input hm-input-with-icon-left"
-                />
-              </div>
-            </div>
-
-            {/* Password */}
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label htmlFor="password" className="text-[11px] font-semibold text-zinc-700 uppercase tracking-wider">
-                  Password
-                </label>
-                <a href="#" className="text-xs text-zinc-600 hover:text-zinc-950 font-medium">Forgot password?</a>
-              </div>
-              <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 pointer-events-none" />
-                <input
-                  id="password" type={showPw ? "text" : "password"} required value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  placeholder="••••••••••••"
-                  className="hm-input hm-input-with-icon-left hm-input-with-icon-right"
-                />
-                <button type="button" onClick={() => setShowPw(!showPw)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 cursor-pointer">
-                  {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
-            </div>
-
-            <button type="submit" disabled={loading}
-              className="hm-btn hm-btn-primary w-full py-3 text-xs mt-2 cursor-pointer font-medium">
-              {loading ? (
-                <><Loader2 className="w-4 h-4 animate-spin" /><span>Signing in…</span></>
-              ) : (
-                <><span>Sign In to Account</span><ArrowRight className="w-4 h-4" /></>
-              )}
-            </button>
-          </form>
-
-          <div className="mt-6 pt-6 border-t border-zinc-200 text-center">
-            <p className="text-xs text-zinc-500 font-normal">
-              Don&apos;t have an account?{" "}
-              <Link href="/register" className="font-semibold text-zinc-950 hover:underline transition-colors">
-                Create an account
-              </Link>
-            </p>
-          </div>
-
-        </div>
+        <Suspense fallback={<div className="text-xs text-zinc-400">Loading…</div>}>
+          <LoginForm />
+        </Suspense>
       </div>
     </div>
   );

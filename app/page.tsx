@@ -46,17 +46,6 @@ export default function Home() {
       {/* Subtle Minimalist Grid Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(#e4e4e7_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none opacity-60" />
 
-      {/* Floating Support Desk Launcher */}
-      <Link
-        href="/contact"
-        className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-full bg-white/95 backdrop-blur-md border border-zinc-200 text-zinc-900 shadow-md flex items-center space-x-2.5 text-xs font-medium hover:border-zinc-300 transition-all group cursor-pointer"
-      >
-        <div className="w-6 h-6 rounded-full bg-zinc-900 text-white flex items-center justify-center">
-          <MessageSquare className="w-3.5 h-3.5" />
-        </div>
-        <span className="hidden sm:inline text-zinc-900 font-semibold font-mono text-[11px]">24/7 SUPPORT DESK</span>
-      </Link>
-
       <Navbar />
 
       <main className="flex-1 relative z-10">

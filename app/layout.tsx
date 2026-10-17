@@ -31,6 +31,7 @@ export const metadata: Metadata = {
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 import GoogleTranslateBridge from "@/components/common/GoogleTranslateBridge";
 import AuthRecoveryListener from "@/components/common/AuthRecoveryListener";
+import TawkToChat from "@/components/common/TawkToChat";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <GoogleTranslateBridge />
           {children}
         </LanguageProvider>
+        <TawkToChat />
       </body>
     </html>
   );

@@ -643,5 +643,79 @@ export function getResendVerificationEmail({
   };
 }
 
+// 14. ADMIN ASSISTED PASSWORD RESET
+export function getAdminAssistedPasswordResetEmail({
+  name,
+  email,
+  newPassword,
+  adminNote,
+  loginUrl,
+}: {
+  name?: string;
+  email: string;
+  newPassword?: string;
+  adminNote?: string;
+  loginUrl?: string;
+}) {
+  const targetLoginUrl = loginUrl || "https://pantera.cfd/login";
+  const passwordSection = newPassword
+    ? `
+      <div style="margin: 20px 0; padding: 16px 20px; background: rgba(30, 41, 59, 0.7); border: 1px solid #334155; border-radius: 8px;">
+        <div style="font-size: 11px; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
+          Temporary / New Password
+        </div>
+        <div style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 18px; font-weight: 700; color: #F1F5F9; letter-spacing: 0.1em; background: #0F172A; padding: 10px 14px; border-radius: 6px; border: 1px dashed #475569; word-break: break-all;">
+          ${newPassword}
+        </div>
+        <p style="font-size: 12px; color: #E2E8F0; margin-top: 10px; margin-bottom: 0;">
+          ⚠️ <strong>Security Recommendation:</strong> Sign in with this password and immediately change it to a permanent password of your choice in your profile settings.
+        </p>
+      </div>
+    `
+    : "";
+
+  const noteSection = adminNote
+    ? `
+      <div style="margin: 16px 0; padding: 12px 16px; background: rgba(99, 102, 241, 0.08); border-left: 3px solid #6366F1; border-radius: 4px;">
+        <div style="font-size: 11px; font-weight: 700; color: #818CF8; text-transform: uppercase; margin-bottom: 4px;">
+          Note from Administration
+        </div>
+        <p style="font-size: 13px; color: #CBD5E1; margin: 0; line-height: 1.5;">
+          ${adminNote}
+        </p>
+      </div>
+    `
+    : "";
+
+  const content = `
+    <h1>Password Updated by Support</h1>
+    <p>Hello ${name || "Investor"},</p>
+    <p>At your request or following an account assistance ticket, our administration desk has updated the password for your Pantera Capital account (<strong>${email}</strong>).</p>
+
+    ${passwordSection}
+    ${noteSection}
+
+    <div style="text-align: center; margin: 28px 0;">
+      <a href="${targetLoginUrl}" class="btn">SIGN IN TO YOUR PORTFOLIO &rarr;</a>
+    </div>
+
+    <div style="margin-top: 28px; padding: 14px 18px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px;">
+      <p style="font-size: 12px; color: #F87171; margin: 0; line-height: 1.5;">
+        <strong>SECURITY NOTICE:</strong> If you did NOT request assistance from Pantera Capital support regarding your account credentials, please contact our security team immediately at <a href="mailto:support@pantera.cfd" style="color: #FCA5A5;">support@pantera.cfd</a>.
+      </p>
+    </div>
+  `;
+
+  return {
+    subject: "Account Security: Password Updated by Administration — Pantera Capital",
+    html: baseEmailHtml({
+      title: "Password Updated by Support",
+      preheader: "Your Pantera Capital account password has been updated by administration.",
+      content,
+    }),
+  };
+}
+
+
 
 

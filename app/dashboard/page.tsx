@@ -174,12 +174,16 @@ export default function DashboardPage() {
       deposit_wallet: newDeposit,
     }).eq("id", profile.id);
 
-    await supabase.from("wallet_transactions").insert({
+    const reinvestRef = "TRF-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+    await supabase.from("transactions").insert({
       user_id: profile.id,
-      type: "reinvest",
+      type: "admin_adjustment",
+      wallet: "deposit_wallet",
       amount: amt,
-      wallet_type: "deposit_wallet",
+      charge: 0,
+      post_balance: newDeposit,
       description: `Transferred $${amt.toFixed(2)} from Interest Earnings to Deposit Wallet for compounding`,
+      trx_ref: reinvestRef,
     });
 
     setReinvestMsg({ text: "Earnings transferred to Deposit Wallet successfully!", type: "success" });

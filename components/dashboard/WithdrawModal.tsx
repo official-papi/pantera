@@ -15,9 +15,9 @@ interface WithdrawModalProps {
 }
 
 const DEFAULT_METHODS = [
-  { id: "1", name: "USDT (TRC-20)", min_limit: 10, max_limit: 10000, fixed_charge: 1, percent_charge: 0.5 },
-  { id: "2", name: "Bitcoin (BTC)", min_limit: 25, max_limit: 25000, fixed_charge: 2, percent_charge: 1.0 },
-  { id: "3", name: "Bank Account Transfer", min_limit: 50, max_limit: 50000, fixed_charge: 5, percent_charge: 1.5 },
+  { id: "1", name: "USDT TRC20 Payout", min_limit: 10, max_limit: 10000000, fixed_charge: 0, percent_charge: 0 },
+  { id: "2", name: "Bitcoin Payout", min_limit: 25, max_limit: 10000000, fixed_charge: 0, percent_charge: 0 },
+  { id: "3", name: "Bank Account Transfer", min_limit: 50, max_limit: 10000000, fixed_charge: 5, percent_charge: 1.5 },
 ];
 
 export default function WithdrawModal({
@@ -61,6 +61,7 @@ export default function WithdrawModal({
       }
 
       // 2. Fetch user's saved payout profile
+      let matchedMethod = activeMethods[0];
       if (activeUser) {
         const { data: profile } = await supabase
           .from("profiles")
@@ -80,11 +81,12 @@ export default function WithdrawModal({
             setPayoutMode("address");
           }
           if (profile.payout_method) {
-            const matched = activeMethods.find((m) => m.name.toLowerCase() === profile.payout_method.toLowerCase());
-            if (matched) setSelectedMethod(matched);
+            const found = activeMethods.find((m) => m.name.toLowerCase() === profile.payout_method.toLowerCase());
+            if (found) matchedMethod = found;
           }
         }
       }
+      setSelectedMethod(matchedMethod);
     })();
   }, [isOpen]);
 
@@ -321,7 +323,7 @@ export default function WithdrawModal({
             >
               {methods.map((m) => (
                 <option key={m.id || m.code} value={m.name}>
-                  {m.name} (${m.min_limit} – ${m.max_limit})
+                  {m.name} (${Number(m.min_limit).toLocaleString()} – ${Number(m.max_limit || 10000000).toLocaleString()})
                 </option>
               ))}
             </select>
@@ -335,7 +337,7 @@ export default function WithdrawModal({
             <input
               type="number"
               min={selectedMethod?.min_limit || 10}
-              max={Math.min(currentBalance, selectedMethod?.max_limit || 50000)}
+              max={currentBalance > 0 ? currentBalance : undefined}
               step="any"
               required
               value={amount}

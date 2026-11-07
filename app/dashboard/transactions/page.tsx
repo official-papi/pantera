@@ -8,6 +8,14 @@ import { History, Filter, FileText, Printer, X, ShieldCheck } from "lucide-react
 import { createClient } from "@/lib/supabase/client";
 import { getActiveUser } from "@/lib/auth/activeUser";
 
+const FILTER_MAPPINGS: Record<string, string[]> = {
+  deposit: ["deposit"],
+  investment: ["invest"],
+  yield: ["interest_payout"],
+  withdrawal: ["withdraw"],
+  referral: ["referral_commission"],
+};
+
 export default function TransactionsPage() {
   const [userEmail, setUserEmail] = useState("");
   const [transactions, setTransactions] = useState<any[]>([]);
@@ -19,9 +27,19 @@ export default function TransactionsPage() {
     const activeUser = await getActiveUser(supabase);
     if (activeUser) {
       setUserEmail(activeUser.email);
-      let query = supabase.from("wallet_transactions").select("*").eq("user_id", activeUser.id).order("created_at", { ascending: false });
+      let query = supabase
+        .from("transactions")
+        .select("*")
+        .eq("user_id", activeUser.id)
+        .order("created_at", { ascending: false });
+
       if (filterType !== "all") {
-        query = query.eq("type", filterType);
+        const mapped = FILTER_MAPPINGS[filterType];
+        if (mapped) {
+          query = query.in("type", mapped);
+        } else {
+          query = query.eq("type", filterType);
+        }
       }
       const { data: txs } = await query;
       if (txs) setTransactions(txs);
@@ -88,23 +106,27 @@ export default function TransactionsPage() {
                   </tr>
                 ) : (
                   transactions.map((tx) => {
-                    const isPositive = Number(tx.amount) > 0;
+                    const isOutflow = tx.type === "withdraw" || tx.type === "invest" || (tx.type === "admin_adjustment" && Number(tx.amount) < 0);
                     return (
                       <tr key={tx.id} className="hover:bg-slate-50/80 transition-colors">
                         <td className="py-3">
                           <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-extrabold uppercase ${
                             tx.type === "deposit" ? "bg-emerald-50 text-emerald-700 border border-emerald-200" :
                             tx.type === "withdraw" ? "bg-rose-50 text-rose-700 border border-rose-200" :
+                            tx.type === "interest_payout" ? "bg-amber-50 text-amber-700 border border-amber-200" :
+                            tx.type === "invest" ? "bg-blue-50 text-blue-700 border border-blue-200" :
                             "bg-[#15182B]/6 text-[#15182B] border border-[#15182B]/15"
                           }`}>
-                            {tx.type?.replace("_", " ")}
+                            {tx.type === "interest_payout" ? "yield payout" : tx.type === "referral_commission" ? "referral" : tx.type?.replace("_", " ")}
                           </span>
                         </td>
-                        <td className={`py-3 font-mono font-extrabold ${isPositive ? "text-emerald-600" : "text-rose-600"}`}>
-                          {isPositive ? "+" : ""}${Number(tx.amount).toFixed(2)}
+                        <td className={`py-3 font-mono font-extrabold ${!isOutflow ? "text-emerald-600" : "text-rose-600"}`}>
+                          {!isOutflow ? "+" : "-"}${Math.abs(Number(tx.amount)).toFixed(2)}
                         </td>
                         <td className="py-3 text-slate-700 text-xs max-w-xs truncate font-medium">{tx.description || "-"}</td>
-                        <td className="py-3 font-mono font-bold text-slate-500 uppercase text-[11px]">{tx.wallet_type || "deposit"}</td>
+                        <td className="py-3 font-mono font-bold text-slate-500 uppercase text-[11px]">
+                          {(tx.wallet || tx.wallet_type || "deposit_wallet").replace("_", " ")}
+                        </td>
                         <td className="py-3 text-slate-500 text-[11px] font-mono">{new Date(tx.created_at).toLocaleString()}</td>
                         <td className="py-3 text-right">
                           <button
@@ -154,7 +176,9 @@ export default function TransactionsPage() {
               <div className="bg-slate-50 border border-[#E2E4EC] rounded-xl p-5 space-y-3 text-xs">
                 <div className="flex items-center justify-between border-b border-[#E2E4EC] pb-2">
                   <div className="text-[10px] text-slate-400 uppercase font-mono font-bold">Transaction Reference</div>
-                  <div className="font-mono font-extrabold text-[#15182B] text-xs">TX-{receiptTx.id?.slice(0, 8)}</div>
+                  <div className="font-mono font-extrabold text-[#15182B] text-xs">
+                    {receiptTx.trx_ref || `TX-${receiptTx.id?.slice(0, 8)}`}
+                  </div>
                 </div>
 
                 <div className="flex justify-between">
@@ -164,19 +188,28 @@ export default function TransactionsPage() {
 
                 <div className="flex justify-between">
                   <span className="text-slate-500">Transaction Type:</span>
-                  <span className="font-bold text-slate-900 uppercase font-mono">{receiptTx.type}</span>
+                  <span className="font-bold text-slate-900 uppercase font-mono">
+                    {receiptTx.type === "interest_payout" ? "yield payout" : receiptTx.type === "referral_commission" ? "referral" : receiptTx.type?.replace("_", " ")}
+                  </span>
                 </div>
 
                 <div className="flex justify-between">
                   <span className="text-slate-500">Wallet Account:</span>
-                  <span className="font-mono text-slate-900 uppercase font-bold">{receiptTx.wallet_type || "deposit"}</span>
+                  <span className="font-mono text-slate-900 uppercase font-bold">
+                    {(receiptTx.wallet || receiptTx.wallet_type || "deposit_wallet").replace("_", " ")}
+                  </span>
                 </div>
 
                 <div className="flex justify-between">
                   <span className="text-slate-500">Amount:</span>
-                  <span className={`font-mono font-extrabold text-sm ${Number(receiptTx.amount) >= 0 ? "text-emerald-600" : "text-rose-600"}`}>
-                    {Number(receiptTx.amount) >= 0 ? "+" : ""}${Number(receiptTx.amount).toFixed(2)}
-                  </span>
+                  {(() => {
+                    const isReceiptOutflow = receiptTx.type === "withdraw" || receiptTx.type === "invest" || (receiptTx.type === "admin_adjustment" && Number(receiptTx.amount) < 0);
+                    return (
+                      <span className={`font-mono font-extrabold text-sm ${!isReceiptOutflow ? "text-emerald-600" : "text-rose-600"}`}>
+                        {!isReceiptOutflow ? "+" : "-"}${Math.abs(Number(receiptTx.amount)).toFixed(2)}
+                      </span>
+                    );
+                  })()}
                 </div>
 
                 <div className="flex justify-between">

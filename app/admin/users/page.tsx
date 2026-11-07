@@ -374,7 +374,7 @@ export default function AdminUsersPage() {
     setLoadingStatement(true);
     const supabase = createClient();
     const { data } = await supabase
-      .from("wallet_transactions")
+      .from("transactions")
       .select("*")
       .eq("user_id", user.id)
       .order("created_at", { ascending: false });
@@ -1891,7 +1891,7 @@ export default function AdminUsersPage() {
                           {tx.type}
                         </td>
                         <td className="py-2.5 font-mono text-slate-500 text-[11px]">
-                          {tx.wallet_type || "deposit"}
+                          {(tx.wallet || tx.wallet_type || "deposit_wallet").replace("_", " ")}
                         </td>
                         <td
                           className={`py-2.5 font-mono font-bold ${

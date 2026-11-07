@@ -20,7 +20,7 @@ export default function AdminReportsPage() {
     setLoading(true);
     const supabase = createClient();
     const { data } = await supabase
-      .from("wallet_transactions")
+      .from("transactions")
       .select("*, profiles(email, full_name)")
       .order("created_at", { ascending: false });
 
@@ -47,7 +47,7 @@ export default function AdminReportsPage() {
       `"${t.profiles?.full_name || "Investor"}"`,
       `"${t.profiles?.email || ""}"`,
       t.type,
-      t.wallet_type,
+      t.wallet || t.wallet_type || "deposit_wallet",
       t.amount,
       `"${t.description || ""}"`,
       new Date(t.created_at).toISOString(),
@@ -160,7 +160,7 @@ export default function AdminReportsPage() {
                           {t.type?.replace("_", " ")}
                         </span>
                       </td>
-                      <td className="py-3 font-semibold uppercase text-[11px] text-slate-600">{t.wallet_type || "deposit"}</td>
+                      <td className="py-3 font-semibold uppercase text-[11px] text-slate-600">{(t.wallet || t.wallet_type || "deposit_wallet").replace("_", " ")}</td>
                       <td className={`py-3 font-mono font-extrabold ${isPositive ? "text-emerald-600" : "text-rose-600"}`}>
                         {isPositive ? "+" : ""}${Number(t.amount).toFixed(2)}
                       </td>

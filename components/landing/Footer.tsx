@@ -10,10 +10,10 @@ import LanguageSelector from "@/components/common/LanguageSelector";
 export default function Footer() {
   const { t } = useLanguage();
   const [cms, setCms] = useState({
-    support_email: "support@you-holder.com",
+    support_email: "support@youhodler.com",
     support_phone: "+1 (800) 555-0100",
     support_address: "75 Wall Street, Financial District, New York, NY 10005",
-    telegram_handle: "@youholder_official",
+    telegram_handle: "@youhodler_official",
   });
 
   useEffect(() => {
@@ -38,10 +38,13 @@ export default function Footer() {
           <div className="space-y-4 md:col-span-1">
             <Link href="/" className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-[0_2px_10px_rgba(37,99,235,0.35)]">
-                <BarChart2 className="w-4 h-4" />
+                <svg viewBox="0 0 24 24" fill="none" className="w-4.5 h-4.5 text-white" stroke="currentColor">
+                  <rect x="5" y="7" width="5" height="12" rx="2.5" fill="currentColor" stroke="none" />
+                  <rect x="14" y="3" width="5" height="16" rx="2.5" fill="currentColor" stroke="none" />
+                </svg>
               </div>
               <span className="text-lg font-bold tracking-tight text-white font-sans">
-                You-Holder<span className="text-blue-500">.</span>
+                YouHodler<span className="text-blue-500">.</span>
               </span>
             </Link>
             
@@ -64,7 +67,7 @@ export default function Footer() {
               {[
                 { label: "Yield Vaults", href: "#plans" },
                 { label: "Services", href: "#services" },
-                { label: "Why You-Holder", href: "#comparison" },
+                { label: "Why YouHodler", href: "#comparison" },
                 { label: "How It Works", href: "#how-it-works" },
                 { label: "Frequently Asked Questions", href: "/faq" },
               ].map(l => (
@@ -117,7 +120,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <span>© {new Date().getFullYear()} You-Holder Inc. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} YouHodler Inc. All rights reserved.</span>
           <div className="flex gap-6 font-normal">
             <Link href="/faq" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
             <Link href="/faq" className="hover:text-slate-300 transition-colors">Terms of Service</Link>

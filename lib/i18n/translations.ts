@@ -93,7 +93,7 @@ export const translations = {
 
     // Footer
     footer: {
-      description: "You-Holder is a premier automated yield generation and high-frequency trading platform built on institutional-grade financial infrastructure.",
+      description: "YouHodler is a premier automated yield generation and high-frequency trading platform built on institutional-grade financial infrastructure.",
       quickLinks: "Quick Links",
       legal: "Legal & Compliance",
       privacyPolicy: "Privacy Policy",
@@ -271,7 +271,7 @@ export const translations = {
 
     // Footer
     footer: {
-      description: "You-Holder es una plataforma de inversión y comercio algorítmico de alta frecuencia construida con infraestructura financiera institucional.",
+      description: "YouHodler es una plataforma de inversión y comercio algorítmico de alta frecuencia construida con infraestructura financiera institucional.",
       quickLinks: "Enlaces Rápidos",
       legal: "Legal y Cumplimiento",
       privacyPolicy: "Política de Privacidad",
@@ -443,7 +443,7 @@ export const translations = {
       no: "Non",
     },
     footer: {
-      description: "You-Holder est une plateforme d'investissement automatisée de premier ordre.",
+      description: "YouHodler est une plateforme d'investissement automatisée de premier ordre.",
       quickLinks: "Liens rapides",
       legal: "Mentions légales",
       privacyPolicy: "Politique de confidentialité",
@@ -607,7 +607,7 @@ export const translations = {
       no: "Nein",
     },
     footer: {
-      description: "You-Holder ist eine führende Plattform für automatisierte Renditegenerierung.",
+      description: "YouHodler ist eine führende Plattform für automatisierte Renditegenerierung.",
       quickLinks: "Quicklinks",
       legal: "Rechtliches",
       privacyPolicy: "Datenschutz",
@@ -771,7 +771,7 @@ export const translations = {
       no: "Não",
     },
     footer: {
-      description: "You-Holder é uma plataforma de investimentos automatizados de alta performance.",
+      description: "YouHodler é uma plataforma de investimentos automatizados de alta performance.",
       quickLinks: "Links Rápidos",
       legal: "Legal e Conformidade",
       privacyPolicy: "Política de Privacidade",
@@ -935,7 +935,7 @@ export const translations = {
       no: "لا",
     },
     footer: {
-      description: "You-Holder هي منصة استثمارية رائدة في التداول الآلي وتوليد العوائد.",
+      description: "YouHodler هي منصة استثمارية رائدة في التداول الآلي وتوليد العوائد.",
       quickLinks: "روابط سريعة",
       legal: "الشؤون القانونية",
       privacyPolicy: "سياسة الخصوصية",

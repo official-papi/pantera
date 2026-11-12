@@ -27,7 +27,7 @@ const DEFAULT_PLANS: PlanItem[] = [
     rate: "2.5%",
     cycle: "Weekly for 8 Weeks",
     interval: "week",
-    min: "$500",
+    min: "$300",
     max: "$2,000",
     featured: false,
     badge: "Starter",

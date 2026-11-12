@@ -7,7 +7,7 @@ import { Settings, Save, CheckCircle2, AlertCircle, ToggleLeft, ToggleRight } fr
 import { createClient } from "@/lib/supabase/client";
 
 export default function AdminSettingsPage() {
-  const [siteName, setSiteName] = useState("You-Holder Platform");
+  const [siteName, setSiteName] = useState("YouHodler Platform");
   const [siteEmail, setSiteEmail] = useState("admin@you-holder.com");
   const [currencySymbol, setCurrencySymbol] = useState("$");
   const [currencyCode, setCurrencyCode] = useState("USD");
@@ -32,7 +32,7 @@ export default function AdminSettingsPage() {
       .single();
 
     if (settings) {
-      setSiteName(settings.site_name || "You-Holder Platform");
+      setSiteName(settings.site_name || "YouHodler Platform");
       setSiteEmail(settings.site_email || "admin@you-holder.com");
       setCurrencySymbol(settings.currency_symbol || "$");
       setCurrencyCode(settings.currency_code || "USD");

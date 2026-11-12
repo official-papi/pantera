@@ -35,7 +35,7 @@ export default function Navbar() {
   const navItems = [
     { label: "Yield Vaults", href: "#plans" },
     { label: "Services", href: "#services" },
-    { label: "Why You-Holder", href: "#comparison" },
+    { label: "Why YouHodler", href: "#comparison" },
     { label: "How It Works", href: "#how-it-works" },
     { label: "Security", href: "#security" },
     { label: "FAQ", href: "/faq" },
@@ -63,10 +63,13 @@ export default function Navbar() {
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center shadow-[0_2px_10px_rgba(37,99,235,0.35),inset_0_1px_0_rgba(255,255,255,0.2)] group-hover:scale-105 transition-transform">
-            <BarChart2 className="w-4 h-4 text-white" />
+            <svg viewBox="0 0 24 24" fill="none" className="w-4.5 h-4.5 text-white" stroke="currentColor">
+              <rect x="5" y="7" width="5" height="12" rx="2.5" fill="currentColor" stroke="none" />
+              <rect x="14" y="3" width="5" height="16" rx="2.5" fill="currentColor" stroke="none" />
+            </svg>
           </div>
           <span className="text-lg font-bold tracking-tight text-white font-sans">
-            You-Holder<span className="text-blue-500">.</span>
+            YouHodler<span className="text-blue-500">.</span>
           </span>
         </Link>
 

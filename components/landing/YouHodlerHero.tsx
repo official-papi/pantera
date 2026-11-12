@@ -165,7 +165,7 @@ export default function YouHodlerHero() {
             {/* Elegant Status Pill */}
             <div ref={pillRef} className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] backdrop-blur-md shadow-xs text-xs font-medium text-slate-300">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="font-semibold text-white">You-Holder Protocol</span>
+              <span className="font-semibold text-white">YouHodler Protocol</span>
               <span className="text-white/20">•</span>
               <span className="text-emerald-400 font-mono">v2.6 Live Yield Desk</span>
             </div>
@@ -175,9 +175,9 @@ export default function YouHodlerHero() {
               ref={titleRef}
               className="text-4xl sm:text-6xl lg:text-[62px] font-bold tracking-[-0.035em] leading-[1.08] text-white"
             >
-              The institutional yield protocol for{" "}
+              Navigating the{" "}
               <span className="bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
-                digital assets.
+                Future of Finance
               </span>
             </h1>
 
@@ -186,7 +186,7 @@ export default function YouHodlerHero() {
               ref={descRef}
               className="text-base sm:text-lg text-slate-400 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0"
             >
-              Put your capital to work in algorithmically balanced, delta-neutral liquidity vaults. Earn up to <span className="text-white font-medium">15.5% weekly automated returns</span> with cold-custody security and zero lockup penalties.
+              YouHodler is a fintech company bridging the gap between traditional finance and crypto. We are dedicated to providing secure and innovative financial solutions to customers from over 100 countries.
             </p>
 
             {/* Clean Fast Signup Form with refined micro-bevel */}
@@ -313,9 +313,9 @@ export default function YouHodlerHero() {
                     <span className="text-sm text-slate-400 font-mono">$</span>
                     <input
                       type="number"
-                      min={500}
+                      min={300}
                       max={1000000}
-                      step={500}
+                      step={100}
                       value={calcAmount}
                       onChange={(e) => setCalcAmount(Number(e.target.value) || 0)}
                       className="w-full bg-transparent text-right font-mono font-bold text-xl text-white focus:outline-none"
@@ -325,9 +325,9 @@ export default function YouHodlerHero() {
                   {/* Range Slider */}
                   <input
                     type="range"
-                    min={500}
+                    min={300}
                     max={100000}
-                    step={500}
+                    step={100}
                     value={calcAmount}
                     onChange={(e) => setCalcAmount(Number(e.target.value))}
                     className="w-full accent-blue-500 cursor-pointer"

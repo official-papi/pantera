@@ -80,7 +80,7 @@ export default function DashboardHeader({
           </div>
           <div>
             <span className="text-xl font-black tracking-tight text-[#15182B] flex items-center gap-1.5 font-display uppercase">
-              Pantera<span className="text-[#E9B737]">.</span>
+              You-Holder<span className="text-[#E9B737]">.</span>
               <span className="inline-block w-2 h-2 rounded-full bg-[#E9B737] animate-pulse" />
             </span>
             <span className="block text-[10px] text-slate-400 font-bold tracking-widest uppercase font-mono">

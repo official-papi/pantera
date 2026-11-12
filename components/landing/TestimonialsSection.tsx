@@ -8,7 +8,7 @@ const REVIEWS = [
     name: "David K. Sterling",
     role: "Private Equity Trader",
     rating: 5,
-    quote: "Pantera provides consistent automated yield credits without delay. The platform stability and double-entry transaction ledgers offer complete peace of mind.",
+    quote: "You-Holder provides consistent automated yield credits without delay. The platform stability and double-entry transaction ledgers offer complete peace of mind.",
     avatar: "/images/avatars/david.jpg",
   },
   {

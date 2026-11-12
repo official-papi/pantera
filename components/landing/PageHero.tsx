@@ -87,7 +87,7 @@ export default function PageHero({
         {/* Top Institutional Breadcrumb & Coordinates */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b border-[#232742]">
           <div className="flex items-center gap-2 font-mono text-xs text-slate-400 uppercase tracking-widest">
-            <Link href="/" className="hover:text-white transition-colors">Pantera</Link>
+            <Link href="/" className="hover:text-white transition-colors">You-Holder</Link>
             <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
             <span className="text-slate-400">Protocol</span>
             <ChevronRight className="w-3.5 h-3.5 text-slate-600" />

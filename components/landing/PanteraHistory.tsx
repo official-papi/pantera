@@ -15,7 +15,7 @@ const MILESTONES: Milestone[] = [
     year: "2013",
     tag: "ORIGIN PROTOCOL",
     title: "First Institutional Digital Asset Fund",
-    description: "Pantera launches the world's first regulated institutional digital currency investment vehicle, setting the benchmark for cryptocurrency asset custody.",
+    description: "You-Holder launches the world's first regulated institutional digital currency investment vehicle, setting the benchmark for cryptocurrency asset custody.",
   },
   {
     year: "2018",
@@ -39,7 +39,7 @@ const MILESTONES: Milestone[] = [
     year: "2026",
     tag: "CURRENT ERA",
     title: "Next-Gen Institutional Wealth & Compounding Terminal",
-    description: "Full release of Pantera's unified investor portal, featuring cryptographic double-entry accounting ledgers, instant withdrawals, and flexible capital returns.",
+    description: "Full release of You-Holder's unified investor portal, featuring cryptographic double-entry accounting ledgers, instant withdrawals, and flexible capital returns.",
   },
 ];
 

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart2, ArrowRight, Menu, X, LayoutDashboard, Loader2, Home } from "lucide-react";
+import { BarChart2, ArrowRight, Menu, X, LayoutDashboard, Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import LanguageSelector from "@/components/common/LanguageSelector";
@@ -24,7 +24,7 @@ export default function Navbar() {
       setAuthLoading(false);
     });
 
-    // Listen for auth state changes (login/logout)
+    // Listen for auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
       setUser(session?.user ?? null);
     });
@@ -33,22 +33,28 @@ export default function Navbar() {
   }, []);
 
   const navItems = [
-    { label: t.nav.home,         href: "/" },
-    { label: t.nav.about,        href: "/about" },
-    { label: t.nav.plans,        href: "/plans" },
-    { label: t.nav.howItWorks,   href: "/how-it-works" },
-    { label: t.nav.faq,          href: "/faq" },
-    { label: t.nav.contact,      href: "/contact" },
+    { label: "Yield Vaults", href: "#plans" },
+    { label: "Services", href: "#services" },
+    { label: "Why You-Holder", href: "#comparison" },
+    { label: "How It Works", href: "#how-it-works" },
+    { label: "Security", href: "#security" },
+    { label: "FAQ", href: "/faq" },
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#E2E4EC]">
-      {/* Pantera Capital Top Announcement Ribbon */}
-      <div className="bg-[#E9B737] text-[#15182B] px-4 py-1.5 text-center text-[11px] font-mono font-bold tracking-[0.14em] uppercase border-b border-[#15182B]/15 flex items-center justify-center gap-3">
-        <span>THE STATE OF TOKENIZATION & AUTOMATED YIELD :: PANTERA V2.6</span>
-        <span className="hidden sm:inline text-[#15182B]/40">|</span>
-        <Link href="/plans" className="hidden sm:inline-flex items-center gap-1 underline hover:opacity-80 transition-opacity">
-          EXPLORE FUNDS →
+    <header className="sticky top-0 z-50 bg-[#08090C]/90 backdrop-blur-xl border-b border-white/[0.06]">
+      
+      {/* ── Subdued Institutional Announcement Ribbon ── */}
+      <div className="bg-[#050608] text-slate-400 px-4 py-1.5 text-center text-xs border-b border-white/[0.04] flex items-center justify-center gap-3">
+        <span className="inline-flex items-center gap-1.5 text-emerald-400 font-medium">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          Protocol Status: Normal
+        </span>
+        <span className="hidden sm:inline text-white/10">•</span>
+        <span className="hidden sm:inline text-slate-400">All liquidity vaults active with automated weekly distribution</span>
+        <span className="hidden sm:inline text-white/10">•</span>
+        <Link href="#plans" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
+          View Current Tiers →
         </Link>
       </div>
 
@@ -56,25 +62,21 @@ export default function Navbar() {
 
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-xl bg-[#15182B] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform border border-[#15182B]">
-            <BarChart2 className="w-4 h-4 text-[#E9B737]" />
+          <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center shadow-[0_2px_10px_rgba(37,99,235,0.35),inset_0_1px_0_rgba(255,255,255,0.2)] group-hover:scale-105 transition-transform">
+            <BarChart2 className="w-4 h-4 text-white" />
           </div>
-          <span className="text-[19px] font-black font-display tracking-[0.1em] text-[#15182B] uppercase">
-            Pantera<span className="text-[#E9B737]">.</span>
+          <span className="text-lg font-bold tracking-tight text-white font-sans">
+            You-Holder<span className="text-blue-500">.</span>
           </span>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-7">
           {navItems.map(item => (
             <Link
-              key={item.href}
+              key={item.label}
               href={item.href}
-              className={`text-[13px] font-medium transition-colors ${
-                pathname === item.href
-                  ? "text-zinc-950 font-semibold"
-                  : "text-zinc-500 hover:text-zinc-900"
-              }`}
+              className="text-[13px] font-medium text-slate-400 hover:text-white transition-colors"
             >
               {item.label}
             </Link>
@@ -86,92 +88,88 @@ export default function Navbar() {
           <LanguageSelector variant="default" />
 
           {authLoading ? (
-            <Loader2 className="w-4 h-4 animate-spin text-zinc-400" />
+            <Loader2 className="w-4 h-4 animate-spin text-slate-500" />
           ) : user ? (
             /* ── Logged In ── */
             <Link
               href="/dashboard"
-              className="hm-btn hm-btn-primary text-[13px] px-4 py-2"
+              className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold flex items-center gap-1.5 transition-all shadow-[0_2px_8px_rgba(37,99,235,0.35),inset_0_1px_0_rgba(255,255,255,0.2)] cursor-pointer"
             >
               <LayoutDashboard className="w-3.5 h-3.5" />
-              {t.nav.myDashboard}
+              <span>{t.nav.myDashboard}</span>
             </Link>
           ) : (
             /* ── Guest ── */
             <>
-              <Link href="/login" className="text-[13px] font-medium text-zinc-600 hover:text-zinc-950 transition-colors px-3 py-2">
+              <Link
+                href="/login"
+                className="text-[13px] font-medium text-slate-300 hover:text-white transition-colors px-3 py-2"
+              >
                 {t.nav.signIn}
               </Link>
               <Link
                 href="/register"
-                className="hm-btn hm-btn-primary text-[13px] px-4 py-2"
+                className="px-4 py-2 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] border border-white/[0.1] text-white text-xs font-semibold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
               >
-                {t.nav.openAccount}
+                <span>Get Started</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </>
           )}
         </div>
 
-        {/* Mobile Actions: Language + Toggle */}
-        <div className="flex items-center gap-2 md:hidden">
-          <LanguageSelector variant="compact" />
+        {/* Mobile Menu Button */}
+        <div className="flex md:hidden items-center gap-2">
           <button
             onClick={() => setOpen(!open)}
-            className="p-1.5 rounded-lg border border-zinc-200 text-zinc-600 hover:bg-zinc-50 cursor-pointer"
+            aria-label="Toggle Menu"
+            className="p-2 rounded-lg bg-white/[0.05] border border-white/[0.08] text-slate-300 hover:text-white focus:outline-none"
           >
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
+
       </div>
 
-      {/* Mobile drawer */}
+      {/* Mobile Drawer */}
       {open && (
-        <div className="md:hidden bg-white border-t border-zinc-200/70 px-4 py-4 space-y-1 shadow-lg">
-          {pathname !== "/" && (
-            <Link
-              href="/"
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-2 py-2 px-3 text-[13px] font-semibold text-zinc-900 bg-zinc-100 rounded-lg mb-2 border border-zinc-200"
-            >
-              <Home className="w-4 h-4 text-zinc-700" />
-              <span>← {t.nav.backToSite}</span>
-            </Link>
-          )}
-
-          {navItems.map(item => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className={`block py-2.5 px-3 text-[14px] font-medium rounded-lg ${
-                pathname === item.href
-                  ? "bg-zinc-100 text-zinc-950 font-semibold"
-                  : "text-zinc-600 hover:bg-zinc-50"
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
-          <div className="pt-3 flex gap-2 border-t border-zinc-100 mt-2">
+        <div className="md:hidden bg-[#08090C] border-b border-white/[0.08] px-4 pt-3 pb-6 space-y-3">
+          <nav className="flex flex-col space-y-2">
+            {navItems.map(item => (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-white/[0.04]"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+          <div className="pt-3 border-t border-white/[0.08] flex flex-col gap-2">
             {user ? (
               <Link
                 href="/dashboard"
                 onClick={() => setOpen(false)}
-                className="flex-1 hm-btn hm-btn-primary py-2.5 text-[13px] text-center justify-center"
+                className="w-full py-2.5 rounded-xl bg-blue-600 text-white text-center text-xs font-semibold"
               >
-                <LayoutDashboard className="w-4 h-4" />
                 {t.nav.myDashboard}
               </Link>
             ) : (
               <>
-                <Link href="/login" onClick={() => setOpen(false)}
-                  className="flex-1 text-center py-2.5 rounded-xl border border-zinc-200 text-[13px] font-medium text-zinc-800 hover:bg-zinc-50 transition-all">
+                <Link
+                  href="/login"
+                  onClick={() => setOpen(false)}
+                  className="w-full py-2.5 rounded-xl bg-white/[0.05] text-white text-center text-xs font-medium"
+                >
                   {t.nav.signIn}
                 </Link>
-                <Link href="/register" onClick={() => setOpen(false)}
-                  className="flex-1 hm-btn hm-btn-primary py-2.5 text-[13px] text-center justify-center">
-                  {t.nav.openAccount}
+                <Link
+                  href="/register"
+                  onClick={() => setOpen(false)}
+                  className="w-full py-2.5 rounded-xl bg-blue-600 text-white text-center text-xs font-semibold"
+                >
+                  Get Started
                 </Link>
               </>
             )}

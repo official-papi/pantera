@@ -71,7 +71,7 @@ export async function POST(req: Request) {
     const origin =
       req.headers.get("origin") ||
       process.env.NEXT_PUBLIC_SITE_URL ||
-      "https://pantera.cfd";
+      "https://you-holder.com";
 
     // ── Action: Generate Password Reset Recovery Link ──
     if (action === "generate_reset_link") {

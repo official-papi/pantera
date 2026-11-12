@@ -1,18 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { UserPlus, Wallet, TrendingUp, ArrowRight, Sparkles } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { UserPlus, Wallet, TrendingUp, ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import gsap from "gsap";
 
 const ICONS = [UserPlus, Wallet, TrendingUp];
 
 export default function HowItWorks() {
   const [steps, setSteps] = useState([
-    { step: 1, title: "Create Free Account", desc: "Fill in your registration details and complete instant email authentication to unlock your investor dashboard." },
-    { step: 2, title: "Make A Deposit & Select Plan", desc: "Fund your account via crypto (USDT, BTC, ETH) or bank transfer, and activate your preferred investment package." },
-    { step: 3, title: "Earn Interest & Withdraw", desc: "Receive automated daily yield credited directly to your interest wallet. Withdraw earnings anytime instantly." },
+    {
+      step: 1,
+      title: "Open Free Account",
+      desc: "Complete registration in 60 seconds with your email. Instant dashboard access with zero setup fees or paperwork.",
+    },
+    {
+      step: 2,
+      title: "Fund & Choose Vault",
+      desc: "Deposit using USDT (TRC20/ERC20), Bitcoin, Ethereum, or wire transfer. Activate your chosen yield tier in one click.",
+    },
+    {
+      step: 3,
+      title: "Receive Weekly Returns",
+      desc: "Automated yield is credited weekly directly to your interest wallet. Reinvest to compound or withdraw anytime with zero lockup friction.",
+    },
   ]);
+
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     (async () => {
@@ -24,66 +39,83 @@ export default function HowItWorks() {
     })();
   }, []);
 
+  // GSAP subtle stagger on load
+  useEffect(() => {
+    if (!cardsContainerRef.current) return;
+    const cards = cardsContainerRef.current.children;
+    gsap.fromTo(
+      cards,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, stagger: 0.1, duration: 0.7, ease: "power2.out" }
+    );
+  }, [steps]);
+
   return (
-    <section id="how-it-works" className="py-24 bg-[#15182B] border-b border-[#232742] relative overflow-hidden text-white">
+    <section id="how-it-works" className="py-24 sm:py-32 bg-[#08090C] border-b border-white/[0.06] relative overflow-hidden text-white">
       
-      {/* Ambient background glow in Warm Gold & Navy */}
-      <div className="absolute top-0 right-1/3 w-96 h-96 bg-[#E9B737]/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-[#E9B737]/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Background glow accents */}
+      <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="flex justify-center mb-3.5">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-[#E9B737]/40 bg-[#0E101D] text-[#E9B737] shadow-sm font-mono uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5 text-[#E9B737]" />
-              <span>[ METHODOLOGY // 3-STEP EXECUTION ]</span>
-            </div>
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-medium text-slate-300 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+            <span>Process & Onboarding</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-display uppercase">
-            How Pantera Works
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-white">
+            Start earning in three simple steps
           </h2>
-          <p className="text-slate-300 text-sm mt-3 font-normal max-w-xl mx-auto">
-            Institutional-grade capital allocation and algorithmic yield compounding executed in three deterministic steps.
+          <p className="mt-4 text-sm sm:text-base text-slate-400 font-normal leading-relaxed max-w-xl mx-auto">
+            Get started in under three minutes. Automated algorithmic compounding executed with complete mathematical transparency.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* 3 Step Cards */}
+        <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {steps.map((stepItem: any, idx: number) => {
             const Icon = ICONS[idx % ICONS.length];
             return (
               <div
                 key={idx}
-                className="bg-[#0E101D] border border-[#232742] hover:border-[#E9B737] rounded-xl p-8 flex flex-col gap-6 relative shadow-lg hover:shadow-xl hover:shadow-[#E9B737]/5 transition-all duration-300 group"
+                className="bg-[#0D0F16] border border-white/[0.07] hover:border-white/[0.18] rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative shadow-[0_8px_30px_rgba(0,0,0,0.4)] transition-all duration-300 group"
               >
-                <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-lg bg-[#15182B] border border-[#232742] text-[#E9B737] flex items-center justify-center group-hover:border-[#E9B737]/50 transition-colors">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <span className="text-3xl font-black text-white/20 group-hover:text-[#E9B737] font-mono select-none transition-colors duration-300">
-                    0{stepItem.step || idx + 1}
-                  </span>
-                </div>
                 <div>
-                  <h3 className="text-base font-bold text-white mb-2 group-hover:text-[#E9B737] transition-colors font-mono uppercase">
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="w-12 h-12 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-blue-400 flex items-center justify-center group-hover:border-blue-500/40 transition-colors">
+                      <Icon className="w-5 h-5 text-blue-400" />
+                    </div>
+                    <span className="text-3xl font-bold text-slate-600 font-mono select-none group-hover:text-blue-400 transition-colors">
+                      0{stepItem.step || idx + 1}
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-bold text-white mb-3 tracking-tight">
                     {stepItem.title}
                   </h3>
-                  <p className="text-xs text-slate-300 leading-relaxed font-normal">
+                  <p className="text-sm text-slate-400 leading-relaxed font-normal">
                     {stepItem.desc}
                   </p>
+                </div>
+
+                <div className="pt-8 mt-6 border-t border-white/[0.05] flex items-center gap-2 text-xs text-slate-400">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Instant execution</span>
                 </div>
               </div>
             );
           })}
         </div>
 
-        <div className="mt-14 text-center">
+        {/* Call to action */}
+        <div className="mt-16 text-center">
           <Link
             href="/register"
-            className="inline-flex items-center gap-2 bg-[#E9B737] hover:bg-[#D4A42C] text-[#15182B] font-bold px-8 py-3.5 rounded-md text-xs shadow-lg shadow-[#E9B737]/20 hover:shadow-xl transition-all cursor-pointer font-mono uppercase tracking-wider"
+            className="inline-flex items-center gap-2.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold uppercase tracking-wider px-7 py-3.5 rounded-xl shadow-[0_2px_12px_rgba(37,99,235,0.35),inset_0_1px_0_rgba(255,255,255,0.2)] transition-all cursor-pointer active:scale-[0.98]"
           >
-            <span>Start Investing Now</span>
-            <ArrowRight className="w-4 h-4 text-[#15182B]" />
+            <span>Open Your Investor Account</span>
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 

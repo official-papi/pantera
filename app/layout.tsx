@@ -24,7 +24,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pantera — Premium Automated Investment Platform",
+  title: "You-Holder — Premium Automated Investment Platform",
   description: "High-performance automated yield generation and investor portal. Earn daily returns with full transparency.",
 };
 

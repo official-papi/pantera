@@ -50,7 +50,7 @@ const LEVELS: ReferralTier[] = [
 
 export default function ReferralSection() {
   return (
-    <section id="referral" className="py-24 border-b border-[#E2E4EC] relative bg-[#FAFAFA]">
+    <section id="referrals" className="py-24 border-b border-[#E2E4EC] relative bg-[#FAFAFA] scroll-mt-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
@@ -66,7 +66,7 @@ export default function ReferralSection() {
             </h2>
             
             <p className="text-slate-600 text-sm leading-relaxed font-normal">
-              Invite friends, institutional partners, and network members to Pantera using your private referral URL. Earn recursive instant cash commissions whenever your downline deploys capital into investment packages.
+              Invite friends, institutional partners, and network members to You-Holder using your private referral URL. Earn recursive instant cash commissions whenever your downline deploys capital into investment packages.
             </p>
 
             {/* Value Propositions */}

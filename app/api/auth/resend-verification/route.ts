@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     const origin =
       req.headers.get("origin") ||
       process.env.NEXT_PUBLIC_SITE_URL ||
-      "https://pantera.cfd";
+      "https://you-holder.com";
 
     const redirectTo = `${origin}/auth/callback?next=/dashboard`;
     const supabaseAdmin = getAdminSupabase();

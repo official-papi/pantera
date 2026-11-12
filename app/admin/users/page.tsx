@@ -71,7 +71,7 @@ export default function AdminUsersPage() {
   const [emailSubject, setEmailSubject] = useState("");
   const [emailMessage, setEmailMessage] = useState("");
   const [emailCtaText, setEmailCtaText] = useState("");
-  const [emailCtaUrl, setEmailCtaUrl] = useState("https://pantera.cfd/dashboard");
+  const [emailCtaUrl, setEmailCtaUrl] = useState("https://you-holder.com/dashboard");
   const [emailSendInApp, setEmailSendInApp] = useState(true);
   const [emailSubmitting, setEmailSubmitting] = useState(false);
   const [emailMsg, setEmailMsg] = useState<{ text: string; type: "success" | "error" } | null>(null);
@@ -161,12 +161,12 @@ export default function AdminUsersPage() {
 
   const handleOpenEmailModal = (user: any) => {
     setEmailUser(user);
-    setEmailSubject(`Pantera Capital: Regarding Your Account (${user.email})`);
+    setEmailSubject(`You-Holder: Regarding Your Account (${user.email})`);
     setEmailMessage(
-      `Hello ${user.full_name || user.username || "Investor"},\n\nWe are contacting you regarding your account on Pantera Capital.\n\nPlease let us know if you have any questions or require assistance with your portfolio.\n\nWarm regards,\nPantera Capital Investor Relations`
+      `Hello ${user.full_name || user.username || "Investor"},\n\nWe are contacting you regarding your account on You-Holder.\n\nPlease let us know if you have any questions or require assistance with your portfolio.\n\nWarm regards,\nYou-Holder Investor Relations`
     );
     setEmailCtaText("ACCESS MY PORTFOLIO");
-    setEmailCtaUrl("https://pantera.cfd/dashboard");
+    setEmailCtaUrl("https://you-holder.com/dashboard");
     setEmailSendInApp(true);
     setEmailMsg(null);
     setEmailTab("compose");
@@ -175,33 +175,33 @@ export default function AdminUsersPage() {
   const handleApplyEmailPreset = (presetType: "general" | "deposit" | "kyc" | "vip") => {
     const name = emailUser?.full_name || emailUser?.username || "Investor";
     if (presetType === "general") {
-      setEmailSubject("Pantera Capital: Important Account Update");
+      setEmailSubject("You-Holder: Important Account Update");
       setEmailMessage(
-        `Hello ${name},\n\nWe wanted to share an important update regarding your investment account.\n\nIf you have any questions or need account support, our VIP desk is available 24/7.\n\nBest regards,\nPantera Capital Management`
+        `Hello ${name},\n\nWe wanted to share an important update regarding your investment account.\n\nIf you have any questions or need account support, our VIP desk is available 24/7.\n\nBest regards,\nYou-Holder Management`
       );
       setEmailCtaText("VIEW DASHBOARD");
-      setEmailCtaUrl("https://pantera.cfd/dashboard");
+      setEmailCtaUrl("https://you-holder.com/dashboard");
     } else if (presetType === "deposit") {
-      setEmailSubject("Pantera Capital: Funding & Deposit Assistance");
+      setEmailSubject("You-Holder: Funding & Deposit Assistance");
       setEmailMessage(
-        `Hello ${name},\n\nWe noticed you are exploring funding options for your Pantera portfolio.\n\nOur institutional gateways support crypto deposits with fast confirmation. If you need any manual payment assistance or custom routing, please reply to this email.\n\nSincerely,\nTreasury & Payments Desk`
+        `Hello ${name},\n\nWe noticed you are exploring funding options for your You-Holder portfolio.\n\nOur institutional gateways support crypto deposits with fast confirmation. If you need any manual payment assistance or custom routing, please reply to this email.\n\nSincerely,\nTreasury & Payments Desk`
       );
       setEmailCtaText("DEPOSIT FUNDS NOW");
-      setEmailCtaUrl("https://pantera.cfd/dashboard/deposit");
+      setEmailCtaUrl("https://you-holder.com/dashboard/deposit");
     } else if (presetType === "kyc") {
-      setEmailSubject("Pantera Capital: Identity Verification (KYC) Notice");
+      setEmailSubject("You-Holder: Identity Verification (KYC) Notice");
       setEmailMessage(
         `Hello ${name},\n\nTo ensure regulatory compliance and secure high-volume withdrawals on your account, please complete your identity verification.\n\nYou can submit your valid passport or national ID directly in your investor portal.\n\nThank you,\nCompliance Team`
       );
       setEmailCtaText("COMPLETE KYC VERIFICATION");
-      setEmailCtaUrl("https://pantera.cfd/dashboard/kyc");
+      setEmailCtaUrl("https://you-holder.com/dashboard/kyc");
     } else if (presetType === "vip") {
-      setEmailSubject("Pantera Capital: Invitation to Private Staking Tier");
+      setEmailSubject("You-Holder: Invitation to Private Staking Tier");
       setEmailMessage(
         `Hello ${name},\n\nCongratulations! Based on your account standing, you are eligible for our high-yield Private Tier investment allocations.\n\nEnjoy preferential settlement intervals and priority capital routing.\n\nCordially,\nVIP Asset Management`
       );
       setEmailCtaText("EXPLORE INVESTMENT TIERS");
-      setEmailCtaUrl("https://pantera.cfd/dashboard/investments");
+      setEmailCtaUrl("https://you-holder.com/dashboard/investments");
     }
   };
 
@@ -882,7 +882,7 @@ export default function AdminUsersPage() {
                       <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
                         <span className="text-[10px] font-bold text-slate-400 uppercase block">Referral Signup URL</span>
                         <div className="font-mono text-[11px] text-slate-700 bg-white p-2 rounded-lg border border-slate-200 select-all">
-                          https://pantera.cfd/register?ref={bioUser.username || bioUser.referral_code}
+                          https://you-holder.com/register?ref={bioUser.username || bioUser.referral_code}
                         </div>
                       </div>
                     </div>
@@ -1053,7 +1053,7 @@ export default function AdminUsersPage() {
                   <p className="text-[11px] text-slate-500">
                     Delivered from verified sender{" "}
                     <span className="font-mono text-emerald-600 font-bold">
-                      support@pantera.cfd
+                      support@you-holder.com
                     </span>
                   </p>
                 </div>
@@ -1193,7 +1193,7 @@ export default function AdminUsersPage() {
                       required
                       value={emailSubject}
                       onChange={(e) => setEmailSubject(e.target.value)}
-                      placeholder="e.g. Pantera Capital: Important Account Update"
+                      placeholder="e.g. You-Holder: Important Account Update"
                       className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 font-medium"
                     />
                   </div>
@@ -1220,7 +1220,7 @@ export default function AdminUsersPage() {
                         type="url"
                         value={emailCtaUrl}
                         onChange={(e) => setEmailCtaUrl(e.target.value)}
-                        placeholder="https://pantera.cfd/dashboard"
+                        placeholder="https://you-holder.com/dashboard"
                         className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 font-mono text-[11px]"
                       />
                     </div>
@@ -1279,7 +1279,7 @@ export default function AdminUsersPage() {
                   <div className="rounded-xl overflow-hidden border border-[#232742] bg-[#0E101D] shadow-xl p-5 text-slate-100 font-sans">
                     <div className="border-b border-[#232742] pb-3 mb-4">
                       <div className="text-lg font-black tracking-tight text-white">
-                        PANTERA <span className="text-[#E9B737]">CAPITAL</span>
+                        YOU-HOLDER <span className="text-[#E9B737]">PORTAL</span>
                       </div>
                       <div className="text-[8px] font-mono tracking-widest text-[#E9B737] uppercase">
                         INSTITUTIONAL DIGITAL ASSET INFRASTRUCTURE
@@ -1315,7 +1315,7 @@ export default function AdminUsersPage() {
                     </div>
 
                     <div className="border-t border-[#232742] pt-3 mt-4 text-[9px] text-slate-500 leading-relaxed">
-                      This official communication was transmitted by Pantera Capital to{" "}
+                      This official communication was transmitted by You-Holder to{" "}
                       <span className="font-mono text-slate-400">{emailUser.email}</span>.
                     </div>
                   </div>

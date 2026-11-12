@@ -25,7 +25,7 @@ export default function AdminEmailPage() {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [ctaText, setCtaText] = useState("");
-  const [ctaUrl, setCtaUrl] = useState("https://pantera.cfd/dashboard");
+  const [ctaUrl, setCtaUrl] = useState("https://you-holder.com/dashboard");
   const [sendInApp, setSendInApp] = useState(true);
 
   const [testEmail, setTestEmail] = useState("");
@@ -147,7 +147,7 @@ export default function AdminEmailPage() {
           </h1>
           <p className="text-xs text-slate-500 mt-1">
             Send real branded emails via verified domain{" "}
-            <span className="font-mono text-indigo-600 font-bold">support@pantera.cfd</span> to all investors or specific individuals.
+            <span className="font-mono text-indigo-600 font-bold">support@you-holder.com</span> to all investors or specific individuals.
           </p>
         </div>
 
@@ -288,7 +288,7 @@ export default function AdminEmailPage() {
                 required
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
-                placeholder="e.g. Pantera Capital: Important Platform Upgrade & Yield Announcement"
+                placeholder="e.g. You-Holder: Important Platform Upgrade & Yield Announcement"
                 className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 font-medium"
               />
             </div>
@@ -315,7 +315,7 @@ export default function AdminEmailPage() {
                   type="url"
                   value={ctaUrl}
                   onChange={(e) => setCtaUrl(e.target.value)}
-                  placeholder="https://pantera.cfd/dashboard"
+                  placeholder="https://you-holder.com/dashboard"
                   className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 font-mono text-[11px]"
                 />
               </div>
@@ -397,7 +397,7 @@ export default function AdminEmailPage() {
             {/* Header */}
             <div className="border-b border-[#232742] pb-5 mb-5">
               <div className="text-xl font-black tracking-tight text-white">
-                PANTERA <span className="text-[#E9B737]">CAPITAL</span>
+                YOU-HOLDER <span className="text-[#E9B737]">PORTAL</span>
               </div>
               <div className="text-[9px] font-mono tracking-widest text-[#E9B737] uppercase mt-0.5">
                 INSTITUTIONAL DIGITAL ASSET INFRASTRUCTURE
@@ -435,8 +435,8 @@ export default function AdminEmailPage() {
 
             {/* Footer */}
             <div className="border-t border-[#232742] pt-4 mt-6 text-[10px] text-slate-500 leading-relaxed">
-              This official communication was transmitted by Pantera Capital Institutional Portal.
-              Sent from <span className="text-slate-400 font-mono">support@pantera.cfd</span>.
+              This official communication was transmitted by You-Holder Institutional Portal.
+              Sent from <span className="text-slate-400 font-mono">support@you-holder.com</span>.
             </div>
           </div>
         </div>
@@ -502,7 +502,7 @@ export default function AdminEmailPage() {
                   Sender Email
                 </span>
                 <p className="font-mono text-xs font-semibold text-slate-800 bg-white p-2 rounded-lg border border-slate-200 select-all">
-                  support@pantera.cfd
+                  support@you-holder.com
                 </p>
               </div>
 
@@ -511,7 +511,7 @@ export default function AdminEmailPage() {
                   Sender Name
                 </span>
                 <p className="font-mono text-xs font-semibold text-slate-800 bg-white p-2 rounded-lg border border-slate-200 select-all">
-                  Pantera Capital
+                  You-Holder
                 </p>
               </div>
             </div>
@@ -526,10 +526,10 @@ export default function AdminEmailPage() {
               </p>
               <ul className="text-xs font-mono space-y-1 text-indigo-950 pt-1">
                 <li className="bg-white/80 px-2 py-1 rounded border border-indigo-200 select-all">
-                  https://pantera.cfd/auth/callback
+                  https://you-holder.com/auth/callback
                 </li>
                 <li className="bg-white/80 px-2 py-1 rounded border border-indigo-200 select-all">
-                  https://pantera.cfd/reset-password
+                  https://you-holder.com/reset-password
                 </li>
                 <li className="bg-white/80 px-2 py-1 rounded border border-indigo-200 select-all">
                   http://localhost:3000/auth/callback

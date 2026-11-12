@@ -84,11 +84,11 @@ export default function AdminInvestmentsPage() {
     const user = inv.profiles;
     if (!user) return;
     setEmailModalUser(user);
-    setEmailSubject(`Pantera Capital: Regarding Your ${inv.investment_plans?.name || "Active"} Staking Package`);
+    setEmailSubject(`You-Holder: Regarding Your ${inv.investment_plans?.name || "Active"} Staking Package`);
     setEmailMessage(
       `We are following up regarding your investment of $${Number(inv.invest_amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} in the ${
         inv.investment_plans?.name || "Staking Tier"
-      }.\n\nYour portfolio is active and yielding returns as scheduled.\n\nWarm regards,\nPantera Capital Asset Desk`
+      }.\n\nYour portfolio is active and yielding returns as scheduled.\n\nWarm regards,\nYou-Holder Asset Desk`
     );
     setEmailStatus(null);
   };
@@ -110,7 +110,7 @@ export default function AdminInvestmentsPage() {
           subject: emailSubject.trim(),
           message: emailMessage.trim(),
           ctaText: "VIEW PORTFOLIO",
-          ctaUrl: "https://pantera.cfd/dashboard/investments",
+          ctaUrl: "https://you-holder.com/dashboard/investments",
           sendInAppNotification: true,
         }),
       });

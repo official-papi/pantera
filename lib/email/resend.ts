@@ -4,7 +4,7 @@ const resendApiKey = process.env.RESEND_API_KEY;
 export const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 export const DEFAULT_FROM_EMAIL =
-  process.env.EMAIL_FROM || "Pantera Capital <support@pantera.cfd>";
+  process.env.EMAIL_FROM || "You-Holder <support@you-holder.com>";
 
 export interface SendEmailOptions {
   to: string | string[];

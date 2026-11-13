@@ -25,7 +25,7 @@ export default function AdminEmailPage() {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [ctaText, setCtaText] = useState("");
-  const [ctaUrl, setCtaUrl] = useState("https://you-holder.com/dashboard");
+  const [ctaUrl, setCtaUrl] = useState("https://youhodler.com/dashboard");
   const [sendInApp, setSendInApp] = useState(true);
 
   const [testEmail, setTestEmail] = useState("");
@@ -147,7 +147,7 @@ export default function AdminEmailPage() {
           </h1>
           <p className="text-xs text-slate-500 mt-1">
             Send real branded emails via verified domain{" "}
-            <span className="font-mono text-indigo-600 font-bold">support@you-holder.com</span> to all investors or specific individuals.
+            <span className="font-mono text-indigo-600 font-bold">support@youhodler.com</span> to all investors or specific individuals.
           </p>
         </div>
 
@@ -288,7 +288,7 @@ export default function AdminEmailPage() {
                 required
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
-                placeholder="e.g. You-Holder: Important Platform Upgrade & Yield Announcement"
+                placeholder="e.g. YouHodler: Important Platform Upgrade & Yield Announcement"
                 className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 font-medium"
               />
             </div>
@@ -315,7 +315,7 @@ export default function AdminEmailPage() {
                   type="url"
                   value={ctaUrl}
                   onChange={(e) => setCtaUrl(e.target.value)}
-                  placeholder="https://you-holder.com/dashboard"
+                  placeholder="https://youhodler.com/dashboard"
                   className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 font-mono text-[11px]"
                 />
               </div>
@@ -435,8 +435,8 @@ export default function AdminEmailPage() {
 
             {/* Footer */}
             <div className="border-t border-[#232742] pt-4 mt-6 text-[10px] text-slate-500 leading-relaxed">
-              This official communication was transmitted by You-Holder Institutional Portal.
-              Sent from <span className="text-slate-400 font-mono">support@you-holder.com</span>.
+              This official communication was transmitted by YouHodler Institutional Portal.
+              Sent from <span className="text-slate-400 font-mono">support@youhodler.com</span>.
             </div>
           </div>
         </div>
@@ -502,7 +502,7 @@ export default function AdminEmailPage() {
                   Sender Email
                 </span>
                 <p className="font-mono text-xs font-semibold text-slate-800 bg-white p-2 rounded-lg border border-slate-200 select-all">
-                  support@you-holder.com
+                  support@youhodler.com
                 </p>
               </div>
 
@@ -511,7 +511,7 @@ export default function AdminEmailPage() {
                   Sender Name
                 </span>
                 <p className="font-mono text-xs font-semibold text-slate-800 bg-white p-2 rounded-lg border border-slate-200 select-all">
-                  You-Holder
+                  YouHodler
                 </p>
               </div>
             </div>
@@ -526,10 +526,10 @@ export default function AdminEmailPage() {
               </p>
               <ul className="text-xs font-mono space-y-1 text-indigo-950 pt-1">
                 <li className="bg-white/80 px-2 py-1 rounded border border-indigo-200 select-all">
-                  https://you-holder.com/auth/callback
+                  https://youhodler.com/auth/callback
                 </li>
                 <li className="bg-white/80 px-2 py-1 rounded border border-indigo-200 select-all">
-                  https://you-holder.com/reset-password
+                  https://youhodler.com/reset-password
                 </li>
                 <li className="bg-white/80 px-2 py-1 rounded border border-indigo-200 select-all">
                   http://localhost:3000/auth/callback

@@ -87,7 +87,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-sm font-extrabold text-slate-900">Email Direct Support</h4>
-                    <p className="text-xs text-slate-500 font-mono">support@you-holder.com</p>
+                    <p className="text-xs text-slate-500 font-mono">support@youhodler.com</p>
                   </div>
                 </div>
               </div>
@@ -100,20 +100,42 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-sm font-extrabold text-slate-900">24/7 VIP Telephone Line</h4>
-                    <p className="text-xs text-slate-500 font-mono">+1 (800) 555-ALPHA</p>
+                    <p className="text-xs text-slate-500 font-mono">+1 (800) 555-0100</p>
                   </div>
                 </div>
               </div>
 
-              <div className="relative group">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#0E101D]/10 to-[#15182B]/10 rounded-3xl blur-md opacity-60 group-hover:opacity-100 transition duration-500" />
-                <div className="relative bg-white/70 backdrop-blur-xl border border-white/80 rounded-2xl p-6 flex items-center space-x-4 shadow-xl shadow-slate-900/5">
-                  <div className="w-12 h-12 rounded-xl bg-[#0E101D]/5 border border-[#0E101D]/10 text-[#0E101D] flex items-center justify-center font-bold flex-shrink-0">
-                    <MapPin className="w-5 h-5" />
-                  </div>
+              {/* Global Corporate Offices */}
+              <div className="space-y-3 pt-2">
+                <h4 className="text-xs font-bold text-slate-600 uppercase tracking-wider">Global Corporate Entities</h4>
+                
+                <div className="bg-white/80 border border-slate-200/80 rounded-2xl p-4 shadow-sm space-y-3 text-xs">
                   <div>
-                    <h4 className="text-sm font-extrabold text-slate-900">Global Corporate Office</h4>
-                    <p className="text-xs text-slate-500 font-medium">75 Wall Street, Financial District, New York, NY 10005</p>
+                    <div className="font-bold text-slate-900 flex items-center gap-1.5">
+                      <span>🇨🇭</span> Swiss Headquarters
+                    </div>
+                    <p className="text-slate-600 text-[11px] mt-0.5">Avenue du Théâtre 7, 1005 Lausanne, Switzerland</p>
+                  </div>
+
+                  <div className="border-t border-slate-100 pt-2">
+                    <div className="font-bold text-slate-900 flex items-center gap-1.5">
+                      <span>🇬🇧</span> UK Operating Branch
+                    </div>
+                    <p className="text-slate-600 text-[11px] mt-0.5">30 St. Mary Axe, London, England, EC3A 8BF</p>
+                  </div>
+
+                  <div className="border-t border-slate-100 pt-2">
+                    <div className="font-bold text-slate-900 flex items-center gap-1.5">
+                      <span>🇮🇹</span> EU Headquarters
+                    </div>
+                    <p className="text-slate-600 text-[11px] mt-0.5">Via del Commercio 32, 00154 Rome, Italy</p>
+                  </div>
+
+                  <div className="border-t border-slate-100 pt-2">
+                    <div className="font-bold text-slate-900 flex items-center gap-1.5">
+                      <span>🇨🇾</span> Trademark Holding Entity
+                    </div>
+                    <p className="text-slate-600 text-[11px] mt-0.5">Arch Makariou III, 172, Melford Tower, 3027 Limassol, Cyprus</p>
                   </div>
                 </div>
               </div>

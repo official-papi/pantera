@@ -2,17 +2,40 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { BarChart2, ShieldCheck, Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+import { ShieldCheck, Mail, Phone, MapPin, ArrowRight, Building2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import LanguageSelector from "@/components/common/LanguageSelector";
+
+const CORPORATE_ENTITIES = [
+  {
+    role: "Swiss Headquarters",
+    address: "Avenue du Théâtre 7, 1005 Lausanne, Switzerland",
+    flag: "🇨🇭",
+  },
+  {
+    role: "UK Operating Branch",
+    address: "30 St. Mary Axe, London, England, EC3A 8BF",
+    flag: "🇬🇧",
+  },
+  {
+    role: "EU Headquarters",
+    address: "Via del Commercio 32, 00154 Rome, Italy",
+    flag: "🇮🇹",
+  },
+  {
+    role: "Trademark Holding Entity",
+    address: "Arch Makariou III, 172, Melford Tower, 3027 Limassol, Cyprus",
+    flag: "🇨🇾",
+  },
+];
 
 export default function Footer() {
   const { t } = useLanguage();
   const [cms, setCms] = useState({
     support_email: "support@youhodler.com",
     support_phone: "+1 (800) 555-0100",
-    support_address: "75 Wall Street, Financial District, New York, NY 10005",
+    support_address: "Avenue du Théâtre 7, 1005 Lausanne, Switzerland",
     telegram_handle: "@youhodler_official",
   });
 
@@ -32,7 +55,8 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-14">
+        {/* ── Top 4-Column Grid ── */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
 
           {/* Brand Column */}
           <div className="space-y-4 md:col-span-1">
@@ -118,7 +142,32 @@ export default function Footer() {
 
         </div>
 
-        {/* Bottom Bar */}
+        {/* ── Global Corporate Entities & Operating Branches ── */}
+        <div className="pt-8 pb-10 border-t border-white/[0.06]">
+          <div className="flex items-center gap-2 mb-4 text-xs font-semibold text-slate-300 uppercase tracking-wider">
+            <Building2 className="w-4 h-4 text-blue-400" />
+            <span>Global Corporate Entities & Operating Branches</span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+            {CORPORATE_ENTITIES.map((entity, idx) => (
+              <div
+                key={idx}
+                className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] transition-colors"
+              >
+                <div className="flex items-center gap-1.5 font-medium text-slate-200 mb-1">
+                  <span>{entity.flag}</span>
+                  <span>{entity.role}</span>
+                </div>
+                <p className="text-[11px] text-slate-400 leading-relaxed font-normal">
+                  {entity.address}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Bottom Bar ── */}
         <div className="pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <span>© {new Date().getFullYear()} YouHodler Inc. All rights reserved.</span>
           <div className="flex gap-6 font-normal">

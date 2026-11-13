@@ -8,7 +8,7 @@ import { createClient } from "@/lib/supabase/client";
 
 export default function AdminSettingsPage() {
   const [siteName, setSiteName] = useState("YouHodler Platform");
-  const [siteEmail, setSiteEmail] = useState("admin@you-holder.com");
+  const [siteEmail, setSiteEmail] = useState("admin@youhodler.com");
   const [currencySymbol, setCurrencySymbol] = useState("$");
   const [currencyCode, setCurrencyCode] = useState("USD");
   const [logoUrl, setLogoUrl] = useState("");
@@ -33,7 +33,7 @@ export default function AdminSettingsPage() {
 
     if (settings) {
       setSiteName(settings.site_name || "YouHodler Platform");
-      setSiteEmail(settings.site_email || "admin@you-holder.com");
+      setSiteEmail(settings.site_email || "admin@youhodler.com");
       setCurrencySymbol(settings.currency_symbol || "$");
       setCurrencyCode(settings.currency_code || "USD");
       setLogoUrl(settings.logo_url || "");

@@ -1,4 +1,4 @@
-// Email layout and notification templates for You-Holder
+// Email layout and notification templates for YouHodler
 
 interface BaseEmailProps {
   title: string;
@@ -150,8 +150,8 @@ export function baseEmailHtml({ title, preheader, content }: BaseEmailProps): st
         ${content}
       </div>
       <div class="footer">
-        <p>&copy; ${new Date().getFullYear()} You-Holder Management. All rights reserved.</p>
-        <p>Support: <a href="mailto:support@you-holder.com">support@you-holder.com</a> | <a href="https://you-holder.com">you-holder.com</a></p>
+        <p>&copy; ${new Date().getFullYear()} YouHodler Management. All rights reserved.</p>
+        <p>Support: <a href="mailto:support@youhodler.com">support@youhodler.com</a> | <a href="https://youhodler.com">youhodler.com</a></p>
       </div>
     </div>
   </div>
@@ -162,7 +162,7 @@ export function baseEmailHtml({ title, preheader, content }: BaseEmailProps): st
 // 1. WELCOME EMAIL
 export function getWelcomeEmail(name: string, email: string) {
   const content = `
-    <h1>Welcome to You-Holder, ${name || "Investor"}!</h1>
+    <h1>Welcome to YouHodler, ${name || "Investor"}!</h1>
     <p>Your institutional investor account has been successfully provisioned. You now have direct access to automated digital asset yield strategies, portfolio vaults, and daily compounding returns.</p>
     
     <div class="stat-box">
@@ -173,16 +173,16 @@ export function getWelcomeEmail(name: string, email: string) {
     <p>To begin, make a deposit via USDT (TRC-20), Bitcoin, or Bank Wire, select an investment tier, and start earning weekly settlements.</p>
 
     <div style="text-align: center; margin: 30px 0;">
-      <a href="https://you-holder.com/dashboard" class="btn">ACCESS YOUR PORTFOLIO &rarr;</a>
+      <a href="https://youhodler.com/dashboard" class="btn">ACCESS YOUR PORTFOLIO &rarr;</a>
     </div>
 
-    <p style="font-size: 12px; color: #64748B;">If you did not create this account, please immediately contact our security desk at support@you-holder.com.</p>
+    <p style="font-size: 12px; color: #64748B;">If you did not create this account, please immediately contact our security desk at support@youhodler.com.</p>
   `;
 
   return {
-    subject: "Welcome to You-Holder — Account Ready",
+    subject: "Welcome to YouHodler — Account Ready",
     html: baseEmailHtml({
-      title: "Welcome to You-Holder",
+      title: "Welcome to YouHodler",
       preheader: "Your institutional investor account is ready.",
       content,
     }),
@@ -206,7 +206,7 @@ export function getDepositReceivedEmail(name: string, amount: number, gateway: s
     <p>Once verified on-chain, the funds will be credited to your Deposit Wallet and ready for plan allocation.</p>
 
     <div style="text-align: center; margin: 24px 0;">
-      <a href="https://you-holder.com/dashboard/deposit" class="btn">VIEW DEPOSIT LEDGER</a>
+      <a href="https://youhodler.com/dashboard/deposit" class="btn">VIEW DEPOSIT LEDGER</a>
     </div>
   `;
 
@@ -237,7 +237,7 @@ export function getDepositApprovedEmail(name: string, amount: number, gateway: s
     <p>You can now allocate your capital into any of our high-yield packages to begin earning ROI.</p>
 
     <div style="text-align: center; margin: 24px 0;">
-      <a href="https://you-holder.com/dashboard/investments" class="btn">START AN INVESTMENT &rarr;</a>
+      <a href="https://youhodler.com/dashboard/investments" class="btn">START AN INVESTMENT &rarr;</a>
     </div>
   `;
 
@@ -268,7 +268,7 @@ export function getWithdrawalRequestedEmail(name: string, amount: number, method
     <p>Our security desk verifies each payout to prevent unauthorized transfers. You will receive an update once the transaction is broadcast.</p>
 
     <div style="text-align: center; margin: 24px 0;">
-      <a href="https://you-holder.com/dashboard/withdraw" class="btn">VIEW WITHDRAWAL STATUS</a>
+      <a href="https://youhodler.com/dashboard/withdraw" class="btn">VIEW WITHDRAWAL STATUS</a>
     </div>
   `;
 
@@ -299,7 +299,7 @@ export function getWithdrawalApprovedEmail(name: string, amount: number, method:
     <p>Please check your wallet or account. Depending on network congestion, confirmations may take a few moments.</p>
 
     <div style="text-align: center; margin: 24px 0;">
-      <a href="https://you-holder.com/dashboard" class="btn">GO TO DASHBOARD</a>
+      <a href="https://youhodler.com/dashboard" class="btn">GO TO DASHBOARD</a>
     </div>
   `;
 
@@ -330,7 +330,7 @@ export function getDepositRejectedEmail(name: string, amount: number, feedback: 
     <p>Please double-check your transaction hash or proof and submit a new deposit request, or contact support.</p>
 
     <div style="text-align: center; margin: 24px 0;">
-      <a href="https://you-holder.com/dashboard/deposit" class="btn">GO TO DEPOSITS</a>
+      <a href="https://youhodler.com/dashboard/deposit" class="btn">GO TO DEPOSITS</a>
     </div>
   `;
 
@@ -361,7 +361,7 @@ export function getWithdrawalRejectedEmail(name: string, amount: number, feedbac
     <p>Your funds are safe and available in your balance. You may submit a new request with updated payout details at any time.</p>
 
     <div style="text-align: center; margin: 24px 0;">
-      <a href="https://you-holder.com/dashboard/withdraw" class="btn">VIEW WITHDRAWALS</a>
+      <a href="https://youhodler.com/dashboard/withdraw" class="btn">VIEW WITHDRAWALS</a>
     </div>
   `;
 
@@ -392,7 +392,7 @@ export function getInvestmentStartedEmail(name: string, planName: string, amount
     <p>Your earnings will automatically compound into your Interest Wallet on each settlement cycle.</p>
 
     <div style="text-align: center; margin: 24px 0;">
-      <a href="https://you-holder.com/dashboard/investments" class="btn">MONITOR PERFORMANCE &rarr;</a>
+      <a href="https://youhodler.com/dashboard/investments" class="btn">MONITOR PERFORMANCE &rarr;</a>
     </div>
   `;
 
@@ -424,7 +424,7 @@ export function getKycStatusEmail(name: string, status: "approved" | "rejected",
     </div>
 
     <div style="text-align: center; margin: 24px 0;">
-      <a href="https://you-holder.com/dashboard/kyc" class="btn">${isApproved ? "VIEW ACCOUNT" : "UPDATE DOCUMENTS"}</a>
+      <a href="https://youhodler.com/dashboard/kyc" class="btn">${isApproved ? "VIEW ACCOUNT" : "UPDATE DOCUMENTS"}</a>
     </div>
   `;
 
@@ -489,7 +489,7 @@ export function getBroadcastEmailTemplate({
         : ""
     }
     <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #232742; font-size: 11px; color: #64748B;">
-      This official communication was transmitted by You-Holder Institutional Portal. If you have questions regarding your account or portfolio, please reach out to <a href="mailto:support@you-holder.com" style="color: #E9B737; text-decoration: none;">support@you-holder.com</a>.
+      This official communication was transmitted by YouHodler Institutional Portal. If you have questions regarding your account or portfolio, please reach out to <a href="mailto:support@youhodler.com" style="color: #E9B737; text-decoration: none;">support@youhodler.com</a>.
     </div>
   `;
 
@@ -503,7 +503,7 @@ export function getBroadcastEmailTemplate({
     subject,
     html: baseEmailHtml({
       title: subject,
-      preheader: cleanPreheader || "Official update from You-Holder",
+      preheader: cleanPreheader || "Official update from YouHodler",
       content,
     }),
   };
@@ -524,7 +524,7 @@ export function getPasswordResetEmail({
   const content = `
     <h1>Password Reset Authorization</h1>
     <p>Hello ${name || "Investor"},</p>
-    <p>We received an official request to reset the login credentials associated with your You-Holder institutional account.</p>
+    <p>We received an official request to reset the login credentials associated with your YouHodler institutional account.</p>
 
     <div class="stat-box" style="border-left-color: #E9B737;">
       <div class="stat-label">ACCOUNT IDENTIFIER</div>
@@ -546,16 +546,16 @@ export function getPasswordResetEmail({
 
     <div style="margin-top: 28px; padding: 14px 18px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px;">
       <p style="font-size: 12px; color: #F87171; margin: 0; line-height: 1.5;">
-        <strong>SECURITY NOTICE:</strong> If you did not initiate this password reset request, no action is required and your account remains secure. However, we recommend reviewing your account security or contacting our security desk at <a href="mailto:support@you-holder.com" style="color: #FCA5A5;">support@you-holder.com</a>.
+        <strong>SECURITY NOTICE:</strong> If you did not initiate this password reset request, no action is required and your account remains secure. However, we recommend reviewing your account security or contacting our security desk at <a href="mailto:support@youhodler.com" style="color: #FCA5A5;">support@youhodler.com</a>.
       </p>
     </div>
   `;
 
   return {
-    subject: "Security: Password Reset Authorization — You-Holder",
+    subject: "Security: Password Reset Authorization — YouHodler",
     html: baseEmailHtml({
       title: "Password Reset Authorization",
-      preheader: "Reset the master password for your You-Holder account.",
+      preheader: "Reset the master password for your YouHodler account.",
       content,
     }),
   };
@@ -572,7 +572,7 @@ export function getPasswordChangedNotificationEmail({
   const content = `
     <h1>Security Alert: Master Password Updated</h1>
     <p>Hello ${name || "Investor"},</p>
-    <p>This is an automated confirmation that the master password for your You-Holder institutional account (<strong>${email}</strong>) has been successfully changed.</p>
+    <p>This is an automated confirmation that the master password for your YouHodler institutional account (<strong>${email}</strong>) has been successfully changed.</p>
 
     <div class="stat-box" style="border-left-color: #10B981;">
       <div class="stat-label">EVENT TYPE</div>
@@ -584,21 +584,21 @@ export function getPasswordChangedNotificationEmail({
     <p>You can now sign in using your newly configured password. Any active temporary recovery sessions have been revoked.</p>
 
     <div style="text-align: center; margin: 28px 0;">
-      <a href="https://you-holder.com/login" class="btn">SIGN IN TO YOUR PORTFOLIO &rarr;</a>
+      <a href="https://youhodler.com/login" class="btn">SIGN IN TO YOUR PORTFOLIO &rarr;</a>
     </div>
 
     <div style="margin-top: 28px; padding: 14px 18px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px;">
       <p style="font-size: 12px; color: #F87171; margin: 0; line-height: 1.5;">
-        <strong>URGENT NOTICE:</strong> If you did NOT authorize this change, your account may be compromised. Please immediately reset your password and reach out to our security desk at <a href="mailto:support@you-holder.com" style="color: #FCA5A5;">support@you-holder.com</a>.
+        <strong>URGENT NOTICE:</strong> If you did NOT authorize this change, your account may be compromised. Please immediately reset your password and reach out to our security desk at <a href="mailto:support@youhodler.com" style="color: #FCA5A5;">support@youhodler.com</a>.
       </p>
     </div>
   `;
 
   return {
-    subject: "Security Alert: Password Updated — You-Holder",
+    subject: "Security Alert: Password Updated — YouHodler",
     html: baseEmailHtml({
       title: "Password Updated",
-      preheader: "Your You-Holder account password has been successfully changed.",
+      preheader: "Your YouHodler account password has been successfully changed.",
       content,
     }),
   };
@@ -617,7 +617,7 @@ export function getResendVerificationEmail({
   const content = `
     <h1>Confirm Your Institutional Account</h1>
     <p>Hello ${name || "Investor"},</p>
-    <p>You requested a new verification link for your You-Holder account (<strong>${email}</strong>).</p>
+    <p>You requested a new verification link for your YouHodler account (<strong>${email}</strong>).</p>
 
     <p>Please confirm your email address by clicking the secure button below to activate your account and start managing your portfolio:</p>
 
@@ -634,10 +634,10 @@ export function getResendVerificationEmail({
   `;
 
   return {
-    subject: "Verify Your You-Holder Account",
+    subject: "Verify Your YouHodler Account",
     html: baseEmailHtml({
       title: "Verify Your Account",
-      preheader: "Confirm your email address for You-Holder.",
+      preheader: "Confirm your email address for YouHodler.",
       content,
     }),
   };
@@ -657,7 +657,7 @@ export function getAdminAssistedPasswordResetEmail({
   adminNote?: string;
   loginUrl?: string;
 }) {
-  const targetLoginUrl = loginUrl || "https://you-holder.com/login";
+  const targetLoginUrl = loginUrl || "https://youhodler.com/login";
   const passwordSection = newPassword
     ? `
       <div style="margin: 20px 0; padding: 16px 20px; background: rgba(30, 41, 59, 0.7); border: 1px solid #334155; border-radius: 8px;">
@@ -690,7 +690,7 @@ export function getAdminAssistedPasswordResetEmail({
   const content = `
     <h1>Password Updated by Support</h1>
     <p>Hello ${name || "Investor"},</p>
-    <p>At your request or following an account assistance ticket, our administration desk has updated the password for your You-Holder account (<strong>${email}</strong>).</p>
+    <p>At your request or following an account assistance ticket, our administration desk has updated the password for your YouHodler account (<strong>${email}</strong>).</p>
 
     ${passwordSection}
     ${noteSection}
@@ -701,16 +701,16 @@ export function getAdminAssistedPasswordResetEmail({
 
     <div style="margin-top: 28px; padding: 14px 18px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px;">
       <p style="font-size: 12px; color: #F87171; margin: 0; line-height: 1.5;">
-        <strong>SECURITY NOTICE:</strong> If you did NOT request assistance from You-Holder support regarding your account credentials, please contact our security team immediately at <a href="mailto:support@you-holder.com" style="color: #FCA5A5;">support@you-holder.com</a>.
+        <strong>SECURITY NOTICE:</strong> If you did NOT request assistance from YouHodler support regarding your account credentials, please contact our security team immediately at <a href="mailto:support@youhodler.com" style="color: #FCA5A5;">support@youhodler.com</a>.
       </p>
     </div>
   `;
 
   return {
-    subject: "Account Security: Password Updated by Administration — You-Holder",
+    subject: "Account Security: Password Updated by Administration — YouHodler",
     html: baseEmailHtml({
       title: "Password Updated by Support",
-      preheader: "Your You-Holder account password has been updated by administration.",
+      preheader: "Your YouHodler account password has been updated by administration.",
       content,
     }),
   };

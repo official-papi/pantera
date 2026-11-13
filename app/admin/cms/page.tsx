@@ -17,7 +17,7 @@ export default function AdminCmsPage() {
     hero_cta: "Explore Yield Plans",
     
     about_title: "Engineered for Institutional Growth",
-    about_text: "You-Holder leverages AI multi-exchange arbitrage, automated liquidity farming, and high-frequency quantitative models to generate weekly risk-managed returns.",
+    about_text: "YouHodler leverages AI multi-exchange arbitrage, automated liquidity farming, and high-frequency quantitative models to generate weekly risk-managed returns.",
     about_metric1: "$256M+ Assets Managed",
     about_metric2: "99.98% Payout Accuracy",
 
@@ -34,7 +34,7 @@ export default function AdminCmsPage() {
     ],
 
     testimonials: [
-      { id: 1, name: "Marcus Vance", role: "Crypto Asset Manager", review: "You-Holder has consistently delivered reliable weekly yields. The automated payout execution is flawless.", rating: 5 },
+      { id: 1, name: "Marcus Vance", role: "Crypto Asset Manager", review: "YouHodler has consistently delivered reliable weekly yields. The automated payout execution is flawless.", rating: 5 },
       { id: 2, name: "Elena Rostova", role: "Private Investor", review: "The platform transparency and instant withdrawal processing give me complete confidence.", rating: 5 },
     ],
 
@@ -44,15 +44,15 @@ export default function AdminCmsPage() {
       { id: 3, question: "Are withdrawals processed instantly?", answer: "Yes, approved withdrawal requests are dispatched instantly via automated payment gateways." },
     ],
 
-    support_email: "support@you-holder.com",
+    support_email: "support@youhodler.com",
     support_phone: "+1 (800) 555-0100",
-    support_address: "75 Wall Street, Financial District, New York, NY 10005",
+    support_address: "Avenue du Théâtre 7, 1005 Lausanne, Switzerland",
     telegram_handle: "@youholder_official",
     twitter_handle: "@youholder_io",
     discord_link: "https://discord.gg/youholder",
 
-    privacy_policy: "You-Holder is committed to preserving strict data confidentiality and multi-layer encryption for all investor information...",
-    terms_of_service: "By accessing and registering an investor account on You-Holder, you agree to comply with all platform terms...",
+    privacy_policy: "YouHodler is committed to preserving strict data confidentiality and multi-layer encryption for all investor information...",
+    terms_of_service: "By accessing and registering an investor account on YouHodler, you agree to comply with all platform terms...",
   });
 
   const [submitting, setSubmitting] = useState(false);

@@ -46,8 +46,8 @@ export default function TwoFactorPage() {
       setSecretKey(activeSecret);
       setIs2FaEnabled(profile?.is_2fa_enabled ?? false);
 
-      const label = encodeURIComponent(`You-Holder:${activeUser.email || "Investor"}`);
-      const issuer = encodeURIComponent("You-Holder");
+      const label = encodeURIComponent(`YouHodler:${activeUser.email || "Investor"}`);
+      const issuer = encodeURIComponent("YouHodler");
       const totpUri = `otpauth://totp/${label}?secret=${activeSecret}&issuer=${issuer}`;
       setQrUrl(`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(totpUri)}`);
     }

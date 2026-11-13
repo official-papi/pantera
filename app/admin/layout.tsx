@@ -196,7 +196,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <ShieldAlert className="w-3.5 h-3.5 text-[#E9B737]" />
           </div>
           <span className="text-[14px] font-bold text-zinc-900 tracking-tight">
-            You-Holder<span className="text-[#E9B737]">.</span> <span className="text-zinc-400 font-normal">Admin</span>
+            YouHodler<span className="text-[#E9B737]">.</span> <span className="text-zinc-400 font-normal">Admin</span>
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -223,7 +223,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
             <div>
               <div className="text-[15px] font-bold text-zinc-950 tracking-tight leading-none font-display">
-                YOU-HOLDER<span className="text-[#E9B737]">.</span>
+                YOUHODLER<span className="text-[#E9B737]">.</span>
               </div>
               <div className="text-[10px] text-zinc-500 font-mono mt-0.5">{t.admin.adminControlPanel}</div>
             </div>

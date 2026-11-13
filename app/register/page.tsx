@@ -249,7 +249,7 @@ export default function RegisterPage() {
             <BarChart2 className="w-4.5 h-4.5" />
           </div>
           <span className="text-[19px] font-bold text-white tracking-tight font-display">
-            YOU-HOLDER<span className="text-[#E9B737]">.</span>
+            YOUHODLER<span className="text-[#E9B737]">.</span>
           </span>
         </div>
 
@@ -299,7 +299,7 @@ export default function RegisterPage() {
               <BarChart2 className="w-4 h-4" />
             </div>
             <span className="text-[17px] font-bold tracking-tight text-zinc-950 font-display">
-              YOU-HOLDER<span className="text-[#E9B737]">.</span>
+              YOUHODLER<span className="text-[#E9B737]">.</span>
             </span>
           </Link>
 

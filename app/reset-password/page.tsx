@@ -202,7 +202,7 @@ export default function ResetPasswordPage() {
               <BarChart2 className="w-5 h-5" />
             </div>
             <span className="text-2xl font-bold tracking-tight text-white font-display">
-              YOU-HOLDER<span className="text-[#E9B737]">.</span>
+              YOUHODLER<span className="text-[#E9B737]">.</span>
             </span>
           </Link>
           <div className="inline-flex items-center gap-1.5 font-mono text-[11px] font-semibold text-[#E9B737] tracking-[0.2em] uppercase">
@@ -368,7 +368,7 @@ export default function ResetPasswordPage() {
             href="/login"
             className="text-xs text-zinc-400 hover:text-white transition-colors"
           >
-            &larr; Back to You-Holder Login
+            &larr; Back to YouHodler Login
           </Link>
         </div>
       </div>

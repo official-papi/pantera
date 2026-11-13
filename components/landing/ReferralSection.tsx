@@ -66,7 +66,7 @@ export default function ReferralSection() {
             </h2>
             
             <p className="text-slate-600 text-sm leading-relaxed font-normal">
-              Invite friends, institutional partners, and network members to You-Holder using your private referral URL. Earn recursive instant cash commissions whenever your downline deploys capital into investment packages.
+              Invite friends, institutional partners, and network members to YouHodler using your private referral URL. Earn recursive instant cash commissions whenever your downline deploys capital into investment packages.
             </p>
 
             {/* Value Propositions */}

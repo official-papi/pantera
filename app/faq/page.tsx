@@ -9,8 +9,8 @@ import { useState } from "react";
 const FAQ_ITEMS = [
   {
     category: "General Platform",
-    q: "What is You-Holder?",
-    a: "You-Holder is an automated AI compounding yield and wealth management platform that executes algorithmic quantitative strategies and automated wallet disbursements.",
+    q: "What is YouHodler?",
+    a: "YouHodler is an automated AI compounding yield and wealth management platform that executes algorithmic quantitative strategies and automated wallet disbursements.",
   },
   {
     category: "Deposits & Payouts",

@@ -143,7 +143,7 @@ export function baseEmailHtml({ title, preheader, content }: BaseEmailProps): st
   <div class="wrapper">
     <div class="container">
       <div class="header">
-        <div class="brand">YOU-HOLDER<span>.</span></div>
+        <div class="brand">YOUHODLER<span>.</span></div>
         <div class="tagline">[ INSTITUTIONAL DIGITAL ASSETS ]</div>
       </div>
       <div class="body-content">

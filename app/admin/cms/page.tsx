@@ -47,9 +47,9 @@ export default function AdminCmsPage() {
     support_email: "support@youhodler.com",
     support_phone: "+1 (800) 555-0100",
     support_address: "Avenue du Théâtre 7, 1005 Lausanne, Switzerland",
-    telegram_handle: "@youholder_official",
-    twitter_handle: "@youholder_io",
-    discord_link: "https://discord.gg/youholder",
+    telegram_handle: "@youhodler_official",
+    twitter_handle: "@youhodler_io",
+    discord_link: "https://discord.gg/youhodler",
 
     privacy_policy: "YouHodler is committed to preserving strict data confidentiality and multi-layer encryption for all investor information...",
     terms_of_service: "By accessing and registering an investor account on YouHodler, you agree to comply with all platform terms...",

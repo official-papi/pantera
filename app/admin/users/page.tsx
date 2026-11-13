@@ -1279,7 +1279,7 @@ export default function AdminUsersPage() {
                   <div className="rounded-xl overflow-hidden border border-[#232742] bg-[#0E101D] shadow-xl p-5 text-slate-100 font-sans">
                     <div className="border-b border-[#232742] pb-3 mb-4">
                       <div className="text-lg font-black tracking-tight text-white">
-                        YOU-HOLDER <span className="text-[#E9B737]">PORTAL</span>
+                        YOUHODLER <span className="text-[#E9B737]">PORTAL</span>
                       </div>
                       <div className="text-[8px] font-mono tracking-widest text-[#E9B737] uppercase">
                         INSTITUTIONAL DIGITAL ASSET INFRASTRUCTURE

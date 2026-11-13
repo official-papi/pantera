@@ -69,7 +69,7 @@ function LoginForm() {
           <BarChart2 className="w-4 h-4" />
         </div>
         <span className="text-[17px] font-bold tracking-tight text-zinc-950 font-display">
-          YOU-HOLDER<span className="text-[#E9B737]">.</span>
+          YOUHODLER<span className="text-[#E9B737]">.</span>
         </span>
       </Link>
 
@@ -227,7 +227,7 @@ export default function LoginPage() {
             <BarChart2 className="w-4.5 h-4.5" />
           </div>
           <span className="text-[19px] font-bold text-white tracking-tight font-display">
-            YOU-HOLDER<span className="text-[#E9B737]">.</span>
+            YOUHODLER<span className="text-[#E9B737]">.</span>
           </span>
         </div>
 
@@ -243,7 +243,7 @@ export default function LoginPage() {
             </h2>
             <p className="text-zinc-400 text-sm mt-4 leading-relaxed font-sans">
               Join 124,500+ investors earning automated weekly returns through
-              You-Holder&apos;s institutional digital asset yield infrastructure.
+              YouHodler&apos;s institutional digital asset yield infrastructure.
             </p>
           </div>
 

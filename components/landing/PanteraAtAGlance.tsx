@@ -75,7 +75,7 @@ export default function PanteraAtAGlance() {
               <span>[ 01 // OVERVIEW ]</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-zinc-950 uppercase">
-              You-Holder at a Glance
+              YouHodler at a Glance
             </h2>
           </div>
           <p className="max-w-md text-sm text-zinc-600 font-sans leading-relaxed">

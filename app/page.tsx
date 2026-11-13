@@ -32,7 +32,7 @@ export default function Home() {
           <YouHodlerBento />
         </div>
 
-        {/* ── 5. You-Holder vs Traditional Banking Benchmark Matrix ── */}
+        {/* ── 5. YouHodler vs Traditional Banking Benchmark Matrix ── */}
         <div id="comparison" className="scroll-mt-16">
           <ComparisonTable />
         </div>

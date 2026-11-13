@@ -397,7 +397,7 @@ export default function AdminEmailPage() {
             {/* Header */}
             <div className="border-b border-[#232742] pb-5 mb-5">
               <div className="text-xl font-black tracking-tight text-white">
-                YOU-HOLDER <span className="text-[#E9B737]">PORTAL</span>
+                YOUHODLER <span className="text-[#E9B737]">PORTAL</span>
               </div>
               <div className="text-[9px] font-mono tracking-widest text-[#E9B737] uppercase mt-0.5">
                 INSTITUTIONAL DIGITAL ASSET INFRASTRUCTURE
